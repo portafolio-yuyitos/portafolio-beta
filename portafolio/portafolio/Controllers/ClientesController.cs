@@ -6,8 +6,9 @@ using System.Web.Mvc;
 
 namespace portafolio.Controllers
 {
-    public class HomeController : Controller
+    public class ClientesController : Controller
     {
+        // GET: Clientes
         public ActionResult Index()
         {
             return View();
