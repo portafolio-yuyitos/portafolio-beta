@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Logeado = "logeado";
+}
+
+<header class="container my-5">
+    <div class="row justify-content-center">
+        <h1>Proveedores</h1>
+    </div>
+</header>
+<main class="container">
+    <div class="row bg-light py-4 mb-5">
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Nombre Contacto:
+                <input id="nombre" type="text" class="form-control" placeholder="Nombre" onkeyup="valTexto(this,4,50)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Número Contacto:
+                <input id="numero" type="text" class="form-control" placeholder="Número" onkeyup="valNumber(this,9,12)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Email Contacto:
+                <input id="email" type="email" class="form-control" placeholder="Email" onkeyup="valEmail(this)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Rubro Contacto:
+                <input id="rubro" type="text" class="form-control" placeholder="Rubro" onkeyup="valTexto(this,4,50)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="col-md-12 text-right">
+            <button class="btn btn-secondary" onclick="agregar()">Agregar</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table" id="tabla">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre Contacto</th>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rubro</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>
+                        <p>Lorem Ipsum</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <p>+569 5456 5455</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <p>lorem@ipsum.cl</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valEmail(this)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <p>Lorem</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this)" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
+                        <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this)" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
+                        <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="@Url.Content("~/assets/js/proveedores.js")"></script>

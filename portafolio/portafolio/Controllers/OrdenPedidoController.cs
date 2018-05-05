@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace portafolio.Controllers
 {
-    public class OrdenCompraController : Controller
+    public class OrdenPedidoController : Controller
     {
-        // GET: OrdenCompra
+        // GET: OrdenPedido
         public ActionResult Index()
         {
             return View();
