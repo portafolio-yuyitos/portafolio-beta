@@ -145,6 +145,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\FiadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrdenPedidoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,6 +189,7 @@
     <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Fiados\Index.cshtml" />
     <Content Include="Views\OrdenPedido\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
