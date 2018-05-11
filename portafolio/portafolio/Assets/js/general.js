@@ -285,30 +285,6 @@ function mostrarTabla(tabla, producto) {
 
 }
 
-// function llenarListado() {
-//   debugger
-//   var orgComprador = [];
-//   $.ajax({
-//     type: 'GET',
-//     url: 'http://api.mercadopublico.cl/servicios/v1/Publico/Empresas/BuscarComprador?ticket=F8537A18-6766-4DEF-9E59-426B4FEE2844',
-//     cache: false,
-//     contentType: "application/json; charset=utf-8",
-//     async: true,
-//     success: function (data) {
-//       var listaEmpresas = data.listaEmpresas;
-//       $.each(listaEmpresas,function(i,empresa){
-//         var nombre = empresa.nombre;
-//         orgComprador.push(nombre);
-//       });
-//       console.log(orgComprador);
-//     },
-//     error: function (ex) {
-//       alert('askjdhaskjdh');
-//     }
-//   });
-// }
-
-
 //DOCUMENT READY
 $('document').ready(function () {
   //Mostrar o no las tablas si es que tienen filas

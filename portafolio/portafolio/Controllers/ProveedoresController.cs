@@ -11,7 +11,11 @@ namespace portafolio.Controllers
         // GET: Proveedores
         public ActionResult Index()
         {
-            return View();
+            if (Session["usuario"] != null)
+            {
+                return View();
+            }
+            return Redirect("~/Login/");
         }
     }
 }

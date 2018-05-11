@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8287e2900df44ae9b311fdff4d90915b" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.BOLETA" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CLIENTE" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DETALLE_BOLETA" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EMPRESA" Width="1.5" PointX="1.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FIADO" Width="1.5" PointX="8.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.FUNCIONALIDAD" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PEDIDO" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PRODUCTO" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PROVEEDOR" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RECEPCION" Width="1.5" PointX="11.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ROL" Width="1.5" PointX="1.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TIPO_MONEDA" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TIPO_PRODUCTO" Width="1.5" PointX="3.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.BOLETA_ID_CLIENTE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DETALLE_ID_BOLETA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FIADO_ID_BOLETA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FIADO_ID_CLIENTE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DETALLE_ID_PRODUCTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.ROL_ID_EMPRESA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PEDIDO_ID_PRODUCTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PEDIDO_ID_PROVEEDOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PEDIDO_ID_USUARIO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PRODUCTO_ID_PROVEEDOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PRODUCTO_ID_TIPO_MONEDA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PRODUCTO_ID_TIPO_PRODUCTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RECEPCION_ID_PRODUCTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RECEPCION_ID_PROVEEDOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.RECEPCION_ID_USUARIO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.USUARIO_ID_ROL_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

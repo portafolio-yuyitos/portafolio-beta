@@ -46,13 +46,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -142,21 +152,79 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BOLETA.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CLIENTE.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\FiadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrdenPedidoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="DETALLE_BOLETA.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPRESA.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FIADO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FUNCIONALIDAD.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="PEDIDO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PRODUCTO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PROVEEDOR.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RECEPCION.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROL.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TIPO_MONEDA.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TIPO_PRODUCTO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USUARIO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YuyosModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YuyosModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YuyosModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YuyosModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\js\clientes.js" />
     <Content Include="Assets\js\general.js" />
+    <Content Include="Assets\js\login.js" />
     <Content Include="Assets\js\orden-pedido.js" />
     <Content Include="Assets\js\proveedores.js" />
     <Content Include="favicon.ico" />
@@ -175,6 +243,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="YuyosModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>YuyosModel.Context.cs</LastGenOutput>
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="YuyosModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+      <LastGenOutput>YuyosModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -190,6 +268,16 @@
     <Content Include="Views\Fiados\Index.cshtml" />
     <Content Include="Views\OrdenPedido\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <EntityDeploy Include="YuyosModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>YuyosModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="YuyosModel.edmx.diagram">
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -209,7 +297,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2880</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2880/</IISUrl>
+          <IISUrl>http://localhost:2881/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
