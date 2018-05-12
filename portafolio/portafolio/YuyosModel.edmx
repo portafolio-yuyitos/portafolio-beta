@@ -337,6 +337,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_D_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_PROVEEDOR_D" Type="varchar2" Mode="In" />
+        </Function>
         <Function Name="SP_I_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
@@ -898,6 +904,12 @@
             <Parameter Name="EMAIL" Mode="In" Type="String" />
             <Parameter Name="GIRO" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_D_CLIENTE">
+          <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_D_PROVEEDOR">
+            <Parameter Name="RUT_PROVEEDOR_D" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1062,6 +1074,8 @@
           <FunctionImportMapping FunctionImportName="SP_S_VALIDAUSUARIO" FunctionName="Model.Store.SP_S_VALIDAUSUARIO" />
           <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
+          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE" FunctionName="Model.Store.SP_D_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR" FunctionName="Model.Store.SP_D_PROVEEDOR" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

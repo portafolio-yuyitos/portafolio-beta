@@ -178,14 +178,23 @@ function checkRut(rut) {
 }
 
 //Elimina la fila
-function eliminar(e, producto, tipo) {
-  var tabla = $(e).closest('table');
-  $(e).closest('tr').remove();
-  if(producto!==undefined){
-    mostrarTabla(tabla,producto);//Muestra tabla si tiene filas
-  }else{
-    mostrarTabla(tabla);//Muestra tabla si tiene filas
-  }
+function eliminar(e, tipo) {
+    var tabla = $(e).closest('table');
+    switch (tipo) {
+        case "clientes":
+            eliminarCliente(e,tabla);
+        case "proveedor":
+            eliminarProveedor(e, tabla);
+        default:
+            return
+    }
+
+  //$(e).closest('tr').remove();
+  //if(producto!==undefined){
+  //  mostrarTabla(tabla,producto);//Muestra tabla si tiene filas
+  //}else{
+  //  mostrarTabla(tabla);//Muestra tabla si tiene filas
+  //}
 }
 
 // Recorre todos los input con clase editar y los muestra

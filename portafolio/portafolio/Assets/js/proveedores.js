@@ -37,7 +37,6 @@ function validarTodo() {
 }
 
 function llenarTabla(proveedor) {
-  debugger;
   var tabla = $('#tabla');
   var largoTabla = tabla.find('tbody tr').length;
   var fila = '<tr>';
@@ -46,7 +45,7 @@ function llenarTabla(proveedor) {
   fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
   fila += '<td>';
   fila += '<p>' + proveedor.rutProveedor + '</p>';
-  fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="form-control editar d-none" onkeyup="valTexto(this,10,20)">';
+  fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="rut form-control editar d-none" onkeyup="valTexto(this,10,20)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
@@ -70,9 +69,9 @@ function llenarTabla(proveedor) {
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
-  fila += '<a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this)" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>';
-  fila += '<a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this)" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>';
-  fila += '<a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>';
+  fila += '<a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,' + "'proveedor'" +')" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>';
+  fila += '<a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,' + "'proveedor'" +')" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>';
+  fila += '<a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this,' + "'proveedor'" +')" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>';
   fila += '</td>';
   fila += '</tr>';
 
@@ -97,6 +96,34 @@ function agregarProveedor(proveedor) {
         },
         error: function (ex) {
             alert('Error al agregar cliente');
+        }
+    });
+}
+
+function eliminarProveedor(e, tabla) {
+    var rut = $(e).closest('tr').find('.rut').val();
+    var data = {
+        "rut": rut
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/Proveedores/eliminar',
+        cache: false,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                $(e).closest('tr').remove();
+                mostrarTabla(tabla);//Muestra tabla si tiene filas
+                alert('Se ha eliminado correctamente');
+            } else if (data == "False") {
+                alert("No Logeado");
+            }
+        },
+        error: function (ex) {
+            alert('Error al eliminar proveedor');
         }
     });
 }

@@ -97,5 +97,23 @@ namespace portafolio
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PROVEEDOR", rUT_PROVEEDORParameter, rAZON_SOCIALParameter, fONOParameter, eMAILParameter, gIROParameter);
         }
+    
+        public virtual int SP_D_CLIENTE(string rUT_CLIENTE_D)
+        {
+            var rUT_CLIENTE_DParameter = rUT_CLIENTE_D != null ?
+                new ObjectParameter("RUT_CLIENTE_D", rUT_CLIENTE_D) :
+                new ObjectParameter("RUT_CLIENTE_D", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_CLIENTE", rUT_CLIENTE_DParameter);
+        }
+    
+        public virtual int SP_D_PROVEEDOR(string rUT_PROVEEDOR_D)
+        {
+            var rUT_PROVEEDOR_DParameter = rUT_PROVEEDOR_D != null ?
+                new ObjectParameter("RUT_PROVEEDOR_D", rUT_PROVEEDOR_D) :
+                new ObjectParameter("RUT_PROVEEDOR_D", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_PROVEEDOR", rUT_PROVEEDOR_DParameter);
+        }
     }
 }

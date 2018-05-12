@@ -33,5 +33,20 @@ namespace portafolio.Controllers
                 return false;
             }
         }
+
+        [HttpPost]
+        public bool Eliminar(string rut)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_D_PROVEEDOR(rut);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
