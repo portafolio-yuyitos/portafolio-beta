@@ -178,7 +178,7 @@ function checkRut(rut) {
 }
 
 //Elimina la fila
-function eliminar(e,producto) {
+function eliminar(e, producto, tipo) {
   var tabla = $(e).closest('table');
   $(e).closest('tr').remove();
   if(producto!==undefined){
@@ -190,7 +190,7 @@ function eliminar(e,producto) {
 
 // Recorre todos los input con clase editar y los muestra
 // Al mismo tiempo que esconde 
-function editar(e) {
+function editar(e, tipo) {
   var editores = $(e).closest('tr').find('.editar');
   $.each(editores, function (i, editor) {
     //Si es la ultima columna
@@ -206,7 +206,7 @@ function editar(e) {
 }
 
 //Guarda la fila
-function guardar(e) {
+function guardar(e,tipo) {
   var editores = $(e).closest('tr').find('.editar');//Todos los input con clase editar
   var valido = true;
 
@@ -240,16 +240,23 @@ function guardar(e) {
   }
 }
 
-//Funcion que agrega, llenando tabla
-function agregar() {
-
+//Funcion que agrega, llenando tabla. Se le pasa el tipo para que vay a la funcion
+function agregar(tipo) {
+    debugger;
   var valido = validarTodo();
 
   if (!valido) {
     alert('Hay campos no válidos')
     return false;
   } else {
-    llenarTabla(valido);
+      switch (tipo) {
+          case "clientes":
+              agregarCliente(valido);
+          case "proveedor":
+              agregarProveedor(valido);
+          default:
+              return
+      }
     return true;
   }
 }

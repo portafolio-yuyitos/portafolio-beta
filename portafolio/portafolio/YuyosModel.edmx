@@ -337,6 +337,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_I_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_CLIENTE" Type="varchar2" Mode="In" />
+          <Parameter Name="NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
+          <Parameter Name="AUTORIZADO_FIADO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_I_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_PROVEEDOR" Type="varchar2" Mode="In" />
+          <Parameter Name="RAZON_SOCIAL" Type="varchar2" Mode="In" />
+          <Parameter Name="FONO" Type="number" Mode="In" />
+          <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="GIRO" Type="varchar2" Mode="In" />
+        </Function>
         <Function Name="SP_S_VALIDAUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="USU" Type="varchar2" Mode="In" />
           <Parameter Name="CON" Type="varchar2" Mode="In" />
@@ -874,6 +886,18 @@
             <Parameter Name="CON" Mode="In" Type="String" />
             <Parameter Name="EXISTE" Mode="Out" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_I_CLIENTE">
+            <Parameter Name="RUT_CLIENTE" Mode="In" Type="String" />
+            <Parameter Name="NOMBRE_CLIENTE" Mode="In" Type="String" />
+            <Parameter Name="AUTORIZADO_FIADO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_PROVEEDOR">
+            <Parameter Name="RUT_PROVEEDOR" Mode="In" Type="String" />
+            <Parameter Name="RAZON_SOCIAL" Mode="In" Type="String" />
+            <Parameter Name="FONO" Mode="In" Type="Decimal" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="GIRO" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1036,6 +1060,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_S_VALIDAUSUARIO" FunctionName="Model.Store.SP_S_VALIDAUSUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

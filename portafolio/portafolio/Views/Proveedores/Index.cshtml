@@ -13,34 +13,42 @@
     <div class="row bg-light py-4 mb-5">
         <div class="form-group col-md-3">
             <label class="w-100">
-                Nombre Contacto @Session["usuario"]:
-                <input id="nombre" type="text" class="form-control" placeholder="Nombre" onkeyup="valTexto(this,4,50)">
+                Rut:
+                <input id="rut" type="text" class="form-control" placeholder="Rut cliente" onkeyup="checkRut(this)">
                 <label class="error text-danger d-none position-absolute"></label>
             </label>
         </div>
+        
         <div class="form-group col-md-3">
             <label class="w-100">
-                Número Contacto:
-                <input id="numero" type="text" class="form-control" placeholder="Número" onkeyup="valNumber(this,9,12)">
-                <label class="error text-danger d-none position-absolute"></label>
-            </label>
-        </div>
-        <div class="form-group col-md-3">
-            <label class="w-100">
-                Email Contacto:
+               Email:
                 <input id="email" type="email" class="form-control" placeholder="Email" onkeyup="valEmail(this)">
                 <label class="error text-danger d-none position-absolute"></label>
             </label>
         </div>
         <div class="form-group col-md-3">
             <label class="w-100">
-                Rubro Contacto:
-                <input id="rubro" type="text" class="form-control" placeholder="Rubro" onkeyup="valTexto(this,4,50)">
+                Razón Social:
+                <input id="razon" type="text" class="form-control" placeholder="Razon Social" onkeyup="valTexto(this,4,50)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Fono
+                <input id="fono" type="text" class="form-control" placeholder="Fono" onkeyup="valNumber(this,9,12)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="w-100">
+                Giro:
+                <input id="giro" type="text" class="form-control" placeholder="Rubro" onkeyup="valTexto(this,4,50)">
                 <label class="error text-danger d-none position-absolute"></label>
             </label>
         </div>
         <div class="col-md-12 text-right">
-            <button class="btn btn-secondary" onclick="agregar()">Agregar</button>
+            <button class="btn btn-secondary" onclick="agregar('proveedor')">Agregar</button>
         </div>
     </div>
     <div class="row">
@@ -48,10 +56,11 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre Contacto</th>
-                    <th scope="col">Numero</th>
+                    <th scope="col">Rut</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Rubro</th>
+                    <th scope="col">Razon Social</th>
+                    <th scope="col">Giro</th>
+                    <th scope="col">Fono</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -59,13 +68,8 @@
                 <tr>
                     <th scope="row">1</th>
                     <td>
-                        <p>Lorem Ipsum</p>
-                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>+569 5456 5455</p>
-                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
+                        <p>55555555-5</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="checkRut(this)">
                         <label class="error text-danger d-none "></label>
                     </td>
                     <td>
@@ -76,6 +80,16 @@
                     <td>
                         <p>Lorem</p>
                         <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <p>Lorem</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                        <label class="error text-danger d-none "></label>
+                    </td>
+                    <td>
+                        <p>+569 5456 5455</p>
+                        <input type="text" value="55555555-5" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
                         <label class="error text-danger d-none "></label>
                     </td>
                     <td>

@@ -55,5 +55,47 @@ namespace portafolio
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_S_VALIDAUSUARIO", uSUParameter, cONParameter, eXISTE);
         }
+    
+        public virtual int SP_I_CLIENTE(string rUT_CLIENTE, string nOMBRE_CLIENTE, Nullable<decimal> aUTORIZADO_FIADO)
+        {
+            var rUT_CLIENTEParameter = rUT_CLIENTE != null ?
+                new ObjectParameter("RUT_CLIENTE", rUT_CLIENTE) :
+                new ObjectParameter("RUT_CLIENTE", typeof(string));
+    
+            var nOMBRE_CLIENTEParameter = nOMBRE_CLIENTE != null ?
+                new ObjectParameter("NOMBRE_CLIENTE", nOMBRE_CLIENTE) :
+                new ObjectParameter("NOMBRE_CLIENTE", typeof(string));
+    
+            var aUTORIZADO_FIADOParameter = aUTORIZADO_FIADO.HasValue ?
+                new ObjectParameter("AUTORIZADO_FIADO", aUTORIZADO_FIADO) :
+                new ObjectParameter("AUTORIZADO_FIADO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CLIENTE", rUT_CLIENTEParameter, nOMBRE_CLIENTEParameter, aUTORIZADO_FIADOParameter);
+        }
+    
+        public virtual int SP_I_PROVEEDOR(string rUT_PROVEEDOR, string rAZON_SOCIAL, Nullable<decimal> fONO, string eMAIL, string gIRO)
+        {
+            var rUT_PROVEEDORParameter = rUT_PROVEEDOR != null ?
+                new ObjectParameter("RUT_PROVEEDOR", rUT_PROVEEDOR) :
+                new ObjectParameter("RUT_PROVEEDOR", typeof(string));
+    
+            var rAZON_SOCIALParameter = rAZON_SOCIAL != null ?
+                new ObjectParameter("RAZON_SOCIAL", rAZON_SOCIAL) :
+                new ObjectParameter("RAZON_SOCIAL", typeof(string));
+    
+            var fONOParameter = fONO.HasValue ?
+                new ObjectParameter("FONO", fONO) :
+                new ObjectParameter("FONO", typeof(decimal));
+    
+            var eMAILParameter = eMAIL != null ?
+                new ObjectParameter("EMAIL", eMAIL) :
+                new ObjectParameter("EMAIL", typeof(string));
+    
+            var gIROParameter = gIRO != null ?
+                new ObjectParameter("GIRO", gIRO) :
+                new ObjectParameter("GIRO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PROVEEDOR", rUT_PROVEEDORParameter, rAZON_SOCIALParameter, fONOParameter, eMAILParameter, gIROParameter);
+        }
     }
 }

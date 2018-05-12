@@ -1,30 +1,35 @@
 function validarTodo() {
-  var nombre = $('#nombre');
-  var numero = document.getElementById('numero');
+  var rut = document.getElementById('rut');
+  var fono = document.getElementById('fono');
   var email = $('#email');
-  var rubro = $('#rubro');
+  var giro = $('#giro');
+  var razon = $('#razon');
 
   var valido = true;
 
-  if (!valTexto(nombre, 4, 50)) {
-    valido = false;
+  if (!checkRut(rut)) {
+      valido = false;
   }
-  if (!valNumber(numero, 5, 12)) {
+  if (!valNumber(fono, 5, 12)) {
     valido = false;
   }
   if (!valEmail(email)) {
     valido = false;
   }
-  if (!valTexto(rubro, 4, 50)) {
+  if (!valTexto(razon, 4, 50)) {
+      valido = false;
+  }
+  if (!valTexto(giro, 4, 50)) {
     valido = false;
   }
 
   if (valido) {
     return proveedor = {
-      "nombre": nombre.val(),
-      "numero": numero.value,
+      "rutProveedor": $(rut).val(),
+      "fono": fono.value,
       "email": email.val(),
-      "rubro": rubro.val()
+      "giro": giro.val(),
+      "razonSocial": razon.val()
     }
   } else {
     return valido;
@@ -40,13 +45,8 @@ function llenarTabla(proveedor) {
   fila += '<tr>';
   fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
   fila += '<td>';
-  fila += '<p>' + proveedor.nombre + '</p>';
-  fila += '<input type="text" value=' + proveedor.nombre + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
-  fila += '<label class="error text-danger d-none "></label>';
-  fila += '</td>';
-  fila += '<td>';
-  fila += '<p>' + proveedor.numero + '</p>';
-  fila += '<input type="text" value=' + proveedor.numero + ' class="form-control editar d-none" onkeyup="valNumber(this,9,12)">';
+  fila += '<p>' + proveedor.rutProveedor + '</p>';
+  fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="form-control editar d-none" onkeyup="valTexto(this,10,20)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
@@ -55,8 +55,18 @@ function llenarTabla(proveedor) {
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
-  fila += '<p>' + proveedor.rubro + '</p>';
-  fila += '<input type="text" value=' + proveedor.rubro + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<p>' + proveedor.razonSocial + '</p>';
+  fila += '<input type="text" value=' + proveedor.razonSocial + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<label class="error text-danger d-none "></label>';
+  fila += '</td>';
+  fila += '<td>';
+  fila += '<p>' + proveedor.giro + '</p>';
+  fila += '<input type="text" value=' + proveedor.giro + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<label class="error text-danger d-none "></label>';
+  fila += '</td>';
+  fila += '<td>';
+  fila += '<p>' + proveedor.fono + '</p>';
+  fila += '<input type="text" value=' + proveedor.fono + ' class="form-control editar d-none" onkeyup="valNumber(this,9,12)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
@@ -67,5 +77,26 @@ function llenarTabla(proveedor) {
   fila += '</tr>';
 
   tabla.find('tbody').append(fila);
-  alert('Se ha agregado el cliente');
+  alert('Se ha agregado el proveedor');
+}
+
+function agregarProveedor(proveedor) {
+    $.ajax({
+        type: 'POST',
+        url: '/Proveedores/agregar',
+        cache: false,
+        data: JSON.stringify(proveedor),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                llenarTabla(proveedor);
+            } else if (data == "False") {
+                alert("No Logeado");
+            }
+        },
+        error: function (ex) {
+            alert('Error al agregar cliente');
+        }
+    });
 }
