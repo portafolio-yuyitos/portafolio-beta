@@ -28,5 +28,11 @@ namespace portafolio.Controllers
             Session["usuario"] = nombre;
             return true;
         }
+
+        public ActionResult CerrarSesion()
+        {
+            Session["usuario"] = null;
+            return Redirect("/");
+        }
     }
 }
