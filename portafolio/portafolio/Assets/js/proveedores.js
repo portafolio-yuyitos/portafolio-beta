@@ -50,22 +50,22 @@ function llenarTabla(proveedor) {
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.email + '</p>';
-  fila += '<input type="text" value=' + proveedor.email + ' class="form-control editar d-none" onkeyup="valEmail(this)">';
+  fila += '<input type="text" value=' + proveedor.email + ' class="email form-control editar d-none" onkeyup="valEmail(this)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.razonSocial + '</p>';
-  fila += '<input type="text" value=' + proveedor.razonSocial + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<input type="text" value=' + proveedor.razonSocial + ' class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.giro + '</p>';
-  fila += '<input type="text" value=' + proveedor.giro + ' class="form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<input type="text" value=' + proveedor.giro + ' class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.fono + '</p>';
-  fila += '<input type="text" value=' + proveedor.fono + ' class="form-control editar d-none" onkeyup="valNumber(this,9,12)">';
+  fila += '<input type="text" value=' + proveedor.fono + ' class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
@@ -124,6 +124,40 @@ function eliminarProveedor(e, tabla) {
         },
         error: function (ex) {
             alert('Error al eliminar proveedor');
+        }
+    });
+}
+
+function updateProveedor(proveedor, editores) {
+    $.ajax({
+        type: 'POST',
+        url: '/Proveedores/update',
+        cache: false,
+        data: JSON.stringify(proveedor),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                $.each(editores, function (i, editor) {
+                    //Si es la ultima columna
+                    if (editores.length - 1 === i) {
+                        $(editor).addClass('d-none');
+                        $(editor).siblings('.btnEliminar').removeClass('d-none');
+                        $(editor).siblings('.btnEditar').removeClass('d-none');
+                    } else {
+                        $(editor).addClass('d-none');
+                        var texto = $(editor).val();
+                        $(editor).siblings('p').text(texto);
+                        $(editor).siblings('p').removeClass('d-none');
+                    }
+                })
+                alert('Se ha editado correctamente');
+            } else if (data == "False") {
+                alert("No se ha podido editar");
+            }
+        },
+        error: function (ex) {
+            alert('Error al editar proveedor');
         }
     });
 }

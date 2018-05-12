@@ -1,8 +1,6 @@
 function validarTodo(){
   var rut = document.getElementById('rut');
   var nombres = $('#nombres');
-
-
   var apellidos = $('#apellidos');
   var email = $('#email');
   var numero = $('#numero');
@@ -38,7 +36,7 @@ function llenarTabla(cliente){
   fila += '</td>';
   fila += '<td>';
   fila += '<p>'+cliente.nombre+'</p>';
-  fila += '<input type="text" value="'+cliente.nombre+'" class="form-control editar d-none" onkeyup="valTexto(this,10,20)">';
+  fila += '<input type="text" value="'+cliente.nombre+'" class="nombres form-control editar d-none" onkeyup="valTexto(this,10,20)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td class="d-flex">';
@@ -97,6 +95,40 @@ function eliminarCliente(e, tabla) {
         },
         error: function (ex) {
             alert('Error al eliminar cliente');
+        }
+    });
+}
+
+function updateCliente(cliente, editores) {
+    $.ajax({
+        type: 'POST',
+        url: '/Clientes/update',
+        cache: false,
+        data: JSON.stringify(cliente),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                $.each(editores, function (i, editor) {
+                    //Si es la ultima columna
+                    if (editores.length - 1 === i) {
+                        $(editor).addClass('d-none');
+                        $(editor).siblings('.btnEliminar').removeClass('d-none');
+                        $(editor).siblings('.btnEditar').removeClass('d-none');
+                    } else {
+                        $(editor).addClass('d-none');
+                        var texto = $(editor).val();
+                        $(editor).siblings('p').text(texto);
+                        $(editor).siblings('p').removeClass('d-none');
+                    }
+                })
+                alert('Se ha editado correctamente');
+            } else if (data == "False") {
+                alert("No se ha podido editar");
+            }
+        },
+        error: function (ex) {
+            alert('Error al editar cliente');
         }
     });
 }

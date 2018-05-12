@@ -189,12 +189,6 @@ function eliminar(e, tipo) {
             return
     }
 
-  //$(e).closest('tr').remove();
-  //if(producto!==undefined){
-  //  mostrarTabla(tabla,producto);//Muestra tabla si tiene filas
-  //}else{
-  //  mostrarTabla(tabla);//Muestra tabla si tiene filas
-  //}
 }
 
 // Recorre todos los input con clase editar y los muestra
@@ -233,19 +227,32 @@ function guardar(e,tipo) {
   })
   //Recorre de nuevo para sacar esconder los input y mostrar lo nuevo
   if (valido) {//Si no hay errores
-    $.each(editores, function (i, editor) {
-      //Si es la ultima columna
-      if (editores.length - 1 === i) {
-        $(editor).addClass('d-none');
-        $(editor).siblings('.btnEliminar').removeClass('d-none');
-        $(editor).siblings('.btnEditar').removeClass('d-none');
-      } else {
-        $(editor).addClass('d-none');
-        var texto = $(editor).val();
-        $(editor).siblings('p').text(texto);
-        $(editor).siblings('p').removeClass('d-none');
+      switch (tipo) {
+          case "clientes":
+              var rut = $(e).closest('tr').find('.rut');
+              var nombres = $(e).closest('tr').find('.nombres');
+              var cliente = {
+                  "rut": rut.val(),
+                  "nombre": nombres.val()
+              }
+              updateCliente(cliente, editores);
+          case "proveedor":
+              var rut = $(e).closest('tr').find('.rut');
+              var fono = $(e).closest('tr').find('.fono');
+              var email = $(e).closest('tr').find('.email');
+              var giro = $(e).closest('tr').find('.giro');
+              var razon = $(e).closest('tr').find('.razon');
+              var proveedor = {
+                  "rutProveedor": rut.val(),
+                  "fono": fono.val(),
+                  "email": email.val(),
+                  "giro": giro.val(),
+                  "razonSocial": razon.val()
+              }
+              updateProveedor(proveedor, editores);
+          default:
+              return
       }
-    })
   }
 }
 

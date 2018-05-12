@@ -360,6 +360,17 @@
           <Parameter Name="CON" Type="varchar2" Mode="In" />
           <Parameter Name="EXISTE" Type="varchar2" Mode="Out" />
         </Function>
+        <Function Name="SP_U_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
+          <Parameter Name="V_NOMBRE" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
+          <Parameter Name="V_RAZON_SOCIAL" Type="varchar2" Mode="In" />
+          <Parameter Name="V_FONO" Type="number" Mode="In" />
+          <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
+        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="YUYOS" store:Type="Tables" />
@@ -908,7 +919,18 @@
           <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_PROVEEDOR">
-            <Parameter Name="RUT_PROVEEDOR_D" Mode="In" Type="String" />
+          <Parameter Name="RUT_PROVEEDOR_D" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_U_PROVEEDOR">
+            <Parameter Name="V_RUT_PROVEEDOR" Mode="In" Type="String" />
+            <Parameter Name="V_RAZON_SOCIAL" Mode="In" Type="String" />
+            <Parameter Name="V_FONO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_EMAIL" Mode="In" Type="String" />
+            <Parameter Name="V_GIRO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_U_CLIENTE">
+            <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
+            <Parameter Name="V_NOMBRE" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -1076,6 +1098,8 @@
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_D_CLIENTE" FunctionName="Model.Store.SP_D_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR" FunctionName="Model.Store.SP_D_PROVEEDOR" />
+          <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
+          <FunctionImportMapping FunctionImportName="SP_U_CLIENTE" FunctionName="Model.Store.SP_U_CLIENTE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

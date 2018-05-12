@@ -48,5 +48,20 @@ namespace portafolio.Controllers
                 return false;
             }
         }
+
+        [HttpPost]
+        public bool Update(Proveedor pro)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_U_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

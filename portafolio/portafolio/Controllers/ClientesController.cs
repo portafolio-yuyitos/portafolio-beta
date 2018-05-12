@@ -49,5 +49,20 @@ namespace portafolio.Controllers
                 return false;
             }
         }
+
+        [HttpPost]
+        public bool Update(Cliente cli)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_U_CLIENTE(cli.Rut,cli.Nombre);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
