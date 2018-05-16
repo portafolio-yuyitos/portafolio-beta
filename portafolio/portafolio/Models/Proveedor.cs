@@ -22,7 +22,7 @@ namespace portafolio.Models
             get; set;
         }
 
-        public int Fono
+        public long Fono
         {
             get; set;
         }

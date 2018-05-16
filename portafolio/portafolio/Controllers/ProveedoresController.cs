@@ -1,4 +1,5 @@
-﻿using portafolio.Models;
+﻿using Oracle.ManagedDataAccess.Client;
+using portafolio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,54 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                return View();
+                List<Proveedor> provs = new List<Proveedor>();
+
+                String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+                try
+                {
+                    OracleConnection _connObj = new OracleConnection(_connstring);
+                    _connObj.Open();
+                    OracleCommand _comObj = _connObj.CreateCommand();
+                    _comObj.CommandText = "PKG_PROVEEDORES.SP_S_PROVEEDORES";
+                    _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    OracleParameter _RefParam = new OracleParameter();
+                    _RefParam.ParameterName = "provCur";
+                    _RefParam.OracleDbType = OracleDbType.RefCursor;
+                    _RefParam.Direction = System.Data.ParameterDirection.Output;
+                    _comObj.Parameters.Add(_RefParam);
+                    OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                    if (_rdrObj.HasRows)
+                    {
+                        while (_rdrObj.Read())
+                        {
+                            provs.Add(new Proveedor
+                            {
+                                IdProveedor = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
+                                RutProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_PROVEEDOR")),
+                                Email = _rdrObj.GetString(_rdrObj.GetOrdinal("EMAIL")),
+                                Fono = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("FONO")),
+                                Giro = _rdrObj.GetString(_rdrObj.GetOrdinal("GIRO")),
+                                RazonSocial = _rdrObj.GetString(_rdrObj.GetOrdinal("RAZON_SOCIAL"))
+
+                            });
+                        }
+                    }
+
+                    _connObj.Close();
+                    _connObj.Dispose();
+                    _connObj = null;
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+                return View(provs);
             }
             return Redirect("~/Login/");
         }
@@ -62,6 +110,60 @@ namespace portafolio.Controllers
             {
                 return false;
             }
+        }
+
+        [HttpPost]
+        public ActionResult Proveedores()
+        {
+            List<Proveedor> provs = new List<Proveedor>();
+
+            String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+            try
+            {
+                OracleConnection _connObj = new OracleConnection(_connstring);
+                _connObj.Open();
+                OracleCommand _comObj = _connObj.CreateCommand();
+                _comObj.CommandText = "PKG_PROVEEDORES.SP_S_PROVEEDORES";
+                _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+                OracleParameter _RefParam = new OracleParameter();
+                _RefParam.ParameterName = "provCur";
+                _RefParam.OracleDbType = OracleDbType.RefCursor;
+                _RefParam.Direction = System.Data.ParameterDirection.Output;
+                _comObj.Parameters.Add(_RefParam);
+                OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                if (_rdrObj.HasRows)
+                {
+                    while (_rdrObj.Read())
+                    {
+                        provs.Add(new Proveedor
+                        {
+                            IdProveedor = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
+                            RutProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_PROVEEDOR")),
+                            Email = _rdrObj.GetString(_rdrObj.GetOrdinal("EMAIL")),
+                            Fono = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("FONO")),
+                            Giro = _rdrObj.GetString(_rdrObj.GetOrdinal("GIRO")),
+                            RazonSocial = _rdrObj.GetString(_rdrObj.GetOrdinal("RAZON_SOCIAL"))
+
+                        });
+                    }
+                }
+
+                _connObj.Close();
+                _connObj.Dispose();
+                _connObj = null;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(provs);
+
         }
     }
 }
