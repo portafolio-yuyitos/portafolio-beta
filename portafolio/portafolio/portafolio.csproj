@@ -181,9 +181,18 @@
     </Compile>
     <Compile Include="Models\Boleta.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\DetalleBoleta.cs" />
     <Compile Include="Models\Empresa.cs" />
     <Compile Include="Models\Fiado.cs" />
+    <Compile Include="Models\Funcionalidad.cs" />
+    <Compile Include="Models\Pedido.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Proveedor.cs" />
+    <Compile Include="Models\Recepcion.cs" />
+    <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\TipoMoneda.cs" />
+    <Compile Include="Models\TipoProducto.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="PEDIDO.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
     </Compile>
