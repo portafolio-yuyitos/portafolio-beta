@@ -1,7 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Orden de pedido";
+    ViewBag.Title = "Fiados";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Logeado = "logeado";
 }
 
 <header class="container my-5">
@@ -19,6 +18,7 @@
                     <th scope="col">Contacto</th>
                     <th scope="col">Fiado/Abono</th>
                     <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,58 +37,13 @@
                         2500
                     </td>
                     <td>En orden</td>
-                </tr>
-                <tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>
-                        <div> 55555555-5</div>
-                        Lorem Ipsum
+                    <td class="d-flex">
+                        <a class="btn btn-primary editar d-none cursor-pointer" onclick="cambiarFiado(this)" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
                     </td>
-                    <td>
-                        <div> lorem@ipsum.cl</div>
-                        +569 5456 5455
-                    </td>
-                    <td>
-                        <div>5000</div>
-                        2500
-                    </td>
-                    <td>En orden</td>
-                </tr>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>
-                        <div> 55555555-5</div>
-                        Lorem Ipsum
-                    </td>
-                    <td>
-                        <div> lorem@ipsum.cl</div>
-                        +569 5456 5455
-                    </td>
-                    <td>
-                        <div>5000</div>
-                        2500
-                    </td>
-                    <td>En orden</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>
-                        <div> 55555555-5</div>
-                        Lorem Ipsum
-                    </td>
-                    <td>
-                        <div>lorem@ipsum.cl</div>
-                        +569 5456 5455
-                    </td>
-                    <td>
-                        <div> 5000</div>
-                        2500
-                    </td>
-                    <td>En orden</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
+
+<script src="@Url.Content("~/assets/js/fiados.js")"></script>

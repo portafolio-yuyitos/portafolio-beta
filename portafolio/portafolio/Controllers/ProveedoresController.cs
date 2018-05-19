@@ -113,7 +113,7 @@ namespace portafolio.Controllers
         }
 
         [HttpPost]
-        public ActionResult Proveedores()
+        public JsonResult Proveedores()
         {
             List<Proveedor> provs = new List<Proveedor>();
 
@@ -162,7 +162,11 @@ namespace portafolio.Controllers
                 throw new Exception(ex.Message);
             }
 
-            return View(provs);
+            return new JsonResult()
+            {
+                Data = provs,
+                JsonRequestBehavior = JsonRequestBehavior.DenyGet
+            };
 
         }
     }

@@ -209,3 +209,36 @@ function muestraOP(elem) {
 function limpiarTablaProductos(tabla){
   tabla.find('tbody').html('');
 }
+function fillSelectProveedor() {
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: '/Proveedores/Proveedores',
+        cache: false,
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            debugger;
+            if (data.length > 0) {
+                var proveedores = [];
+                $.each(data, function (i,val) {
+                    proveedores.push({
+                        id: val.IdProveedor,
+                        text: val.RazonSocial
+                    });
+                });
+                $('#proveedor').select2({ data: proveedores });
+            }
+        },
+        error: function (ex) {
+            console.log('no se han traído los proveedores');
+        }
+    });
+    
+}
+
+
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function () {
+    fillSelectProveedor();
+});

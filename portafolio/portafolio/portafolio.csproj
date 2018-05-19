@@ -237,6 +237,7 @@
   <ItemGroup>
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\js\clientes.js" />
+    <Content Include="Assets\js\fiados.js" />
     <Content Include="Assets\js\general.js" />
     <Content Include="Assets\js\login.js" />
     <Content Include="Assets\js\orden-pedido.js" />
