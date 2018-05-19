@@ -113,7 +113,7 @@ function valEmail(e) {
 
 //Valida el Rut
 function checkRut(rut) {
-  //debugger;
+  //
   // Despejar Puntos
   var valor = rut.value.replace('.', '');
   // Despejar Guión
@@ -258,7 +258,7 @@ function guardar(e,tipo) {
 
 //Funcion que agrega, llenando tabla. Se le pasa el tipo para que vay a la funcion
 function agregar(tipo) {
-    debugger;
+    
   var valido = validarTodo();
 
   if (!valido) {

@@ -210,7 +210,7 @@ function limpiarTablaProductos(tabla){
   tabla.find('tbody').html('');
 }
 function fillSelectProveedor() {
-    debugger;
+    
     $.ajax({
         type: 'POST',
         url: '/Proveedores/Proveedores',
@@ -218,7 +218,7 @@ function fillSelectProveedor() {
         contentType: "application/json",
         async: false,
         success: function (data) {
-            debugger;
+            
             if (data.length > 0) {
                 var proveedores = [];
                 $.each(data, function (i,val) {

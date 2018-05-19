@@ -1,6 +1,6 @@
 ﻿
 function login() {
-    debugger;
+    
     var nombre = $('#nombre').val();
     var pass = $('#pass').val();
 
@@ -20,7 +20,7 @@ function login() {
      async: false,
      success: function (data) {
          if (data == "True") {
-             debugger;
+             
              var redirect = window.location.origin;
              $(location).attr('href', redirect);
          } else if (data == "False"){
