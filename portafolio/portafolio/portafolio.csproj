@@ -237,6 +237,7 @@
   <ItemGroup>
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\js\clientes.js" />
+    <None Include="Assets\js\data-data-table.json" />
     <Content Include="Assets\js\data-table-clientes.js" />
     <Content Include="Assets\js\fiados.js" />
     <Content Include="Assets\js\general.js" />

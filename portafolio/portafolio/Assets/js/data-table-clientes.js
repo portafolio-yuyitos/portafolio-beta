@@ -19,7 +19,7 @@ function format ( d ) {
  
 $(document).ready(function() {
     var table = $('#example').DataTable( {
-        "ajax": "../ajax/data/objects.txt",
+        "ajax": "./assets/js/data-data-table.json",
         "columns": [
             {
                 "className":      'details-control',
