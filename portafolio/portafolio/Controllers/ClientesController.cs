@@ -108,6 +108,7 @@ namespace portafolio.Controllers
             }
         }
 
+        [HttpPost]
         public JsonResult Clientes()
         {
             List<Cliente> clientes = new List<Cliente>();
