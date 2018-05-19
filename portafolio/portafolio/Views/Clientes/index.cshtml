@@ -1,7 +1,8 @@
-﻿
+﻿@model List<portafolio.Models.Cliente>
 @{
     ViewBag.Title = "Gestión de Clientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int contador = 1;
 }
 
 <header class="container my-5">
@@ -40,24 +41,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <p>55555555-5</p>
-                        <input type="text" value="55555555-5" class="form-control editar d-none rut" onkeyup="checkRut(this)"/>
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>Lorem</p>
-                        <input type="text" value="Lorem" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td class="d-flex">
-                        <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
-                        <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Eliminar cliente"><i class="fas fa-trash-alt"></i></a>
-                        <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Editar cliente"><i class="fas fa-edit"></i></a>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <th scope="row">@contador</th>
+                        <td>
+                            <p>@item.Rut</p>
+                            <input type="text" value="@item.Rut" class="form-control editar d-none rut" onkeyup="checkRut(this)"/>
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <p>@item.Nombre</p>
+                            <input type="text" value="@item.Nombre" class="form-control editar d-none" onkeyup="valTexto(this,4,50)"/>
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td class="d-flex">
+                            <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
+                            <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Eliminar cliente"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Editar cliente"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    contador++;
+                }
             </tbody>
         </table>
     </div>

@@ -337,6 +337,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        
+        
         <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
         </Function>

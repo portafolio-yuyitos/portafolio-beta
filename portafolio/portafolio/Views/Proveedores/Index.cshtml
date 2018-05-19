@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Proveedores";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Logeado = "logeado";
-    int contador = 0;
+    int contador = 1;
 }
  
 
@@ -105,7 +104,7 @@
                         <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
                     </td>
                 </tr>
-
+                contador++;
             }
             </tbody>
         </table>

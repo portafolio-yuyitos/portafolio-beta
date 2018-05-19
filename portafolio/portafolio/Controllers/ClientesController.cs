@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Objects;
 using portafolio.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace portafolio.Controllers
 {
@@ -15,7 +16,49 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                return View();
+                List<Cliente> clientes = new List<Cliente>();
+
+                String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+                try
+                {
+                    OracleConnection _connObj = new OracleConnection(_connstring);
+                    _connObj.Open();
+                    OracleCommand _comObj = _connObj.CreateCommand();
+                    _comObj.CommandText = "PKG_CLIENTES.SP_S_CLIENTES";
+                    _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    OracleParameter _RefParam = new OracleParameter();
+                    _RefParam.ParameterName = "cliCur";
+                    _RefParam.OracleDbType = OracleDbType.RefCursor;
+                    _RefParam.Direction = System.Data.ParameterDirection.Output;
+                    _comObj.Parameters.Add(_RefParam);
+                    OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                    if (_rdrObj.HasRows)
+                    {
+                        while (_rdrObj.Read())
+                        {
+                            clientes.Add(new Cliente
+                            {
+                                Id = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_CLIENTE")),
+                                Rut = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_CLIENTE")),
+                                Nombre = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE")),
+                                Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO"))
+                            });
+                        }
+                    }
+
+                    _connObj.Close();
+                    _connObj.Dispose();
+                    _connObj = null;
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+                return View(clientes);
             }
             return Redirect("~/Login/");
         }
