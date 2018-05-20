@@ -163,6 +163,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrdenPedidoController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="DETALLE_BOLETA.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
@@ -275,6 +276,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\img\" />
+    <Folder Include="Views\Productos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

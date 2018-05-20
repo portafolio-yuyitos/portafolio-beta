@@ -29,9 +29,14 @@
                 <div class="form-group">
                     <label class="w-100">
                         Producto
-                        <select class="form-control" id='producto' onchange="valSelect(this)">
+                        <select class="form-control" name="productos" id='ddlProductos' onchange="valSelect(this)">
+                            @* TODO
+                                - Se llena dinamicamente en base al rut proveedor
+                                - Debería usar el procedimiento PKG_PRODUCTO.SP_S_PRODUCTO_PROVEEDOR (está en slack
+                                https://portafolio-caso3.slack.com/files/UARG1SNDD/FAU1PGW0P/Package_Producto.sql)
+                            *@
                             <option>Seleccione</option>
-                            <option>asdjasdjlksad</option>
+                            <option>dddd</option>
                         </select>
                         <label class="error text-danger d-none position-absolute"></label>
                     </label>
