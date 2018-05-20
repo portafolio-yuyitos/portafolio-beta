@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<portafolio.Models.ViewModels.ClienteFiados>
+@{
     ViewBag.Title = "Fiados";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int contador = 1;
 }
 
 <header class="container my-5">
@@ -8,11 +10,13 @@
         <h1>Fiados</h1>
     </div>
 </header>
+
 <main class="container">
-    <div class="row bg-light py-4 mb-5">
+    @*<div class="row bg-light py-4 mb-5">
         buscador y estado
-    </div>
+    </div>*@
     <div class="row">
+        <!--
         <table id="example" class="display" style="width:100%">
             <thead>
                 <tr>
@@ -33,18 +37,68 @@
                 </tr>
             </tfoot>
         </table>
+            -->
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Rut Nombre Completo</th>
-                    <th scope="col">Contacto</th>
-                    <th scope="col">Fiado/Abono</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">Rut </th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">¿Habilitado Fiado?</th>
+                    <th scope="col">Id</th>
                 </tr>
             </thead>
             <tbody>
+
+
+                <!-- ############################## -->
+                <!-- ESTA TABLA DIBUJA LOS CLIENTES -->
+                <!-- ############################## -->
+                @foreach (var item in Model)
+                {
+                   
+                    <tr style="background-color:lightcoral">
+                        <td>@contador</td>
+                        <td>@item.Cliente.Rut</td>
+                        <td>@item.Cliente.Nombre</td>
+                        <td>@(item.Cliente.Autorizado_fiado == 1 ? "Si" : "No")</td>
+                        <td>@item.Cliente.Id</td>
+                        @(contador=contador+1);
+                        <!-- ######################################## -->
+                        <!-- ESTA TABLA DIBUJA LOS FIADOS POR CLIENTE -->
+                        <!-- ######################################## -->
+                        @if (item.Cliente.Autorizado_fiado == 1)
+                        {
+                    <thead style="background-color:lightblue"><tr><th></th><th>Mnt. Sol</th><th>Mnt. Pag</th><th>Fecha Compra</th><th>Fecha Pago</th><th>Estado Pago</th><th>Id Cliente</th><th>Id Boleta</th></tr></thead>
+                        }
+
+
+                        @foreach (var fi in item.ListaFiados)
+                        {
+                            <tbody>
+                            <tr style="background-color:lightblue">
+                                <td></td>
+                                <td>@fi.MontoSolicitado</td>
+                                <td>@fi.MontoPagado</td>
+                                <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
+                                <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
+                                <td>@fi.EstadoPago</td>
+                                <td>@fi.IdCliente</td>
+                                <td>@fi.IdBoleta</td>
+                            </tr>
+                            </tbody>
+                        }
+
+                    </tr>
+
+                }
+
+
+
+
+
+
+                <!--
                 <tr>
                     <th scope="row">1</th>
                     <td>
@@ -63,11 +117,11 @@
                     <td class="d-flex">
                         <a class="btn btn-primary editar d-none cursor-pointer" onclick="cambiarFiado(this)" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
                     </td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>
 </main>
 
 <script src="@Url.Content("~/assets/js/fiados.js")"></script>
-<script src="@Url.Content("~/assets/js/data-table-clientes.js")"></script>
+<!--<script src="@Url.Content("~/assets/js/data-table-clientes.js")"></script>-->

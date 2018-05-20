@@ -338,13 +338,6 @@
           </ReferentialConstraint>
         </Association>
         
-        
-        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
-        </Function>
-        <Function Name="SP_D_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="RUT_PROVEEDOR_D" Type="varchar2" Mode="In" />
-        </Function>
         <Function Name="SP_I_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
@@ -365,13 +358,6 @@
         <Function Name="SP_U_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_NOMBRE" Type="varchar2" Mode="In" />
-        </Function>
-        <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
-          <Parameter Name="V_RAZON_SOCIAL" Type="varchar2" Mode="In" />
-          <Parameter Name="V_FONO" Type="number" Mode="In" />
-          <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
-          <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
@@ -1098,9 +1084,6 @@
           <FunctionImportMapping FunctionImportName="SP_S_VALIDAUSUARIO" FunctionName="Model.Store.SP_S_VALIDAUSUARIO" />
           <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
-          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE" FunctionName="Model.Store.SP_D_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR" FunctionName="Model.Store.SP_D_PROVEEDOR" />
-          <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_U_CLIENTE" FunctionName="Model.Store.SP_U_CLIENTE" />
         </EntityContainerMapping>
       </Mapping>
