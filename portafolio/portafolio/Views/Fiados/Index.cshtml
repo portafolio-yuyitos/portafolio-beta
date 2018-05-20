@@ -63,7 +63,9 @@
                         <td>@item.Cliente.Nombre</td>
                         <td>@(item.Cliente.Autorizado_fiado == 1 ? "Si" : "No")</td>
                         <td>@item.Cliente.Id</td>
-                        @(contador=contador+1);
+                        @{ 
+                            contador = contador + 1;
+                        }
                         <!-- ######################################## -->
                         <!-- ESTA TABLA DIBUJA LOS FIADOS POR CLIENTE -->
                         <!-- ######################################## -->
