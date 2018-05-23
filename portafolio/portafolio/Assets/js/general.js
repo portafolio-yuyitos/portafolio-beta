@@ -79,17 +79,20 @@ function valSelect(e) {
 
   if (valor !== null) {
       if (valor.trim() === "Seleccione") {
-        error.text('Debe estar seleccionado');
-        error.removeClass('d-none');
-        $(e).addClass('is-invalid');
-        valido = false;
+          error.text('Debe estar seleccionado');
+          error.removeClass('d-none');
+          $(e).addClass('is-invalid');
+          valido = false;
       } else {
-        error.addClass('d-none');
-        $(e).removeClass('is-invalid');
+          error.addClass('d-none');
+          $(e).removeClass('is-invalid');
       }
+  } else {
       error.addClass('d-none');
       $(e).removeClass('is-invalid');
   }
+
+}
   return valido;
 }
 
