@@ -14,30 +14,16 @@
         <div class="col-md-4 mb-4">
             <div class="px-3 py-4 bg-light">
                 <div class="form-group">
-                    <label class="w-100">
+                    <label class="w-100 d-flex flex-column">
                         Proveedor @ViewBag.Caca
-                        <select class="js-example-basic-single form-control" name="proveedores" id='proveedor' onchange="valSelect(this)">
-                        </select>
+                        <select class="js-example-basic-single form-control" name="proveedores" id='proveedor' onchange="valSelect(this)"></select>
                         <label class="error text-danger d-none position-absolute"></label>
-                        @*<select class="form-control" id='proveedor' onchange="valSelect(this)">
-                            <option>Seleccione</option>
-                            <option>dddd</option>
-                        </select>
-                        <label class="error text-danger d-none position-absolute"></label>*@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label class="w-100">
+                    <label class="w-100 d-flex flex-column">
                         Producto
-                        <select class="form-control" name="productos" id='ddlProductos' onchange="valSelect(this)">
-                            @* TODO
-                                - Se llena dinamicamente en base al rut proveedor
-                                - Debería usar el procedimiento PKG_PRODUCTO.SP_S_PRODUCTO_PROVEEDOR (está en slack
-                                https://portafolio-caso3.slack.com/files/UARG1SNDD/FAU1PGW0P/Package_Producto.sql)
-                            *@
-                            <option>Seleccione</option>
-                            <option>dddd</option>
-                        </select>
+                        <select class="form-control" name="productos" id='productos' onchange="valSelect(this)"></select>
                         <label class="error text-danger d-none position-absolute"></label>
                     </label>
                 </div>

@@ -30,3 +30,7 @@ main {
 .fnt-40 {
     font-size: 40px;
 }
+
+.select2{
+    width: 100%;
+}

@@ -209,6 +209,7 @@ function muestraOP(elem) {
 function limpiarTablaProductos(tabla){
   tabla.find('tbody').html('');
 }
+
 function fillSelectProveedor() {
     
     $.ajax({
@@ -237,8 +238,53 @@ function fillSelectProveedor() {
     
 }
 
+function fillSelectProductos(idProveedor) {
+
+    var data = {
+        idProveedor: idProveedor
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/Productos/ProductosPorProveedor',
+        cache: false,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (data) {
+            var str = '';
+            if (data.length > 0) {
+                $.each(data, function (i, val) {
+                    str += '<option value="' + val.IdProducto + '" data-precio="' + val.PrecioVenta + '">' + val.Descripcion + '</option>';
+                });
+                $('#productos').html(str).trigger('change');
+            } else {
+                $('#productos').html(str).trigger('change');
+            }
+        },
+        error: function (ex) {
+            console.log('no se han traído los productos');
+        }
+    });
+
+}
 
 // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function () {
     fillSelectProveedor();
+    $('#proveedor').on('select2:select', function (e) {
+        // Do something
+        var idProveedor = e.target.value;
+        fillSelectProductos(idProveedor);
+    });
+    $('#productos').on('change', function (e) {
+        // Do something
+        var precio = e.target.selectedOptions
+        if (precio.length>0) {
+            precio = precio['0'].dataset.precio;
+            $('#precio').val(precio);
+        } else {
+            $('#precio').val(0);
+        }
+
+    });
 });

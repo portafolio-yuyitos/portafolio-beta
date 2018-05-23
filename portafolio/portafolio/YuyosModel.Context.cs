@@ -153,5 +153,57 @@ namespace portafolio
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_CLIENTE", v_RUT_CLIENTEParameter, v_NOMBREParameter);
         }
+    
+        public virtual int SP_D_CLIENTE1(string rUT_CLIENTE_D)
+        {
+            var rUT_CLIENTE_DParameter = rUT_CLIENTE_D != null ?
+                new ObjectParameter("RUT_CLIENTE_D", rUT_CLIENTE_D) :
+                new ObjectParameter("RUT_CLIENTE_D", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_CLIENTE1", rUT_CLIENTE_DParameter);
+        }
+    
+        public virtual int SP_D_PROVEEDOR1(string rUT_PROVEEDOR_D)
+        {
+            var rUT_PROVEEDOR_DParameter = rUT_PROVEEDOR_D != null ?
+                new ObjectParameter("RUT_PROVEEDOR_D", rUT_PROVEEDOR_D) :
+                new ObjectParameter("RUT_PROVEEDOR_D", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_PROVEEDOR1", rUT_PROVEEDOR_DParameter);
+        }
+    
+        public virtual int SP_U_FIADOR(string rUT)
+        {
+            var rUTParameter = rUT != null ?
+                new ObjectParameter("RUT", rUT) :
+                new ObjectParameter("RUT", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_FIADOR", rUTParameter);
+        }
+    
+        public virtual int SP_U_PROVEEDOR1(string v_RUT_PROVEEDOR, string v_RAZON_SOCIAL, Nullable<decimal> v_FONO, string v_EMAIL, string v_GIRO)
+        {
+            var v_RUT_PROVEEDORParameter = v_RUT_PROVEEDOR != null ?
+                new ObjectParameter("V_RUT_PROVEEDOR", v_RUT_PROVEEDOR) :
+                new ObjectParameter("V_RUT_PROVEEDOR", typeof(string));
+    
+            var v_RAZON_SOCIALParameter = v_RAZON_SOCIAL != null ?
+                new ObjectParameter("V_RAZON_SOCIAL", v_RAZON_SOCIAL) :
+                new ObjectParameter("V_RAZON_SOCIAL", typeof(string));
+    
+            var v_FONOParameter = v_FONO.HasValue ?
+                new ObjectParameter("V_FONO", v_FONO) :
+                new ObjectParameter("V_FONO", typeof(decimal));
+    
+            var v_EMAILParameter = v_EMAIL != null ?
+                new ObjectParameter("V_EMAIL", v_EMAIL) :
+                new ObjectParameter("V_EMAIL", typeof(string));
+    
+            var v_GIROParameter = v_GIRO != null ?
+                new ObjectParameter("V_GIRO", v_GIRO) :
+                new ObjectParameter("V_GIRO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PROVEEDOR1", v_RUT_PROVEEDORParameter, v_RAZON_SOCIALParameter, v_FONOParameter, v_EMAILParameter, v_GIROParameter);
+        }
     }
 }

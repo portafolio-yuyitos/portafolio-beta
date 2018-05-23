@@ -337,7 +337,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        
+        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_D_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_PROVEEDOR_D" Type="varchar2" Mode="In" />
+        </Function>
         <Function Name="SP_I_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
@@ -358,6 +363,16 @@
         <Function Name="SP_U_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_NOMBRE" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_U_FIADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
+          <Parameter Name="V_RAZON_SOCIAL" Type="varchar2" Mode="In" />
+          <Parameter Name="V_FONO" Type="number" Mode="In" />
+          <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
+          <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
@@ -920,6 +935,22 @@
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_NOMBRE" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_D_CLIENTE1">
+            <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_D_PROVEEDOR1">
+            <Parameter Name="RUT_PROVEEDOR_D" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_U_FIADOR">
+            <Parameter Name="RUT" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_U_PROVEEDOR1">
+            <Parameter Name="V_RUT_PROVEEDOR" Mode="In" Type="String" />
+            <Parameter Name="V_RAZON_SOCIAL" Mode="In" Type="String" />
+            <Parameter Name="V_FONO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_EMAIL" Mode="In" Type="String" />
+            <Parameter Name="V_GIRO" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1085,6 +1116,10 @@
           <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_U_CLIENTE" FunctionName="Model.Store.SP_U_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE1" FunctionName="Model.Store.SP_D_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR1" FunctionName="Model.Store.SP_D_PROVEEDOR" />
+          <FunctionImportMapping FunctionImportName="SP_U_FIADOR" FunctionName="Model.Store.SP_U_FIADOR" />
+          <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR1" FunctionName="Model.Store.SP_U_PROVEEDOR" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
