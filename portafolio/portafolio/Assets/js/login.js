@@ -9,7 +9,7 @@ function login() {
         "pass": pass
     };
 
-
+    spinner(true);
 
    $.ajax({
      type: 'POST',
@@ -17,7 +17,6 @@ function login() {
      cache: false,
      data: JSON.stringify(data),
      contentType: "application/json",
-     async: false,
      success: function (data) {
          if (data == "True") {
              
@@ -29,7 +28,10 @@ function login() {
      },
      error: function (ex) {
        alert('ERROOOOOOR');
-     }
+       },
+       complete: function () {
+           spinner(false);
+       }
    });
 
 }

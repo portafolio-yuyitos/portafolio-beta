@@ -4,6 +4,22 @@ $(document).ready(function () {
   })
 });
 
+window.onload = function () {
+    spinner(false);
+};
+
+
+function spinner(estado) {
+    if (!estado) {
+        setTimeout(function () {
+            $('.spinner').addClass('d-none');
+        }, 700);
+    } else {
+        $('.spinner').removeClass('d-none');
+    }
+
+}
+
 // ********** VALIDACIONES ************
 
 /// e = elemento,
@@ -91,8 +107,6 @@ function valSelect(e) {
       error.addClass('d-none');
       $(e).removeClass('is-invalid');
   }
-
-}
   return valido;
 }
 
