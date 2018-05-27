@@ -28,10 +28,10 @@ function login() {
      },
      error: function (ex) {
        alert('ERROOOOOOR');
-       },
-       complete: function () {
-           spinner(false);
-       }
+        },
+        complete: function () {
+            spinner(false);
+        }
    });
 
 }

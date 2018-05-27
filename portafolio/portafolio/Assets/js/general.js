@@ -93,8 +93,8 @@ function valSelect(e) {
   var error = $(e).siblings('.error');
   var valido = true;
 
-  if (valor !== null) {
-      if (valor.trim() === "Seleccione") {
+    if (valor !== null) {
+        if (valor.trim() === "Seleccione") {
           error.text('Debe estar seleccionado');
           error.removeClass('d-none');
           $(e).addClass('is-invalid');
@@ -206,6 +206,8 @@ function eliminar(e, tipo) {
             eliminarCliente(e,tabla);
         case "proveedor":
             eliminarProveedor(e, tabla);
+        case "productos":
+            eliminarProducto(e, tabla);
         default:
             return
     }
@@ -300,12 +302,10 @@ function agregar(tipo) {
 
 //Muestra tabla si tiene mas de una fila, se le pasa la tabla, y un valor si es producto
 function mostrarTabla(tabla, producto) {
-  debugger
   var filas = tabla.find('tbody tr');
   if (filas.length > 0) {//Si tiene filas
     tabla.removeClass('d-none');
-    if (producto !== undefined) {//si es producto      
-      // mostrarVacio(undefined,false);
+    if (producto !== undefined) {//si es producto
       $('#vacio').removeClass('d-flex');
       $('#vacio').addClass('d-none');
       tabla.closest('.productos').removeClass('d-none');
@@ -313,7 +313,6 @@ function mostrarTabla(tabla, producto) {
       tabla.closest('.productos').siblings('.productos').removeClass('d-none');
       tabla.closest('.productos').siblings('.productos').addClass('d-flex');
     }
-
   } else {
     tabla.addClass('d-none');
     if (producto !== undefined) {//si es producto
