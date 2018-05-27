@@ -36,7 +36,7 @@ function valCantidad(e, min, max) {
 //Valida todos los input antes de llenar la tabla
 function validarTodo() {
   var proveedor = $('#proveedor');
-  var producto = $('#producto');
+  var producto = $('#productos');
   var cantidad = document.getElementById('cantidad');
 
   var valido = true;
@@ -59,14 +59,16 @@ function validarTodo() {
 
 //Llena la tabla de productos con una fila nueva
 function llenarProductos(cantidad, proveedor, producto) {
+    var nombreProveedor = $('#select2-proveedor-container').text();
+    var nombreProducto = producto[0].selectedOptions[0].innerText;
   var precio = $('#precio')['0'].value * cantidad.value;
   var productos = $('#productosContainer');
-  var fila = '<tr class="border-bottom">'; //Crea fila
-  fila += '<td class="p-2">' + proveedor.val() + '</td>';
-  fila += '<td>' + producto.val() + '</td>';
+    var fila = '<tr class="border-bottom">'; //Crea fila
+    fila += '<td class="p-2" data-id="' + proveedor.val() + '">' + nombreProveedor + '</td>';
+    fila += '<td class="p-2" data-id="' + producto.val() + '">' + nombreProducto + '</td>';
   fila += '<td>' + cantidad.value + '</td>';
   fila += '<td class="precio">' + precio + '</td>';
-  fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,true)">Eliminar</button>';
+    fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" +')">Eliminar</button>';
   fila += '<button class="btn btn-secondary">Editar</button>';
   fila += '</td></tr>';
   //Pinta en tabla productos
@@ -76,8 +78,16 @@ function llenarProductos(cantidad, proveedor, producto) {
   producto['0'].value = "Seleccione";
   $('#precio')['0'].value = 1000;
   cantidad.value = 0;
-  debugger
-  mostrarTabla(productos.closest('table'), true);
+    mostrarTabla(productos.closest('table'), true);
+    limpiarCamposProducto(cantidad, proveedor, producto);
+}
+
+//Limpia campos al agregar producto
+function limpiarCamposProducto(cantidad, proveedor, producto) {
+    cantidad.textContent = 0;
+    proveedor.val('-1').trigger('change.select2');
+    producto.val('-1');
+    $('#precio')['0'].value = 0;
 }
 
 //Agregar Producto
@@ -122,10 +132,10 @@ function generarOP() {
       $.each(columnas, function (j, columna) {
         switch (j) {//verificar columna paa llenar objeto Producto
           case 0://Proveedor
-            producto.proveedor = columna.textContent;
+            producto.proveedor = columna.dataset.id;
             break;
           case 1://Producto
-            producto.nombre = columna.textContent;
+            producto.id = columna.dataset.id;
             break;
           case 2://Cantidad
             producto.cantidad = columna.textContent;
@@ -222,6 +232,10 @@ function fillSelectProveedor() {
             
             if (data.length > 0) {
                 var proveedores = [];
+                proveedores.push({
+                    id: -1,
+                    text: "Seleccione"
+                });
                 $.each(data, function (i,val) {
                     proveedores.push({
                         id: val.IdProveedor,
@@ -251,7 +265,7 @@ function fillSelectProductos(idProveedor) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (data) {
-            var str = '';
+            var str = '<option value="-1" data-precio="0">Seleccione</option>';
             if (data.length > 0) {
                 $.each(data, function (i, val) {
                     str += '<option value="' + val.IdProducto + '" data-precio="' + val.PrecioVenta + '">' + val.Descripcion + '</option>';
@@ -266,6 +280,11 @@ function fillSelectProductos(idProveedor) {
         }
     });
 
+}
+
+function eliminarProducto(e, tabla) {
+    $(e).closest('tr').remove();
+    mostrarTabla(tabla,'producto');//Muestra tabla si tiene filas
 }
 
 // In your Javascript (external .js resource or <script> tag)
