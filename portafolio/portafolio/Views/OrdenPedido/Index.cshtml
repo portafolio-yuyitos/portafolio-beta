@@ -68,8 +68,10 @@
             </div>
         </div>
         <div class="col-md-12 d-flex justify-content-end mt-3 productos">
-            <button class="btn btn-primary" onclick="generarOP()">Generar Orden de Pedido</button>
+            <button class="btn btn-primary" id="generarOP" onclick="generarOP(this)">Generar Orden de Pedido</button>
+            <button class="btn btn-primary d-none" id="editarOP" onclick="generarOP(this)">Guardar Orden de Pedido</button>
         </div>
+
         <div class="col-md-8 d-flex flex-column text-light justify-content-center align-items-center" id="vacio">
             <i class="fas fa-file-alt fnt-40 mb-5"></i>
             <h3>No existe orden de pedido para generar</h3>

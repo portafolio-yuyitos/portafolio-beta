@@ -69,7 +69,6 @@ function llenarProductos(cantidad, proveedor, producto) {
   fila += '<td>' + cantidad.value + '</td>';
   fila += '<td class="precio">' + precio + '</td>';
     fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" +')">Eliminar</button>';
-  fila += '<button class="btn btn-secondary">Editar</button>';
   fila += '</td></tr>';
   //Pinta en tabla productos
   productos.find('tbody').append(fila);
@@ -115,7 +114,8 @@ function sumarTotal() {
 }
 
 //Genera la Orden de Pedido
-function generarOP() {
+function generarOP(e) {
+    debugger;
   var total = $('#total strong');//Total
   if (total.text() === "0") {//Si es 0
     alert('Debes agregar al menos un producto');
@@ -133,9 +133,11 @@ function generarOP() {
         switch (j) {//verificar columna paa llenar objeto Producto
           case 0://Proveedor
             producto.proveedor = columna.dataset.id;
+            producto.nombreProveedor = columna.textContent; 
             break;
           case 1://Producto
             producto.id = columna.dataset.id;
+            producto.nombreProducto = columna.textContent;
             break;
           case 2://Cantidad
             producto.cantidad = columna.textContent;
@@ -148,12 +150,56 @@ function generarOP() {
         }
       });
       productos.push(producto);
-    });
+      });
+
+      //Acá hay que llamar a un ajax
+      if (e.id === "editarOP") {
+          editarOP(tabla, productos, total);
+      } else {
+        agregarOP(tabla, productos, total);
+      }
+  }
+}
+
+//Agrega orden de pedido
+function editarOP(tabla, productos, total) {
+
+    var objProductos = JSON.stringify(productos);
+    objProductos = objProductos.replace(/\s/g,"_");
+
     var OP = {//Objeto de orden de pedido
-      'id': 123321,
-      'total': total.text(),
-      'productos': JSON.stringify(productos)
-    }
+        'id': 123321,//Esto se quitaría luego
+        'total': total.text(),
+        'productos': objProductos
+    };
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/OrdenPedido/agregar',
+    //    cache: false,
+    //    data: JSON.stringify(OP),
+    //    contentType: "application/json",
+    //    async: false,
+    //    success: function (data) {
+    //        if (data == "True") {
+    //            llenarTabla(OP);//Llenar la tabla
+    //            $('#vacio').addClass('d-flex');
+    //            $('#vacio').removeClass('d-none');
+    //            tabla.closest('.productos').addClass('d-none');
+    //            tabla.closest('.productos').removeClass('d-flex');
+    //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
+    //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+    //            tabla.find('tbody').html('');
+    //        } else if (data == "False") {
+    //            alert("No se ha podido generar la orden pedido");
+    //        }
+    //    },
+    //    error: function (ex) {
+    //        alert('Error al generar la orden de pedido');
+    //    }
+    //});
+
+
 
     llenarTabla(OP);//Llenar la tabla
     $('#vacio').addClass('d-flex');
@@ -163,7 +209,56 @@ function generarOP() {
     tabla.closest('.productos').siblings('.productos').addClass('d-none');
     tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
     tabla.find('tbody').html('');
-  }
+}
+
+//Edita orden de pedido
+function agregarOP(tabla, productos, total) {
+
+    var objProductos = JSON.stringify(productos);
+    objProductos = objProductos.replace(/\s/g, "_");
+
+    var OP = {//Objeto de orden de pedido
+        'id': 123321,//Esto se quitaría luego
+        'total': total.text(),
+        'productos': objProductos
+    };
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/OrdenPedido/agregar',
+    //    cache: false,
+    //    data: JSON.stringify(OP),
+    //    contentType: "application/json",
+    //    async: false,
+    //    success: function (data) {
+    //        if (data == "True") {
+    //            llenarTabla(OP);//Llenar la tabla
+    //            $('#vacio').addClass('d-flex');
+    //            $('#vacio').removeClass('d-none');
+    //            tabla.closest('.productos').addClass('d-none');
+    //            tabla.closest('.productos').removeClass('d-flex');
+    //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
+    //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+    //            tabla.find('tbody').html('');
+    //        } else if (data == "False") {
+    //            alert("No se ha podido generar la orden pedido");
+    //        }
+    //    },
+    //    error: function (ex) {
+    //        alert('Error al generar la orden de pedido');
+    //    }
+    //});
+
+
+
+    llenarTabla(OP);//Llenar la tabla
+    $('#vacio').addClass('d-flex');
+    $('#vacio').removeClass('d-none');
+    tabla.closest('.productos').addClass('d-none');
+    tabla.closest('.productos').removeClass('d-flex');
+    tabla.closest('.productos').siblings('.productos').addClass('d-none');
+    tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+    tabla.find('tbody').html('');
 }
 
 //Llena la tabla, pasandole un objeto con la orden de pedido
@@ -199,20 +294,23 @@ function muestraOP(elem) {
   var productos = $('#productosContainer');//body de tabla productos
   limpiarTablaProductos(productos);
   var fila = $(elem).closest('tr');
-  var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de propductos guardado en la fila
-  $.each(productosObjeto, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
-    var fila = '<tr class="border-bottom">'; //Crea fila
-    fila += '<td class="p-2">' + prod.proveedor + '</td>';
-    fila += '<td>' + prod.nombre + '</td>';
+  var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de productos guardado en la fila
+    $.each(productosObjeto, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
+        var nombreProveedor = prod.nombreProveedor.replace(/_/g, " ");
+        var nombreProducto = prod.nombreProducto.replace(/_/g, " ");
+      var fila = '<tr class="border-bottom">'; //Crea fila
+        fila += '<td class="p-2" data-id="' + prod.proveedor + '">' + nombreProveedor + '</td>';
+    fila += '<td class="p-2" data-id="' + prod.id + '">' + nombreProducto + '</td>';
     fila += '<td>' + prod.cantidad + '</td>';
     fila += '<td class="precio">' + prod.precio + '</td>';
-    fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,true)">Eliminar</button>';
-    fila += '<button class="btn btn-secondary">Editar</button>';
+        fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
     fila += '</td></tr>';
     //Pinta en tabla productos
     productos.find('tbody').append(fila);
   });
-  //Mostrar la tabla
+    //Mostrar la tabla
+    $('#generarOP').addClass('d-none');
+    $('#editarOP').removeClass('d-none');
   mostrarTabla(productos, true);
 }
 
