@@ -17,8 +17,8 @@ namespace portafolio
         public PRODUCTO()
         {
             this.DETALLE_BOLETA = new HashSet<DETALLE_BOLETA>();
-            this.PEDIDO = new HashSet<PEDIDO>();
             this.RECEPCION = new HashSet<RECEPCION>();
+            this.DETALLE_PEDIDO = new HashSet<DETALLE_PEDIDO>();
         }
     
         public decimal ID_PRODUCTO { get; set; }
@@ -34,10 +34,10 @@ namespace portafolio
         public decimal ID_TIPO_MONEDA { get; set; }
     
         public virtual ICollection<DETALLE_BOLETA> DETALLE_BOLETA { get; set; }
-        public virtual ICollection<PEDIDO> PEDIDO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
         public virtual TIPO_MONEDA TIPO_MONEDA { get; set; }
         public virtual TIPO_PRODUCTO TIPO_PRODUCTO { get; set; }
         public virtual ICollection<RECEPCION> RECEPCION { get; set; }
+        public virtual ICollection<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
     }
 }

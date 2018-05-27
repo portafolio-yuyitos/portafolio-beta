@@ -169,6 +169,9 @@
     <Compile Include="DETALLE_BOLETA.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DETALLE_PEDIDO.cs">
+      <DependentUpon>YuyosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPRESA.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
     </Compile>

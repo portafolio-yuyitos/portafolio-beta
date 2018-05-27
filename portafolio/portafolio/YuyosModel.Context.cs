@@ -34,7 +34,6 @@ namespace portafolio
         public DbSet<EMPRESA> EMPRESA { get; set; }
         public DbSet<FIADO> FIADO { get; set; }
         public DbSet<FUNCIONALIDAD> FUNCIONALIDAD { get; set; }
-        public DbSet<PEDIDO> PEDIDO { get; set; }
         public DbSet<PRODUCTO> PRODUCTO { get; set; }
         public DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public DbSet<RECEPCION> RECEPCION { get; set; }
@@ -42,6 +41,8 @@ namespace portafolio
         public DbSet<TIPO_MONEDA> TIPO_MONEDA { get; set; }
         public DbSet<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
         public DbSet<USUARIO> USUARIO { get; set; }
+        public DbSet<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
+        public DbSet<PEDIDO> PEDIDO { get; set; }
     
         public virtual int SP_S_VALIDAUSUARIO(string uSU, string cON, ObjectParameter eXISTE)
         {
@@ -204,6 +205,58 @@ namespace portafolio
                 new ObjectParameter("V_GIRO", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PROVEEDOR1", v_RUT_PROVEEDORParameter, v_RAZON_SOCIALParameter, v_FONOParameter, v_EMAILParameter, v_GIROParameter);
+        }
+    
+        public virtual int SP_D_DETALLE_PEDIDO(Nullable<decimal> v_NUMERO_PEDIDO)
+        {
+            var v_NUMERO_PEDIDOParameter = v_NUMERO_PEDIDO.HasValue ?
+                new ObjectParameter("V_NUMERO_PEDIDO", v_NUMERO_PEDIDO) :
+                new ObjectParameter("V_NUMERO_PEDIDO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_DETALLE_PEDIDO", v_NUMERO_PEDIDOParameter);
+        }
+    
+        public virtual int SP_D_PEDIDO(Nullable<decimal> v_NUMERO_PEDIDO)
+        {
+            var v_NUMERO_PEDIDOParameter = v_NUMERO_PEDIDO.HasValue ?
+                new ObjectParameter("V_NUMERO_PEDIDO", v_NUMERO_PEDIDO) :
+                new ObjectParameter("V_NUMERO_PEDIDO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_PEDIDO", v_NUMERO_PEDIDOParameter);
+        }
+    
+        public virtual int SP_I_DETALLE_PEDIDO(Nullable<decimal> cANTIDAD_PRODUCTO, Nullable<decimal> iD_PRODUCTO, Nullable<decimal> nUME_PEDIDO, Nullable<decimal> pRECIO_PRODUCTO)
+        {
+            var cANTIDAD_PRODUCTOParameter = cANTIDAD_PRODUCTO.HasValue ?
+                new ObjectParameter("CANTIDAD_PRODUCTO", cANTIDAD_PRODUCTO) :
+                new ObjectParameter("CANTIDAD_PRODUCTO", typeof(decimal));
+    
+            var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
+                new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
+                new ObjectParameter("ID_PRODUCTO", typeof(decimal));
+    
+            var nUME_PEDIDOParameter = nUME_PEDIDO.HasValue ?
+                new ObjectParameter("NUME_PEDIDO", nUME_PEDIDO) :
+                new ObjectParameter("NUME_PEDIDO", typeof(decimal));
+    
+            var pRECIO_PRODUCTOParameter = pRECIO_PRODUCTO.HasValue ?
+                new ObjectParameter("PRECIO_PRODUCTO", pRECIO_PRODUCTO) :
+                new ObjectParameter("PRECIO_PRODUCTO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", cANTIDAD_PRODUCTOParameter, iD_PRODUCTOParameter, nUME_PEDIDOParameter, pRECIO_PRODUCTOParameter);
+        }
+    
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO)
+        {
+            var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
+                new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
+                new ObjectParameter("ID_PROVEEDOR", typeof(decimal));
+    
+            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
+                new ObjectParameter("ID_USUARIO", iD_USUARIO) :
+                new ObjectParameter("ID_USUARIO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter);
         }
     }
 }

@@ -12,19 +12,15 @@ namespace portafolio
     using System;
     using System.Collections.Generic;
     
-    public partial class PEDIDO
+    public partial class DETALLE_PEDIDO
     {
-        public PEDIDO()
-        {
-            this.DETALLE_PEDIDO = new HashSet<DETALLE_PEDIDO>();
-        }
-    
         public decimal NUMERO_PEDIDO { get; set; }
-        public decimal ID_PROVEEDOR { get; set; }
-        public decimal ID_USUARIO { get; set; }
+        public decimal NUMERO_DETALLE { get; set; }
+        public decimal CANTIDAD_PRODUCTO { get; set; }
+        public Nullable<decimal> PRECIO_PRODUCTO { get; set; }
+        public decimal ID_PRODUCTO { get; set; }
     
-        public virtual ICollection<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
-        public virtual PROVEEDOR PROVEEDOR { get; set; }
-        public virtual USUARIO USUARIO { get; set; }
+        public virtual PRODUCTO PRODUCTO { get; set; }
+        public virtual PEDIDO PEDIDO { get; set; }
     }
 }

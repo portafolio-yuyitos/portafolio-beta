@@ -616,6 +616,11 @@ namespace portafolio.Controllers
 
         }
 
+
+        // #################################
+        //      DEVUELVE TODOS LOS PEDIDOS
+        //      CON NUMERO PEDIDO
+        // #################################
         public JsonResult TodasLasOrdenes()
         {
             // CREAMOS UN LISTADO DE PEDIDOS
@@ -647,6 +652,71 @@ namespace portafolio.Controllers
 
 
         }
+
+        [HttpPost]
+        public bool Agregar(Pedido ped)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        [HttpPost]
+        public bool Eliminar(int idPedido)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                // BORRA LOS DETALLES IGUAL
+                db.SP_D_PEDIDO(idPedido);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        // AGREGA DETALLE
+        [HttpPost]
+        public bool AgregarDetalle(DetallePedido detaPed)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_I_DETALLE_PEDIDO(detaPed.NumeroPedido, detaPed.IdProducto, detaPed.PrecioProducto, detaPed.CantidadProducto);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        //    NOE ESTÁ CREADO
+        /*[HttpPost]
+        public bool Update(Proveedor pro)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_U_PROVEEDOR(pro.RutProveedor, pro.RazonSocial, pro.Fono, pro.Email, pro.Giro);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }*/
 
     }
 }

@@ -34,6 +34,17 @@
           <Property Name="ID_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_BOLETA" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="DETALLE_PEDIDO">
+          <Key>
+            <PropertyRef Name="NUMERO_PEDIDO" />
+            <PropertyRef Name="NUMERO_DETALLE" />
+          </Key>
+          <Property Name="NUMERO_PEDIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NUMERO_DETALLE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CANTIDAD_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PRECIO_PRODUCTO" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="EMPRESA">
           <Key>
             <PropertyRef Name="ID_EMPRESA" />
@@ -72,9 +83,7 @@
             <PropertyRef Name="NUMERO_PEDIDO" />
           </Key>
           <Property Name="NUMERO_PEDIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="CANTIDAD_SOLICITADA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCTO">
@@ -157,6 +166,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="DETA_PEDIDO_ID_PRODUCTO">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="DETALLE_PEDIDO" Type="Self.DETALLE_PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Principal>
+            <Dependent Role="DETALLE_PEDIDO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DETA_PEDIDO_NUME_PEDIDO">
+          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="1" />
+          <End Role="DETALLE_PEDIDO" Type="Self.DETALLE_PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PEDIDO">
+              <PropertyRef Name="NUMERO_PEDIDO" />
+            </Principal>
+            <Dependent Role="DETALLE_PEDIDO">
+              <PropertyRef Name="NUMERO_PEDIDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="DETALLE_ID_BOLETA_FK">
           <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="1" />
           <End Role="DETALLE_BOLETA" Type="Self.DETALLE_BOLETA" Multiplicity="*" />
@@ -202,18 +235,6 @@
             </Principal>
             <Dependent Role="FIADO">
               <PropertyRef Name="ID_CLIENTE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PEDIDO_ID_PRODUCTO_FK">
-          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUCTO">
-              <PropertyRef Name="ID_PRODUCTO" />
-            </Principal>
-            <Dependent Role="PEDIDO">
-              <PropertyRef Name="ID_PRODUCTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -337,16 +358,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
+        <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
         </Function>
-        <Function Name="SP_D_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="RUT_PROVEEDOR_D" Type="varchar2" Mode="In" />
+        <Function Name="SP_D_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="AUTORIZADO_FIADO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_I_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="CANTIDAD_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="NUME_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="PRECIO_PRODUCTO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
+          <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_PROVEEDOR" Type="varchar2" Mode="In" />
@@ -367,17 +398,11 @@
         <Function Name="SP_U_FIADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT" Type="varchar2" Mode="In" />
         </Function>
-        <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
-          <Parameter Name="V_RAZON_SOCIAL" Type="varchar2" Mode="In" />
-          <Parameter Name="V_FONO" Type="number" Mode="In" />
-          <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
-          <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
-        </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="DETALLE_BOLETA" EntityType="Self.DETALLE_BOLETA" Schema="YUYOS" store:Type="Tables" />
+          <EntitySet Name="DETALLE_PEDIDO" EntityType="Self.DETALLE_PEDIDO" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="FIADO" EntityType="Self.FIADO" Schema="YUYOS" store:Type="Tables" />
           <EntitySet Name="FUNCIONALIDAD" EntityType="Self.FUNCIONALIDAD" Schema="YUYOS" store:Type="Tables" />
@@ -392,6 +417,14 @@
           <AssociationSet Name="BOLETA_ID_CLIENTE_FK" Association="Self.BOLETA_ID_CLIENTE_FK">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="BOLETA" EntitySet="BOLETA" />
+          </AssociationSet>
+          <AssociationSet Name="DETA_PEDIDO_ID_PRODUCTO" Association="Self.DETA_PEDIDO_ID_PRODUCTO">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="DETALLE_PEDIDO" EntitySet="DETALLE_PEDIDO" />
+          </AssociationSet>
+          <AssociationSet Name="DETA_PEDIDO_NUME_PEDIDO" Association="Self.DETA_PEDIDO_NUME_PEDIDO">
+            <End Role="PEDIDO" EntitySet="PEDIDO" />
+            <End Role="DETALLE_PEDIDO" EntitySet="DETALLE_PEDIDO" />
           </AssociationSet>
           <AssociationSet Name="DETALLE_ID_BOLETA_FK" Association="Self.DETALLE_ID_BOLETA_FK">
             <End Role="BOLETA" EntitySet="BOLETA" />
@@ -408,10 +441,6 @@
           <AssociationSet Name="FIADO_ID_CLIENTE_FK" Association="Self.FIADO_ID_CLIENTE_FK">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="FIADO" EntitySet="FIADO" />
-          </AssociationSet>
-          <AssociationSet Name="PEDIDO_ID_PRODUCTO_FK" Association="Self.PEDIDO_ID_PRODUCTO_FK">
-            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
           </AssociationSet>
           <AssociationSet Name="PEDIDO_ID_PROVEEDOR_FK" Association="Self.PEDIDO_ID_PROVEEDOR_FK">
             <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
@@ -530,19 +559,6 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MANUAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="PEDIDO">
-          <Key>
-            <PropertyRef Name="NUMERO_PEDIDO" />
-          </Key>
-          <Property Name="NUMERO_PEDIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="CANTIDAD_SOLICITADA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_PROVEEDOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_PRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ID_USUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <NavigationProperty Name="PRODUCTO" Relationship="Self.PEDIDO_ID_PRODUCTO_FK" FromRole="PEDIDO" ToRole="PRODUCTO" />
-          <NavigationProperty Name="PROVEEDOR" Relationship="Self.PEDIDO_ID_PROVEEDOR_FK" FromRole="PEDIDO" ToRole="PROVEEDOR" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.PEDIDO_ID_USUARIO_FK" FromRole="PEDIDO" ToRole="USUARIO" />
-        </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
             <PropertyRef Name="ID_PRODUCTO" />
@@ -559,11 +575,11 @@
           <Property Name="ID_TIPO_PRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_TIPO_MONEDA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <NavigationProperty Name="DETALLE_BOLETA" Relationship="Self.DETALLE_ID_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="DETALLE_BOLETA" />
-          <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_ID_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="PEDIDO" />
           <NavigationProperty Name="PROVEEDOR" Relationship="Self.PRODUCTO_ID_PROVEEDOR_FK" FromRole="PRODUCTO" ToRole="PROVEEDOR" />
           <NavigationProperty Name="TIPO_MONEDA" Relationship="Self.PRODUCTO_ID_TIPO_MONEDA_FK" FromRole="PRODUCTO" ToRole="TIPO_MONEDA" />
           <NavigationProperty Name="TIPO_PRODUCTO" Relationship="Self.PRODUCTO_ID_TIPO_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="TIPO_PRODUCTO" />
           <NavigationProperty Name="RECEPCION" Relationship="Self.RECEPCION_ID_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="RECEPCION" />
+          <NavigationProperty Name="DETALLE_PEDIDO" Relationship="Model.DETA_PEDIDO_ID_PRODUCTO" FromRole="PRODUCTO" ToRole="DETALLE_PEDIDO" />
         </EntityType>
         <EntityType Name="PROVEEDOR">
           <Key>
@@ -575,9 +591,9 @@
           <Property Name="FONO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GIRO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="PEDIDO" />
           <NavigationProperty Name="PRODUCTO" Relationship="Self.PRODUCTO_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="PRODUCTO" />
           <NavigationProperty Name="RECEPCION" Relationship="Self.RECEPCION_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="RECEPCION" />
+          <NavigationProperty Name="PEDIDO" Relationship="Model.PEDIDO_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="PEDIDO" />
         </EntityType>
         <EntityType Name="RECEPCION">
           <Key>
@@ -626,9 +642,9 @@
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CLAVE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_ROL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_ID_USUARIO_FK" FromRole="USUARIO" ToRole="PEDIDO" />
           <NavigationProperty Name="RECEPCION" Relationship="Self.RECEPCION_ID_USUARIO_FK" FromRole="USUARIO" ToRole="RECEPCION" />
           <NavigationProperty Name="ROL" Relationship="Self.USUARIO_ID_ROL_FK" FromRole="USUARIO" ToRole="ROL" />
+          <NavigationProperty Name="PEDIDO" Relationship="Model.PEDIDO_ID_USUARIO_FK" FromRole="USUARIO" ToRole="PEDIDO" />
         </EntityType>
         <Association Name="BOLETA_ID_CLIENTE_FK">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
@@ -699,42 +715,6 @@
             </Principal>
             <Dependent Role="ROL">
               <PropertyRef Name="ID_EMPRESA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PEDIDO_ID_PRODUCTO_FK">
-          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRODUCTO">
-              <PropertyRef Name="ID_PRODUCTO" />
-            </Principal>
-            <Dependent Role="PEDIDO">
-              <PropertyRef Name="ID_PRODUCTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PEDIDO_ID_PROVEEDOR_FK">
-          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROVEEDOR">
-              <PropertyRef Name="ID_PROVEEDOR" />
-            </Principal>
-            <Dependent Role="PEDIDO">
-              <PropertyRef Name="ID_PROVEEDOR" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PEDIDO_ID_USUARIO_FK">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="ID_USUARIO" />
-            </Principal>
-            <Dependent Role="PEDIDO">
-              <PropertyRef Name="ID_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -829,7 +809,6 @@
           <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" />
           <EntitySet Name="FIADO" EntityType="Self.FIADO" />
           <EntitySet Name="FUNCIONALIDAD" EntityType="Self.FUNCIONALIDAD" />
-          <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" />
           <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
           <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" />
           <EntitySet Name="RECEPCION" EntityType="Self.RECEPCION" />
@@ -860,18 +839,6 @@
           <AssociationSet Name="ROL_ID_EMPRESA_FK" Association="Self.ROL_ID_EMPRESA_FK">
             <End Role="EMPRESA" EntitySet="EMPRESA" />
             <End Role="ROL" EntitySet="ROL" />
-          </AssociationSet>
-          <AssociationSet Name="PEDIDO_ID_PRODUCTO_FK" Association="Self.PEDIDO_ID_PRODUCTO_FK">
-            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
-          </AssociationSet>
-          <AssociationSet Name="PEDIDO_ID_PROVEEDOR_FK" Association="Self.PEDIDO_ID_PROVEEDOR_FK">
-            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
-          </AssociationSet>
-          <AssociationSet Name="PEDIDO_ID_USUARIO_FK" Association="Self.PEDIDO_ID_USUARIO_FK">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
           </AssociationSet>
           <AssociationSet Name="PRODUCTO_ID_PROVEEDOR_FK" Association="Self.PRODUCTO_ID_PROVEEDOR_FK">
             <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
@@ -942,7 +909,7 @@
             <Parameter Name="RUT_PROVEEDOR_D" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_U_FIADOR">
-            <Parameter Name="RUT" Mode="In" Type="String" />
+          <Parameter Name="RUT" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_U_PROVEEDOR1">
             <Parameter Name="V_RUT_PROVEEDOR" Mode="In" Type="String" />
@@ -951,7 +918,113 @@
             <Parameter Name="V_EMAIL" Mode="In" Type="String" />
             <Parameter Name="V_GIRO" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="DETALLE_PEDIDO" EntityType="Model.DETALLE_PEDIDO" />
+          <AssociationSet Name="DETA_PEDIDO_ID_PRODUCTO" Association="Model.DETA_PEDIDO_ID_PRODUCTO">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="DETALLE_PEDIDO" EntitySet="DETALLE_PEDIDO" />
+          </AssociationSet>
+          <EntitySet Name="PEDIDO" EntityType="Model.PEDIDO" />
+          <AssociationSet Name="DETA_PEDIDO_NUME_PEDIDO" Association="Model.DETA_PEDIDO_NUME_PEDIDO">
+            <End Role="PEDIDO" EntitySet="PEDIDO" />
+            <End Role="DETALLE_PEDIDO" EntitySet="DETALLE_PEDIDO" />
+          </AssociationSet>
+          <AssociationSet Name="PEDIDO_ID_PROVEEDOR_FK" Association="Model.PEDIDO_ID_PROVEEDOR_FK">
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          </AssociationSet>
+          <AssociationSet Name="PEDIDO_ID_USUARIO_FK" Association="Model.PEDIDO_ID_USUARIO_FK">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          </AssociationSet>
+          <FunctionImport Name="SP_D_DETALLE_PEDIDO">
+          <Parameter Name="V_NUMERO_PEDIDO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_D_PEDIDO">
+          <Parameter Name="V_NUMERO_PEDIDO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_DETALLE_PEDIDO">
+            <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
+            <Parameter Name="NUME_PEDIDO" Mode="In" Type="Decimal" />
+            <Parameter Name="PRECIO_PRODUCTO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_PEDIDO">
+            <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="DETALLE_PEDIDO">
+          <Key>
+            <PropertyRef Name="NUMERO_PEDIDO" />
+            <PropertyRef Name="NUMERO_DETALLE" />
+          </Key>
+          <Property Name="NUMERO_PEDIDO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="NUMERO_DETALLE" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CANTIDAD_PRODUCTO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="PRECIO_PRODUCTO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_PRODUCTO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Model.DETA_PEDIDO_ID_PRODUCTO" FromRole="DETALLE_PEDIDO" ToRole="PRODUCTO" />
+          <NavigationProperty Name="PEDIDO" Relationship="Model.DETA_PEDIDO_NUME_PEDIDO" FromRole="DETALLE_PEDIDO" ToRole="PEDIDO" />
+        </EntityType>
+        <Association Name="DETA_PEDIDO_ID_PRODUCTO">
+          <End Type="Model.PRODUCTO" Role="PRODUCTO" Multiplicity="1" />
+          <End Type="Model.DETALLE_PEDIDO" Role="DETALLE_PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Principal>
+            <Dependent Role="DETALLE_PEDIDO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PEDIDO">
+          <Key>
+            <PropertyRef Name="NUMERO_PEDIDO" />
+          </Key>
+          <Property Name="NUMERO_PEDIDO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_PROVEEDOR" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ID_USUARIO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <NavigationProperty Name="DETALLE_PEDIDO" Relationship="Model.DETA_PEDIDO_NUME_PEDIDO" FromRole="PEDIDO" ToRole="DETALLE_PEDIDO" />
+          <NavigationProperty Name="PROVEEDOR" Relationship="Model.PEDIDO_ID_PROVEEDOR_FK" FromRole="PEDIDO" ToRole="PROVEEDOR" />
+          <NavigationProperty Name="USUARIO" Relationship="Model.PEDIDO_ID_USUARIO_FK" FromRole="PEDIDO" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="DETA_PEDIDO_NUME_PEDIDO">
+          <End Type="Model.PEDIDO" Role="PEDIDO" Multiplicity="1" />
+          <End Type="Model.DETALLE_PEDIDO" Role="DETALLE_PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PEDIDO">
+              <PropertyRef Name="NUMERO_PEDIDO" />
+            </Principal>
+            <Dependent Role="DETALLE_PEDIDO">
+              <PropertyRef Name="NUMERO_PEDIDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PEDIDO_ID_PROVEEDOR_FK">
+          <End Type="Model.PROVEEDOR" Role="PROVEEDOR" Multiplicity="1" />
+          <End Type="Model.PEDIDO" Role="PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDOR">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Principal>
+            <Dependent Role="PEDIDO">
+              <PropertyRef Name="ID_PROVEEDOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PEDIDO_ID_USUARIO_FK">
+          <End Type="Model.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="Model.PEDIDO" Role="PEDIDO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="PEDIDO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1023,17 +1096,6 @@
                 <ScalarProperty Name="NOMBRE_FUNCIONALIDAD" ColumnName="NOMBRE_FUNCIONALIDAD" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="MANUAL" ColumnName="MANUAL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PEDIDO">
-            <EntityTypeMapping TypeName="Model.PEDIDO">
-              <MappingFragment StoreEntitySet="PEDIDO">
-                <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
-                <ScalarProperty Name="CANTIDAD_SOLICITADA" ColumnName="CANTIDAD_SOLICITADA" />
-                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
-                <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1116,10 +1178,31 @@
           <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_U_CLIENTE" FunctionName="Model.Store.SP_U_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE1" FunctionName="Model.Store.SP_D_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR1" FunctionName="Model.Store.SP_D_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_U_FIADOR" FunctionName="Model.Store.SP_U_FIADOR" />
-          <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR1" FunctionName="Model.Store.SP_U_PROVEEDOR" />
+          <EntitySetMapping Name="DETALLE_PEDIDO">
+            <EntityTypeMapping TypeName="Model.DETALLE_PEDIDO">
+              <MappingFragment StoreEntitySet="DETALLE_PEDIDO">
+                <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+                <ScalarProperty Name="PRECIO_PRODUCTO" ColumnName="PRECIO_PRODUCTO" />
+                <ScalarProperty Name="CANTIDAD_PRODUCTO" ColumnName="CANTIDAD_PRODUCTO" />
+                <ScalarProperty Name="NUMERO_DETALLE" ColumnName="NUMERO_DETALLE" />
+                <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PEDIDO">
+            <EntityTypeMapping TypeName="Model.PEDIDO">
+              <MappingFragment StoreEntitySet="PEDIDO">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
+                <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_D_DETALLE_PEDIDO" FunctionName="Model.Store.SP_D_DETALLE_PEDIDO" />
+          <FunctionImportMapping FunctionImportName="SP_D_PEDIDO" FunctionName="Model.Store.SP_D_PEDIDO" />
+          <FunctionImportMapping FunctionImportName="SP_I_DETALLE_PEDIDO" FunctionName="Model.Store.SP_I_DETALLE_PEDIDO" />
+          <FunctionImportMapping FunctionImportName="SP_I_PEDIDO" FunctionName="Model.Store.SP_I_PEDIDO" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
