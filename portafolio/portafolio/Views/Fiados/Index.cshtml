@@ -12,118 +12,85 @@
 </header>
 
 <main class="container">
-    @*<div class="row bg-light py-4 mb-5">
-        buscador y estado
-    </div>*@
+    <div class="row bg-light py-4 mb-5">
+        <div class="form-group col-md-4">
+            <label class="w-100">
+                Rut:
+                <input id="rut" type="text" class="form-control" placeholder="Rut cliente" onkeyup="checkRut(this)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="w-100">
+                Nombres:
+                <input id="nombres" type="text" class="form-control" placeholder="Nombre cliente" onkeyup="valTexto(this,4,50)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="col-md-4 text-right">
+            <button class="btn btn-secondary mt-4" onclick="agregar('clientes')">Agregar</button>
+        </div>
+    </div>
     <div class="row">
-        <!--
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Salary</th>
-                </tr>
-            </tfoot>
-        </table>
-            -->
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Rut </th>
-                    <th scope="col">Nombre Completo</th>
-                    <th scope="col">¿Habilitado Fiado?</th>
-                    <th scope="col">Id</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">RUT</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Autorizado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-
-
-                <!-- ############################## -->
-                <!-- ESTA TABLA DIBUJA LOS CLIENTES -->
-                <!-- ############################## -->
                 @foreach (var item in Model)
                 {
-                   
-                    <tr style="background-color:lightcoral">
-                        <td>@contador</td>
+                    <tr>
+                        <td>@item.Cliente.Id</td>
                         <td>@item.Cliente.Rut</td>
                         <td>@item.Cliente.Nombre</td>
-                        <td>@(item.Cliente.Autorizado_fiado == 1 ? "Si" : "No")</td>
-                        <td>@item.Cliente.Id</td>
-                        @{ 
-                            contador = contador + 1;
-                        }
-                        <!-- ######################################## -->
-                        <!-- ESTA TABLA DIBUJA LOS FIADOS POR CLIENTE -->
-                        <!-- ######################################## -->
-                        @if (item.Cliente.Autorizado_fiado == 1)
-                        {
-                    <thead style="background-color:lightblue"><tr><th></th><th>Mnt. Sol</th><th>Mnt. Pag</th><th>Fecha Compra</th><th>Fecha Pago</th><th>Estado Pago</th><th>Id Cliente</th><th>Id Boleta</th></tr></thead>
-                        }
-
-
-                        @foreach (var fi in item.ListaFiados)
-                        {
-                            <tbody>
-                            <tr style="background-color:lightblue">
-                                <td></td>
-                                <td>@fi.MontoSolicitado</td>
-                                <td>@fi.MontoPagado</td>
-                                <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
-                                <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
-                                <td>@fi.EstadoPago</td>
-                                <td>@fi.IdCliente</td>
-                                <td>@fi.IdBoleta</td>
-                            </tr>
-                            </tbody>
-                        }
-
+                        <td> @(item.Cliente.Autorizado_fiado == 0 ? "Si" : "No")</td>
+                        <td><button class="btn btn-secondary" onclick="abrirBoletas(this)">Mostrar boletas<i class="ml-2 fas fa-chevron-circle-down"></i></button></td>
                     </tr>
+                    <tr class="boletas d-none">
+                        <td colspan="5" class="p-0">
 
+                            <table class="table">
+                                <thead class="table-secondary">
+
+                                    <tr>
+                                        <th scope="col">Monto Solicitado</th>
+                                        <th scope="col">Monto Pagado</th>
+                                        <th scope="col">Fecha Compra</th>
+                                        <th scope="col">Fecha Pago</th>
+                                        <th scope="col">Estado Pago</th>
+                                        <th scope="col" class="d-none">Id Cliente</th>
+                                        <th scope="col" class="d-none">Id Boleta</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-light">
+                                    @foreach (var fi in item.ListaFiados)
+                                    {
+                                        <tr>
+                                            <td>@fi.MontoSolicitado</td>
+                                            <td>@fi.MontoPagado</td>
+                                            <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
+                                            <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
+                                            <td>@(fi.EstadoPago == "0" ? "En deuda" : "Pagado")</td>
+                                            <td class="d-none">@fi.IdCliente</td>
+                                            <td class="d-none">@fi.IdBoleta</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                 }
-
-
-
-
-
-
-                <!--
-                <tr>
-                    <th scope="row">1</th>
-                    <td>
-                        <div> 55555555-5</div>
-                        Lorem Ipsum
-                    </td>
-                    <td>
-                        <div> lorem@ipsum.cl</div>
-                        +569 5456 5455
-                    </td>
-                    <td>
-                        <div>5000</div>
-                        2500
-                    </td>
-                    <td>En orden</td>
-                    <td class="d-flex">
-                        <a class="btn btn-primary editar d-none cursor-pointer" onclick="cambiarFiado(this)" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
-                    </td>
-                </tr>-->
             </tbody>
         </table>
     </div>
+
+
 </main>
 
 <script src="@Url.Content("~/assets/js/fiados.js")"></script>
-<!--<script src="@Url.Content("~/assets/js/data-table-clientes.js")"></script>-->

@@ -161,3 +161,7 @@ function updateProveedor(proveedor, editores) {
         }
     });
 }
+
+$('document').ready(function () {
+    mostrarTabla($('#tabla'));
+});

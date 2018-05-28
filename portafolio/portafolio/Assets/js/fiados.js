@@ -25,3 +25,77 @@
         }
     });
 }
+
+function getFiados() {
+
+    $.ajax({
+        type: 'POST',
+        url: '/Fiados/ObtenerFiadosCliente',
+        cache: false,
+        contentType: "application/json",
+        success: function (data) {
+            debugger;
+
+            if (data.length > 0) {
+                var array = [];
+
+                $.each(data, function (i, fiado) {
+                    array.push([
+                        fiado.Cliente.Rut.toString(),
+                        fiado.Cliente.Nombre.toString(),
+                        (fiado.Cliente.Autorizado_fiado == 1 ? "Si" : "No").toString(),
+                        fiado.Cliente.Id.toString(),
+                    ]);
+                });
+
+                //var dataTable = {
+                //    "data": array
+                //};
+
+                //$('#example').DataTable({
+                //    "data": array,
+                //    columns: [
+                //        {
+                //            "className": 'btn',
+                //            "orderable": false,
+                //            "data": null,
+                //            "defaultContent": ''
+                //        },
+                //        { title: "Rut" },
+                //        { title: "Nombre" },
+                //        { title: "Autorizado" },
+                //        { title: "ID" }
+                //    ]
+                //});
+
+            }
+            else {
+                alert('No se ha podido obtener fiados');
+            }
+
+        },
+        error: function (ex) {
+            alert('Error al eliminar cliente');
+        }
+    });
+}
+
+function abrirBoletas(e) {
+    debugger;
+    var boletas = $(e).closest('tbody').find('.boletas');
+    if (boletas.hasClass('d-none')) {
+        boletas.removeClass('d-none');
+        $(e).html('Ocultar boletas<i class="ml-2 fas fa-chevron-circle-up"></i>');
+    } else {
+        boletas.addClass('d-none');
+        $(e).html('Mostrar boletas<i class="ml-2 fas fa-chevron-circle-down"></i>');
+    }
+}
+
+$(document).ready(function () {
+   
+});
+
+//$('#example').DataTable({
+//    "ajax": "./assets/js/data-data-table.json"
+//});

@@ -132,3 +132,7 @@ function updateCliente(cliente, editores) {
         }
     });
 }
+
+$('document').ready(function () {
+    mostrarTabla($('#tablaClientes'));
+});
