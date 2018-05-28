@@ -16,7 +16,8 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                return View();
+                List<Pedido> pedidos = ObtenerPedidos();
+                return View(pedidos);
             }
             return Redirect("~/Login/");
         }

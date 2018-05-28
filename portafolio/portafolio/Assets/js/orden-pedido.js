@@ -115,7 +115,7 @@ function sumarTotal() {
 
 //Genera la Orden de Pedido
 function generarOP(e) {
-    debugger;
+    
   var total = $('#total strong');//Total
   if (total.text() === "0") {//Si es 0
     alert('Debes agregar al menos un producto');
@@ -154,7 +154,7 @@ function generarOP(e) {
 
       //Acá hay que llamar a un ajax
       if (e.id === "editarOP") {
-          editarOP(tabla, productos, total);
+          editarOP(tabla, productos, total, e);
       } else {
         agregarOP(tabla, productos, total);
       }
@@ -162,8 +162,8 @@ function generarOP(e) {
 }
 
 //Agrega orden de pedido
-function editarOP(tabla, productos, total) {
-
+function editarOP(tabla, productos, total, e) {
+    
     var objProductos = JSON.stringify(productos);
     objProductos = objProductos.replace(/\s/g,"_");
 
@@ -199,7 +199,14 @@ function editarOP(tabla, productos, total) {
     //    }
     //});
 
+    //Remover fila de la tabla y luego pintar la nueva
 
+    var filas = $('#tablaOP').find('tbody').find('tr');
+    $.each(filas, function (i, val) {
+        if ($(val).find('th')[0].textContent === idOPModificar) {
+            $(val).closest('tr').remove();
+        }
+    });
 
     llenarTabla(OP);//Llenar la tabla
     $('#vacio').addClass('d-flex');
@@ -209,6 +216,8 @@ function editarOP(tabla, productos, total) {
     tabla.closest('.productos').siblings('.productos').addClass('d-none');
     tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
     tabla.find('tbody').html('');
+    $('#editarOP').addClass('d-none');
+    $('#generarOP').removeClass('d-none');
 }
 
 //Edita orden de pedido
@@ -284,13 +293,42 @@ function eliminarOP(elem) {
     alert('No se puede eliminar, está enviada');
     return false;
   } else {
-    eliminar(elem);//eliminar fila
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/OrdenPedido/agregar',
+    //    cache: false,
+    //    data: JSON.stringify(OP),
+    //    contentType: "application/json",
+    //    async: false,
+    //    success: function (data) {
+    //        if (data == "True") {
+    //            llenarTabla(OP);//Llenar la tabla
+    //            $('#vacio').addClass('d-flex');
+    //            $('#vacio').removeClass('d-none');
+    //            tabla.closest('.productos').addClass('d-none');
+    //            tabla.closest('.productos').removeClass('d-flex');
+    //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
+    //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+    //            tabla.find('tbody').html('');
+    //        } else if (data == "False") {
+    //            alert("No se ha podido generar la orden pedido");
+    //        }
+    //    },
+    //    error: function (ex) {
+    //        alert('Error al generar la orden de pedido');
+    //    }
+    //});
+
     return true;
   }
 }
 
+var idOPModificar = 0;
+
 //Muestra la Orden de Pedido, se le pasa elemento
 function muestraOP(elem) {
+    
+    idOPModificar = $(elem).closest('tr').find('th')[0].textContent;
   var productos = $('#productosContainer');//body de tabla productos
   limpiarTablaProductos(productos);
   var fila = $(elem).closest('tr');
@@ -385,7 +423,6 @@ function eliminarProducto(e, tabla) {
     mostrarTabla(tabla,'producto');//Muestra tabla si tiene filas
 }
 
-// In your Javascript (external .js resource or <script> tag)
 $(document).ready(function () {
     fillSelectProveedor();
     $('#proveedor').on('select2:select', function (e) {
