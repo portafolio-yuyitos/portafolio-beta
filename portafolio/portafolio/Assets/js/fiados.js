@@ -92,10 +92,37 @@ function abrirBoletas(e) {
     }
 }
 
-$(document).ready(function () {
-   
-});
+function pagarBoleta(e) {
+    debugger;
 
-//$('#example').DataTable({
-//    "ajax": "./assets/js/data-data-table.json"
-//});
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/Fiados/ObtenerFiadosCliente',
+    //    cache: false,
+    //    contentType: "application/json",
+    //    success: function (data) {
+    //        debugger;
+
+    //        if (data.length > 0) {
+    //            var array = [];
+
+    //            $.each(data, function (i, fiado) {
+    //                array.push([
+    //                    fiado.Cliente.Rut.toString(),
+    //                    fiado.Cliente.Nombre.toString(),
+    //                    (fiado.Cliente.Autorizado_fiado == 1 ? "Si" : "No").toString(),
+    //                    fiado.Cliente.Id.toString(),
+    //                ]);
+    //            });
+
+    //        }
+    //        else {
+    //            alert('No se ha podido obtener fiados');
+    //        }
+
+    //    },
+    //    error: function (ex) {
+    //        alert('Error al eliminar cliente');
+    //    }
+    //});
+}

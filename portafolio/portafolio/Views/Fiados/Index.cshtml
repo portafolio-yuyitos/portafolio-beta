@@ -12,7 +12,7 @@
 </header>
 
 <main class="container">
-    <div class="row bg-light py-4 mb-5">
+    @*<div class="row bg-light py-4 mb-5">
         <div class="form-group col-md-4">
             <label class="w-100">
                 Rut:
@@ -30,7 +30,7 @@
         <div class="col-md-4 text-right">
             <button class="btn btn-secondary mt-4" onclick="agregar('clientes')">Agregar</button>
         </div>
-    </div>
+    </div>*@
     <div class="row">
         <table class="table">
             <thead class="thead-dark">
@@ -64,6 +64,7 @@
                                         <th scope="col">Fecha Compra</th>
                                         <th scope="col">Fecha Pago</th>
                                         <th scope="col">Estado Pago</th>
+                                        <th scope="col">Acciones</th>
                                         <th scope="col" class="d-none">Id Cliente</th>
                                         <th scope="col" class="d-none">Id Boleta</th>
                                     </tr>
@@ -77,6 +78,7 @@
                                             <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
                                             <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
                                             <td>@(fi.EstadoPago == "0" ? "En deuda" : "Pagado")</td>
+                                            <td><button class="btn btn-primary" onclick="pagarBoleta(this)" data-toggle="tooltip" data-placement="top" title="Pagar boleta"><i class="fas fa-check-circle" ></i></button></td>
                                             <td class="d-none">@fi.IdCliente</td>
                                             <td class="d-none">@fi.IdBoleta</td>
                                         </tr>

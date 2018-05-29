@@ -1,17 +1,109 @@
-﻿
+﻿@model List<portafolio.Models.Boleta>
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int contador = 1;
 }
 
-<h2>View</h2>
+<header class="container my-5">
+    <div class="row justify-content-center">
+        <h1>Boletas</h1>
+    </div>
+</header>
+<main class="container">
+    <div class="row bg-light py-4 mb-5">
+        <div class="form-group col-md-2">
+            <label class="w-100">
+                Número boleta:
+                <input id="numBoleta" type="text" class="form-control" placeholder="Número boleta" onkeyup="valNumber(this,1,15)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="w-100">
+                Monto fiado:
+                <input id="montoFiado" type="number" class="form-control" placeholder="Monto Fiado" onkeyup="valNumber(this,1,9999999)" onchange="valNumber(this,1,9999999)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="w-100 d-flex flex-column">
+                Tipo pago:
+                <select class="form-control" name="tipoPago" id='tipoPago' onchange="valSelect(this)">
+                    <option value="1" selected>Efectivo</option>
+                </select>
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="w-100 d-flex flex-column">
+                Cliente:
+                <select class="form-control" name="idCliente" id='idCliente' onchange="valSelect(this)">
+                    <option value="1" selected>Efectivo</option>
+                </select>
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="w-100 d-flex flex-column">
+                Fecha:
+                <input id="fechaBoleta" type="text" class="form-control" disabled>
+            </label>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="w-100">
+                Monto total:
+                <input id="montoTotal" type="number" class="form-control" placeholder="Monto total" onkeyup="valNumber(this,1,9999999)" onchange="valNumber(this,1,9999999)">
+                <label class="error text-danger d-none position-absolute"></label>
+            </label>
+        </div>
 
-<div class="container">
-    <h3>Encabezado</h3>
-    <label>Id Boleta</label>
-    <input type="number" name="numeroBoleta" value="" />
+        <div class="col-md-12 text-right">
+            <button class="btn btn-secondary mt-4" onclick="agregar('boleta')">Agregar</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table" id="tablaBoletas">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Número boleta</th>
+                    <th scope="col">Monto fiado</th>
+                    <th scope="col">Tipo pago</th>
+                    <th scope="col">Fecha boleta</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Total boleta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model)
+                {
+                <tr>
+                    <th scope="row">@contador</th>
+                    <td>
+                        <p>@item.NumeroBoleta</p>
+                    </td>
+                    <td>
+                        <p>@item.Fiado</p>
+                    </td>
+                    <td>
+                        <p>@item.FechaBoleta</p>
+                    </td>
+                    <td>
+                        <p>@item.IdCliente</p>
+                    </td>
+                    <td>
+                        <p>@item.TotalBoleta</p>
+                    </td>
+                    <td>
+                        <p>@item.NumeroBoleta</p>
+                    </td>
+                </tr>
+                    contador++;
+                }*@
+            </tbody>
+        </table>
+    </div>
+</main>
 
-    <label>Fiado</label>
-
-
-</div>
+<script src="@Url.Content("~/assets/js/boleta.js")"></script>

@@ -246,17 +246,132 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", cANTIDAD_PRODUCTOParameter, iD_PRODUCTOParameter, nUME_PEDIDOParameter, pRECIO_PRODUCTOParameter);
         }
     
-        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO)
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, string iD_USUARIO)
         {
             var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
                 new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
                 new ObjectParameter("ID_PROVEEDOR", typeof(decimal));
     
-            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
+            var iD_USUARIOParameter = iD_USUARIO != null ?
                 new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(decimal));
+                new ObjectParameter("ID_USUARIO", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter);
+        }
+    
+        public virtual int SP_D_BOLETA(string nUMERO_BOLETA)
+        {
+            var nUMERO_BOLETAParameter = nUMERO_BOLETA != null ?
+                new ObjectParameter("NUMERO_BOLETA", nUMERO_BOLETA) :
+                new ObjectParameter("NUMERO_BOLETA", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
+        }
+    
+        public virtual int SP_D_DETALLE_BOLETA(string iD_DETALLE)
+        {
+            var iD_DETALLEParameter = iD_DETALLE != null ?
+                new ObjectParameter("ID_DETALLE", iD_DETALLE) :
+                new ObjectParameter("ID_DETALLE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_DETALLE_BOLETA", iD_DETALLEParameter);
+        }
+    
+        public virtual int SP_I_BOLETA(Nullable<decimal> v_NUMERO_BOLETA, Nullable<decimal> v_FIADO, string v_TIPO_PAGO, Nullable<decimal> v_TOTAL_BOLETA, Nullable<System.DateTime> v_FECHA_BOLETA, Nullable<decimal> v_ID_CLIENTE)
+        {
+            var v_NUMERO_BOLETAParameter = v_NUMERO_BOLETA.HasValue ?
+                new ObjectParameter("V_NUMERO_BOLETA", v_NUMERO_BOLETA) :
+                new ObjectParameter("V_NUMERO_BOLETA", typeof(decimal));
+    
+            var v_FIADOParameter = v_FIADO.HasValue ?
+                new ObjectParameter("V_FIADO", v_FIADO) :
+                new ObjectParameter("V_FIADO", typeof(decimal));
+    
+            var v_TIPO_PAGOParameter = v_TIPO_PAGO != null ?
+                new ObjectParameter("V_TIPO_PAGO", v_TIPO_PAGO) :
+                new ObjectParameter("V_TIPO_PAGO", typeof(string));
+    
+            var v_TOTAL_BOLETAParameter = v_TOTAL_BOLETA.HasValue ?
+                new ObjectParameter("V_TOTAL_BOLETA", v_TOTAL_BOLETA) :
+                new ObjectParameter("V_TOTAL_BOLETA", typeof(decimal));
+    
+            var v_FECHA_BOLETAParameter = v_FECHA_BOLETA.HasValue ?
+                new ObjectParameter("V_FECHA_BOLETA", v_FECHA_BOLETA) :
+                new ObjectParameter("V_FECHA_BOLETA", typeof(System.DateTime));
+    
+            var v_ID_CLIENTEParameter = v_ID_CLIENTE.HasValue ?
+                new ObjectParameter("V_ID_CLIENTE", v_ID_CLIENTE) :
+                new ObjectParameter("V_ID_CLIENTE", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_BOLETA", v_NUMERO_BOLETAParameter, v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter, v_ID_CLIENTEParameter);
+        }
+    
+        public virtual int SP_I_DETALLE_BOLETA(Nullable<decimal> v_CANTIDAD_PRODUCTO, Nullable<decimal> v_ID_PRODUCTO, Nullable<decimal> v_ID_BOLETA)
+        {
+            var v_CANTIDAD_PRODUCTOParameter = v_CANTIDAD_PRODUCTO.HasValue ?
+                new ObjectParameter("V_CANTIDAD_PRODUCTO", v_CANTIDAD_PRODUCTO) :
+                new ObjectParameter("V_CANTIDAD_PRODUCTO", typeof(decimal));
+    
+            var v_ID_PRODUCTOParameter = v_ID_PRODUCTO.HasValue ?
+                new ObjectParameter("V_ID_PRODUCTO", v_ID_PRODUCTO) :
+                new ObjectParameter("V_ID_PRODUCTO", typeof(decimal));
+    
+            var v_ID_BOLETAParameter = v_ID_BOLETA.HasValue ?
+                new ObjectParameter("V_ID_BOLETA", v_ID_BOLETA) :
+                new ObjectParameter("V_ID_BOLETA", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_BOLETA", v_CANTIDAD_PRODUCTOParameter, v_ID_PRODUCTOParameter, v_ID_BOLETAParameter);
+        }
+    
+        public virtual int SP_RESET_SEQ_DETALLE_PEDIDO()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RESET_SEQ_DETALLE_PEDIDO");
+        }
+    
+        public virtual int SP_U_BOLETA(Nullable<decimal> v_NUMERO_BOLETA, Nullable<decimal> v_FIADO, string v_TIPO_PAGO, Nullable<decimal> v_TOTAL_BOLETA, Nullable<System.DateTime> v_FECHA_BOLETA)
+        {
+            var v_NUMERO_BOLETAParameter = v_NUMERO_BOLETA.HasValue ?
+                new ObjectParameter("V_NUMERO_BOLETA", v_NUMERO_BOLETA) :
+                new ObjectParameter("V_NUMERO_BOLETA", typeof(decimal));
+    
+            var v_FIADOParameter = v_FIADO.HasValue ?
+                new ObjectParameter("V_FIADO", v_FIADO) :
+                new ObjectParameter("V_FIADO", typeof(decimal));
+    
+            var v_TIPO_PAGOParameter = v_TIPO_PAGO != null ?
+                new ObjectParameter("V_TIPO_PAGO", v_TIPO_PAGO) :
+                new ObjectParameter("V_TIPO_PAGO", typeof(string));
+    
+            var v_TOTAL_BOLETAParameter = v_TOTAL_BOLETA.HasValue ?
+                new ObjectParameter("V_TOTAL_BOLETA", v_TOTAL_BOLETA) :
+                new ObjectParameter("V_TOTAL_BOLETA", typeof(decimal));
+    
+            var v_FECHA_BOLETAParameter = v_FECHA_BOLETA.HasValue ?
+                new ObjectParameter("V_FECHA_BOLETA", v_FECHA_BOLETA) :
+                new ObjectParameter("V_FECHA_BOLETA", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_BOLETA", v_NUMERO_BOLETAParameter, v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter);
+        }
+    
+        public virtual int SP_U_DETALLE_BOLETA(Nullable<decimal> v_ID_DETALLE, string v_CANTIDAD_PRODUCTO, Nullable<decimal> v_ID_PRODUCTO, Nullable<decimal> v_ID_BOLETA)
+        {
+            var v_ID_DETALLEParameter = v_ID_DETALLE.HasValue ?
+                new ObjectParameter("V_ID_DETALLE", v_ID_DETALLE) :
+                new ObjectParameter("V_ID_DETALLE", typeof(decimal));
+    
+            var v_CANTIDAD_PRODUCTOParameter = v_CANTIDAD_PRODUCTO != null ?
+                new ObjectParameter("V_CANTIDAD_PRODUCTO", v_CANTIDAD_PRODUCTO) :
+                new ObjectParameter("V_CANTIDAD_PRODUCTO", typeof(string));
+    
+            var v_ID_PRODUCTOParameter = v_ID_PRODUCTO.HasValue ?
+                new ObjectParameter("V_ID_PRODUCTO", v_ID_PRODUCTO) :
+                new ObjectParameter("V_ID_PRODUCTO", typeof(decimal));
+    
+            var v_ID_BOLETAParameter = v_ID_BOLETA.HasValue ?
+                new ObjectParameter("V_ID_BOLETA", v_ID_BOLETA) :
+                new ObjectParameter("V_ID_BOLETA", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_DETALLE_BOLETA", v_ID_DETALLEParameter, v_CANTIDAD_PRODUCTOParameter, v_ID_PRODUCTOParameter, v_ID_BOLETAParameter);
         }
     }
 }

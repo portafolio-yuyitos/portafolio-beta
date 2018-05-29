@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - Almacén Yuyitos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="@Url.Content("~/Assets/css/style.css")">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -18,12 +18,14 @@
     @if (Session["usuario"] != null)
     {
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="./Home">Almacén Yuyitos</a>
+            <div class="d-flex flex-column position-relative">
+                <a class="navbar-brand pt-0 mb-2" href="./Informes">Almacén Yuyitos</a>
+                <p class="menu-leyend">Bienvenido: @Session["usuario"]</p>
+            </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                 Bienvenido: @Session["usuario"]
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="./Proveedores">Proveedores</a>
@@ -40,31 +42,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./OrdenPedido">Orden de pedido</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuRecepcion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Recepción de productos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuRecepcion">
-                            <a class="dropdown-item" href="#">sdasdsa</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuinformes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Informes
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuInformes">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./OrdenPedido">Recepción de productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Login/CerrarSesion">Salir</a>
+                        <a class="nav-link" href="./Informes">Informes</a>
                     </li>
                 </ul>
             </div>
+            <a class="nav-link" href="/Login/CerrarSesion">Salir</a>
         </nav>
         @RenderBody()
     }
@@ -78,9 +64,9 @@
         </nav>
         @RenderBody()
     }
-        <div class="spinner">
-            <i class="fas fa-spinner"></i>
-        </div>
+    <div class="spinner">
+        <i class="fas fa-spinner"></i>
+    </div>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -15,6 +15,7 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
+                //return View(ObtenerPedidos());
                 return View();
             }
             return Redirect("~/Login/");
@@ -99,6 +100,21 @@ namespace portafolio.Controllers
             }
 
             return boletas;
+        }
+
+        [HttpPost]
+        public bool Agregar(Boleta bol)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_I_BOLETA(bol.NumeroBoleta,bol.Fiado,bol.TipoPago,bol.TotalBoleta,bol.FechaBoleta,bol.IdCliente);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
