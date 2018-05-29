@@ -63,12 +63,12 @@ function llenarProductos(cantidad, proveedor, producto) {
     var nombreProducto = producto[0].selectedOptions[0].innerText;
   var precio = $('#precio')['0'].value * cantidad.value;
   var productos = $('#productosContainer');
-    var fila = '<tr class="border-bottom">'; //Crea fila
-    fila += '<td class="p-2" data-id="' + proveedor.val() + '">' + nombreProveedor + '</td>';
-    fila += '<td class="p-2" data-id="' + producto.val() + '">' + nombreProducto + '</td>';
+    var fila = '<tr>'; //Crea fila
+    fila += '<td data-id="' + proveedor.val() + '">' + nombreProveedor + '</td>';
+    fila += '<td data-id="' + producto.val() + '">' + nombreProducto + '</td>';
   fila += '<td>' + cantidad.value + '</td>';
   fila += '<td class="precio">' + precio + '</td>';
-    fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" +')">Eliminar</button>';
+    fila += '<td><button class="btn btn-danger mr-2" onclick="eliminar(this,' + "'productos'" +')">Eliminar</button>';
   fila += '</td></tr>';
   //Pinta en tabla productos
   productos.find('tbody').append(fila);

@@ -18,9 +18,8 @@
     @if (Session["usuario"] != null)
     {
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="d-flex flex-column position-relative">
-                <a class="navbar-brand pt-0 mb-2" href="./Informes">Almacén Yuyitos</a>
-                <p class="menu-leyend">Bienvenido: @Session["usuario"]</p>
+            <div class="d-flex">
+                <a class="navbar-brand" href="./Informes" onclick="spinner(true)">Almacén Yuyitos</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,29 +27,32 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./Proveedores">Proveedores</a>
+                        <a class="nav-link" href="./Proveedores" onclick="spinner(true)">Proveedores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Clientes">Clientes</a>
+                        <a class="nav-link" href="./Clientes" onclick="spinner(true)">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Boletas">Boletas</a>
+                        <a class="nav-link" href="./Boletas" onclick="spinner(true)">Boletas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Fiados">Fiados</a>
+                        <a class="nav-link" href="./Fiados" onclick="spinner(true)">Fiados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./OrdenPedido">Orden de pedido</a>
+                        <a class="nav-link" href="./OrdenPedido" onclick="spinner(true)">Orden de pedido</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./OrdenPedido">Recepción de productos</a>
+                        <a class="nav-link" href="./OrdenPedido" onclick="spinner(true)">Recepción de productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Informes">Informes</a>
+                        <a class="nav-link" href="./Informes" onclick="spinner(true)">Informes</a>
                     </li>
                 </ul>
             </div>
-            <a class="nav-link" href="/Login/CerrarSesion">Salir</a>
+            <div class="d-flex align-items-center">
+                <p class="mb-0">Bienvenido: @Session["usuario"]</p>
+                <a class="nav-link" href="/Login/CerrarSesion" onclick="spinner(true)">Salir</a>
+            </div>
         </nav>
         @RenderBody()
     }

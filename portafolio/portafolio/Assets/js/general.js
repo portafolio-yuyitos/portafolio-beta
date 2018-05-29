@@ -312,6 +312,7 @@ function mostrarTabla(tabla, producto) {
     var filas = tabla.find('tbody tr');
     if (filas.length > 0) {//Si tiene filas
         tabla.removeClass('d-none');
+        tabla.siblings('.title-table').removeClass('d-none');
         if (producto !== undefined) {//si es producto
             $('#vacio').removeClass('d-flex');
             $('#vacio').addClass('d-none');
@@ -322,6 +323,7 @@ function mostrarTabla(tabla, producto) {
         }
     } else {
         tabla.addClass('d-none');
+        tabla.siblings('.title-table').addClass('d-none');
         if (producto !== undefined) {//si es producto
             // mostrarVacio(tabla,true);
             $('#vacio').addClass('d-flex');

@@ -1,5 +1,6 @@
 ﻿body {
-    background-color: #ececec;
+    background-color: #770000;
+    color: white;
 }
 
 .w-20 {
@@ -17,6 +18,7 @@ main {
 
 .error {
     font-size: 14px;
+    font-weight: 700;
 }
 
 .cursor-pointer {
@@ -31,22 +33,23 @@ main {
     font-size: 40px;
 }
 
-.select2{
+.select2 {
     width: 100%;
 }
 
-.spinner{
-    background-color: rgba(255, 255, 255,0.8);
+.spinner {
+    background: linear-gradient(to top, #270000, #b50000);
     height: 100vh;
     width: 100%;
-    top:0;
-    position:fixed;
+    top: 0;
+    position: fixed;
 }
 
     .spinner .fa-spinner {
         position: relative;
-        top: 50%;
-        left: 50%;
+        top: 47%;
+        left: 47%;
+        color: red;
         -webkit-animation: spin 4s linear infinite;
         -moz-animation: spin 4s linear infinite;
         animation: spin 4s linear infinite;
@@ -101,7 +104,7 @@ main {
     background-color: rgba(0, 104, 31, 0.45);
 }
 
-table p{
+table p {
     margin: 0;
 }
 
@@ -110,4 +113,60 @@ table p{
     top: 1.2rem;
     margin-bottom: 0;
     color: rgba(0,0,0,0.5);
+}
+
+nav {
+    background: linear-gradient(to top, #b50000, #cc0000);
+    color: white;
+}
+
+    nav a {
+        color: white !important;
+    }
+
+        nav a:hover {
+            box-shadow: inset 0 -5px 0 #ff9900;
+        }
+
+*:hover, *:active, *:focus, *:hover {
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgba(250, 255, 189,0.8) !important;
+}
+
+.form-control,
+.form-control:focus {
+    background-color: rgba(255,255,255,0.8);
+}
+
+.btn-primary {
+    color: #000000;
+    background-color: #ff9900;
+    border-color: #da8300;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+        background-color: #d07d00;
+        border-color: #da8300;
+    }
+
+.w-97 {
+    width: 98.5% !important;
+}
+
+.border-top{
+    border-top: 3px solid #ff9900 !important;
+}
+
+.c-orange {
+    color: #ff9900 !important;
+}
+
+.bg-dark-dark {
+    background-color: #1b1e21;
 }

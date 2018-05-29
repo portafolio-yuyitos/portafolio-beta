@@ -6,34 +6,19 @@
 }
 
 <header class="container my-5">
-    <div class="row justify-content-center">
-        <h1>Fiados</h1>
+    <div class="row flex-column">
+        <h1 class="mb-0">Fiados</h1>
+        <small>Podrás revisar las boletas de los clientes fiadores y pagar las boletas fiadas.</small>
     </div>
 </header>
 
 <main class="container">
-    @*<div class="row bg-light py-4 mb-5">
-        <div class="form-group col-md-4">
-            <label class="w-100">
-                Rut:
-                <input id="rut" type="text" class="form-control" placeholder="Rut cliente" onkeyup="checkRut(this)">
-                <label class="error text-danger d-none position-absolute"></label>
-            </label>
-        </div>
-        <div class="form-group col-md-4">
-            <label class="w-100">
-                Nombres:
-                <input id="nombres" type="text" class="form-control" placeholder="Nombre cliente" onkeyup="valTexto(this,4,50)">
-                <label class="error text-danger d-none position-absolute"></label>
-            </label>
-        </div>
-        <div class="col-md-4 text-right">
-            <button class="btn btn-secondary mt-4" onclick="agregar('clientes')">Agregar</button>
-        </div>
-    </div>*@
     <div class="row">
-        <table class="table">
-            <thead class="thead-dark">
+        <div class="w-100 title-table">
+            <h5 class="c-orange mb-4">Listado de fiadores:</h5>
+        </div>
+        <table class="table table-dark border-top">
+            <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">RUT</th>
@@ -53,9 +38,8 @@
                         <td><button class="btn btn-secondary" onclick="abrirBoletas(this)">Mostrar boletas<i class="ml-2 fas fa-chevron-circle-down"></i></button></td>
                     </tr>
                     <tr class="boletas d-none">
-                        <td colspan="5" class="p-0">
-
-                            <table class="table">
+                        <td colspan="5" class="p-0 pl-3 pt-3">
+                            <table class="table text-dark table-hover w-97">
                                 <thead class="table-secondary">
 
                                     <tr>
@@ -78,7 +62,7 @@
                                             <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
                                             <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
                                             <td>@(fi.EstadoPago == "0" ? "En deuda" : "Pagado")</td>
-                                            <td><button class="btn btn-primary" onclick="pagarBoleta(this)" data-toggle="tooltip" data-placement="top" title="Pagar boleta"><i class="fas fa-check-circle" ></i></button></td>
+                                            <td><button class="btn btn-primary" onclick="pagarBoleta(this)" data-toggle="tooltip" data-placement="top" title="Pagar boleta"><i class="fas fa-check-circle"></i></button></td>
                                             <td class="d-none">@fi.IdCliente</td>
                                             <td class="d-none">@fi.IdBoleta</td>
                                         </tr>

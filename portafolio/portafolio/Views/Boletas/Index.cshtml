@@ -1,17 +1,21 @@
 ﻿@model List<portafolio.Models.Boleta>
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Boletas";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int contador = 1;
 }
 
 <header class="container my-5">
-    <div class="row justify-content-center">
-        <h1>Boletas</h1>
+    <div class="row flex-column">
+        <h1 class="mb-0">Boletas</h1>
+        <small>Podrás ingresar boletas.</small>
     </div>
 </header>
 <main class="container">
-    <div class="row bg-light py-4 mb-5">
+    <div class="row bg-dark py-4 mb-5 border-top">
+        <div class="col-md-12">
+            <h5 class="c-orange mb-4">Agregar boleta:</h5>
+        </div>
         <div class="form-group col-md-2">
             <label class="w-100">
                 Número boleta:
@@ -59,12 +63,15 @@
         </div>
 
         <div class="col-md-12 text-right">
-            <button class="btn btn-secondary mt-4" onclick="agregar('boleta')">Agregar</button>
+            <button class="btn btn-primary mt-4" onclick="agregar('boleta')">Agregar</button>
         </div>
     </div>
     <div class="row">
-        <table class="table" id="tablaBoletas">
-            <thead class="thead-dark">
+        <div class="w-100 title-table">
+            <h5 class="c-orange mb-4">Listado de boletas:</h5>
+        </div>
+        <table class="table table-dark table-hover border-top" id="tablaBoletas">
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Número boleta</th>

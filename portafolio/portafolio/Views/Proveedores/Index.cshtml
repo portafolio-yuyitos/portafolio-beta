@@ -5,15 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int contador = 1;
 }
- 
+
 
 <header class="container my-5">
-    <div class="row justify-content-center">
-        <h1>Proveedores</h1>
+    <div class="row flex-column">
+        <h1 class="mb-0">Proveedores</h1>
+        <small>Podrás gestionar los proveedores.</small>
     </div>
 </header>
 <main class="container">
-    <div class="row bg-light py-4 mb-5">
+    <div class="row bg-dark py-4 mb-5 border-top">
+        <div class="col-md-12">
+            <h5 class="c-orange mb-4">Agregar proveedor:</h5>
+        </div>
         <div class="form-group col-md-3">
             <label class="w-100">
                 Rut:
@@ -21,10 +25,10 @@
                 <label class="error text-danger d-none position-absolute"></label>
             </label>
         </div>
-        
+
         <div class="form-group col-md-3">
             <label class="w-100">
-               Email:
+                Email:
                 <input id="email" type="email" class="form-control" placeholder="Email" onkeyup="valEmail(this)">
                 <label class="error text-danger d-none position-absolute"></label>
             </label>
@@ -51,12 +55,15 @@
             </label>
         </div>
         <div class="col-md-12 text-right">
-            <button class="btn btn-secondary" onclick="agregar('proveedor')">Agregar</button>
+            <button class="btn btn-primary" onclick="agregar('proveedor')">Agregar</button>
         </div>
     </div>
     <div class="row">
-        <table class="table" id="tabla">
-            <thead class="thead-dark">
+        <div class="w-100 title-table">
+            <h5 class="c-orange mb-4">Listado de proveedores:</h5>
+        </div>
+        <table class="table table-hover table-dark border-top" id="tabla">
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Rut</th>
@@ -69,43 +76,43 @@
             </thead>
             <tbody>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <th scope="row">@contador</th>
-                    <td>
-                        <p>@item.RutProveedor</p>
-                        <input type="text" value="@item.RutProveedor" class="form-control editar d-none" onkeyup="checkRut(this)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>@item.Email</p>
-                        <input type="text" value="@item.Email" class="form-control editar d-none" onkeyup="valEmail(this)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>@item.RazonSocial</p>
-                        <input type="text" value="@item.RazonSocial" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>@item.Giro</p>
-                        <input type="text" value="@item.Giro" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <p>@item.Fono</p>
-                        <input type="text" value="@item.Fono" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
-                        <label class="error text-danger d-none "></label>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this)" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
-                        <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this)" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
-                        <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
-                    </td>
-                </tr>
-                contador++;
-            }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@contador</th>
+                        <td>
+                            <p>@item.RutProveedor</p>
+                            <input type="text" value="@item.RutProveedor" class="form-control editar d-none" onkeyup="checkRut(this)">
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <p>@item.Email</p>
+                            <input type="text" value="@item.Email" class="form-control editar d-none" onkeyup="valEmail(this)">
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <p>@item.RazonSocial</p>
+                            <input type="text" value="@item.RazonSocial" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <p>@item.Giro</p>
+                            <input type="text" value="@item.Giro" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <p>@item.Fono</p>
+                            <input type="text" value="@item.Fono" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
+                            <label class="error text-danger d-none "></label>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this)" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
+                            <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this)" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    contador++;
+                }
             </tbody>
         </table>
     </div>

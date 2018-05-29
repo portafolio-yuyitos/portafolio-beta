@@ -6,12 +6,16 @@
 }
 
 <header class="container my-5">
-    <div class="row justify-content-center">
-        <h1>Clientes</h1>
+    <div class="row flex-column">
+        <h1 class="mb-0">Clientes</h1>
+        <small>Podrás gestionar los clientes.</small>
     </div>
 </header>
 <main class="container">
-    <div class="row bg-light py-4 mb-5">
+    <div class="row bg-dark py-4 mb-5 border-top">
+        <div class="col-md-12">
+            <h5 class="c-orange mb-4">Agregar cliente:</h5>
+        </div>
         <div class="form-group col-md-4">
             <label class="w-100">
                 Rut:
@@ -27,12 +31,15 @@
             </label>
         </div>
         <div class="col-md-4 text-right">
-            <button class="btn btn-secondary mt-4" onclick="agregar('clientes')">Agregar</button>
+            <button class="btn btn-primary mt-4" onclick="agregar('clientes')">Agregar</button>
         </div>
     </div>
     <div class="row">
-        <table class="table" id="tablaClientes">
-            <thead class="thead-dark">
+        <div class="w-100 title-table">
+            <h5 class="c-orange mb-4">Listado de clientes:</h5>
+        </div>
+        <table class="table table-dark table-hover border-top" id="tablaClientes">
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Rut</th>
@@ -42,17 +49,17 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-            {
+                {
                     <tr>
                         <th scope="row">@contador</th>
                         <td>
                             <p>@item.Rut</p>
-                            <input type="text" value="@item.Rut" class="form-control editar d-none rut" onkeyup="checkRut(this)"/>
+                            <input type="text" value="@item.Rut" class="form-control editar d-none rut" onkeyup="checkRut(this)" />
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
                             <p>@item.Nombre</p>
-                            <input type="text" value="@item.Nombre" class="form-control editar d-none" onkeyup="valTexto(this,4,50)"/>
+                            <input type="text" value="@item.Nombre" class="form-control editar d-none" onkeyup="valTexto(this,4,50)" />
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td class="d-flex">
