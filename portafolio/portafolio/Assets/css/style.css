@@ -95,6 +95,10 @@ main {
     border-radius: inherit !important;
 }
 
+.select2-results___options {
+    color: #000 !important;
+}
+
 .cliente {
     background-color: rgba(0, 0, 0, 0.39);
     padding: 1rem;
@@ -159,7 +163,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     width: 98.5% !important;
 }
 
-.border-top{
+.border-top {
     border-top: 3px solid #ff9900 !important;
 }
 
@@ -169,4 +173,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .bg-dark-dark {
     background-color: #1b1e21;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0px 5px 12px 0px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 5px 12px 0px rgba(0,0,0,0.31);
+    box-shadow: 0px 5px 12px 0px rgba(0,0,0,0.31);
+}
+
+.border-radius {
+    border-radius: 0px 0px 5px 5px;
 }
