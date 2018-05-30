@@ -246,24 +246,24 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", cANTIDAD_PRODUCTOParameter, iD_PRODUCTOParameter, nUME_PEDIDOParameter, pRECIO_PRODUCTOParameter);
         }
     
-        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, string iD_USUARIO)
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO)
         {
             var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
                 new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
                 new ObjectParameter("ID_PROVEEDOR", typeof(decimal));
     
-            var iD_USUARIOParameter = iD_USUARIO != null ?
+            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
                 new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(string));
+                new ObjectParameter("ID_USUARIO", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter);
         }
     
-        public virtual int SP_D_BOLETA(string nUMERO_BOLETA)
+        public virtual int SP_D_BOLETA(Nullable<decimal> nUMERO_BOLETA)
         {
-            var nUMERO_BOLETAParameter = nUMERO_BOLETA != null ?
+            var nUMERO_BOLETAParameter = nUMERO_BOLETA.HasValue ?
                 new ObjectParameter("NUMERO_BOLETA", nUMERO_BOLETA) :
-                new ObjectParameter("NUMERO_BOLETA", typeof(string));
+                new ObjectParameter("NUMERO_BOLETA", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
         }
@@ -277,12 +277,8 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_DETALLE_BOLETA", iD_DETALLEParameter);
         }
     
-        public virtual int SP_I_BOLETA(Nullable<decimal> v_NUMERO_BOLETA, Nullable<decimal> v_FIADO, string v_TIPO_PAGO, Nullable<decimal> v_TOTAL_BOLETA, Nullable<System.DateTime> v_FECHA_BOLETA, Nullable<decimal> v_ID_CLIENTE)
+        public virtual int SP_I_BOLETA(Nullable<decimal> v_FIADO, string v_TIPO_PAGO, Nullable<decimal> v_TOTAL_BOLETA, Nullable<System.DateTime> v_FECHA_BOLETA, Nullable<decimal> v_ID_CLIENTE)
         {
-            var v_NUMERO_BOLETAParameter = v_NUMERO_BOLETA.HasValue ?
-                new ObjectParameter("V_NUMERO_BOLETA", v_NUMERO_BOLETA) :
-                new ObjectParameter("V_NUMERO_BOLETA", typeof(decimal));
-    
             var v_FIADOParameter = v_FIADO.HasValue ?
                 new ObjectParameter("V_FIADO", v_FIADO) :
                 new ObjectParameter("V_FIADO", typeof(decimal));
@@ -303,7 +299,7 @@ namespace portafolio
                 new ObjectParameter("V_ID_CLIENTE", v_ID_CLIENTE) :
                 new ObjectParameter("V_ID_CLIENTE", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_BOLETA", v_NUMERO_BOLETAParameter, v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter, v_ID_CLIENTEParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_BOLETA", v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter, v_ID_CLIENTEParameter);
         }
     
         public virtual int SP_I_DETALLE_BOLETA(Nullable<decimal> v_CANTIDAD_PRODUCTO, Nullable<decimal> v_ID_PRODUCTO, Nullable<decimal> v_ID_BOLETA)

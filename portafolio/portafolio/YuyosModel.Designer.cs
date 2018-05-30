@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'D:\web\portafolio-beta\portafolio\portafolio\YuyosModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Alfonso Moya\Documents\portafolio-beta\portafolio\portafolio\YuyosModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

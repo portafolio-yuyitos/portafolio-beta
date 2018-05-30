@@ -62,26 +62,26 @@ function llenarTabla(boleta) {
 
 function agregarBoleta(boleta) {
     debugger;
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/boletas/agregar',
-    //    cache: false,
-    //    data: JSON.stringify(boleta),
-    //    contenttype: "application/json",
-    //    async: false,
-    //    success: function (data) {
-    //        if (data == "true") {
+    $.ajax({
+        type: 'POST',
+        url: '/boletas/agregar',
+        cache: false,
+        data: boleta,
+        contenttype: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "true") {
                 llenarTabla(boleta);
                 mostrarTabla($('#tablaBoletas'));
                 limpiarCampos();
-    //        } else if (data == "false") {
-    //            alert("no logeado");
-    //        }
-    //    },
-    //    error: function (ex) {
-    //        alert('error al agregar cliente');
-    //    }
-    //});
+            } else if (data == "false") {
+                alert("no logeado");
+            }
+        },
+        error: function (ex) {
+            alert('error al agregar cliente');
+        }
+    });
 }
 
 function fechaHoy(input) {
