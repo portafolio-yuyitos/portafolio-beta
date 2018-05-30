@@ -109,8 +109,10 @@ function valSelect(e) {
             $(e).removeClass('is-invalid');
         }
     } else {
-        error.addClass('d-none');
-        $(e).removeClass('is-invalid');
+        error.text('Debe estar seleccionado');
+        error.removeClass('d-none');
+        $(e).addClass('is-invalid');
+        valido = false;
     }
     return valido;
 }

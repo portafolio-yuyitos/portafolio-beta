@@ -1,8 +1,9 @@
 ﻿body {
     background-color: #770000;
-    color: white;
     padding-bottom: 6rem;
+    color: white;
 }
+
 
 .w-20 {
     width: 20%;
@@ -96,8 +97,8 @@ main {
     border-radius: inherit !important;
 }
 
-.select2-results___options {
-    color: #000 !important;
+.select2-results__option {
+    color: rgba(0,0,0,0.85) !important;
 }
 
 .cliente {
@@ -138,10 +139,6 @@ nav {
     transition: all 300ms ease;
 }
 
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-    background-color: rgba(250, 255, 189,0.8) !important;
-}
-
 .form-control,
 .form-control:focus {
     background-color: rgba(255,255,255,0.8);
@@ -153,12 +150,12 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     border-color: #da8300;
 }
 
-    .btn-primary:hover,
-    .btn-primary:focus,
-    .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
-        background-color: #d07d00;
-        border-color: #da8300;
-    }
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    background-color: #d07d00;
+    border-color: #da8300;
+}
 
 .w-97 {
     width: 98.5% !important;

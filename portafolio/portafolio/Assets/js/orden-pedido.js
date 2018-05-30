@@ -35,6 +35,7 @@ function valCantidad(e, min, max) {
 
 //Valida todos los input antes de llenar la tabla
 function validarTodo() {
+    debugger;
   var proveedor = $('#proveedor');
   var producto = $('#productos');
   var cantidad = document.getElementById('cantidad');
@@ -85,6 +86,7 @@ function llenarProductos(cantidad, proveedor, producto) {
 function limpiarCamposProducto(cantidad, proveedor, producto) {
     cantidad.textContent = 0;
     proveedor.val('-1').trigger('change.select2');
+    proveedor.siblings('.error').addClass('d-none');
     producto.val('-1');
     $('#precio')['0'].value = 0;
 }
@@ -232,31 +234,31 @@ function agregarOP(tabla, productos, total) {
         'productos': objProductos
     };
 
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/OrdenPedido/agregar',
-    //    cache: false,
-    //    data: JSON.stringify(OP),
-    //    contentType: "application/json",
-    //    async: false,
-    //    success: function (data) {
-    //        if (data == "True") {
-    //            llenarTabla(OP);//Llenar la tabla
-    //            $('#vacio').addClass('d-flex');
-    //            $('#vacio').removeClass('d-none');
-    //            tabla.closest('.productos').addClass('d-none');
-    //            tabla.closest('.productos').removeClass('d-flex');
-    //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
-    //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
-    //            tabla.find('tbody').html('');
-    //        } else if (data == "False") {
-    //            alert("No se ha podido generar la orden pedido");
-    //        }
-    //    },
-    //    error: function (ex) {
-    //        alert('Error al generar la orden de pedido');
-    //    }
-    //});
+    $.ajax({
+        type: 'POST',
+        url: '/OrdenPedido/agregar',
+        cache: false,
+        data: JSON.stringify(OP),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                llenarTabla(OP);//Llenar la tabla
+                $('#vacio').addClass('d-flex');
+                $('#vacio').removeClass('d-none');
+                tabla.closest('.productos').addClass('d-none');
+                tabla.closest('.productos').removeClass('d-flex');
+                tabla.closest('.productos').siblings('.productos').addClass('d-none');
+                tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+                tabla.find('tbody').html('');
+            } else if (data == "False") {
+                alert("No se ha podido generar la orden pedido");
+            }
+        },
+        error: function (ex) {
+            alert('Error al generar la orden de pedido');
+        }
+    });
 
 
 
