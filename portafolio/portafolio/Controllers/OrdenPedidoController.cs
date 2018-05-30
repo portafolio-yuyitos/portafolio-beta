@@ -660,7 +660,7 @@ namespace portafolio.Controllers
             var db = new Entities(); //Instancia DB
             try
             {
-                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario.ToString());
+                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario);
                 return true;
             }
             catch (Exception e)

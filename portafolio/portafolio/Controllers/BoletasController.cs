@@ -24,11 +24,16 @@ namespace portafolio.Controllers
             
         }
 
-        public JsonResult ObtenerBoletas()
+
+        // ###########################
+        //      DEVUELVE BOLETAS JSON
+        // ###########################
+
+        public JsonResult ObtenerBoletasJSON()
         {
             // Creamos lista de boletas
             var boletas = new List<Boleta>();
-            
+            boletas = ObtenerBoletas();
             
 
             return new JsonResult()
@@ -42,9 +47,9 @@ namespace portafolio.Controllers
 
 
         // ###########################
-        //      DEVUELVE PEDIDOS
+        //      DEVUELVE BOLETAS
         // ###########################
-        public List<Boleta> ObtenerPedidos()
+        public List<Boleta> ObtenerBoletas()
         {
             List<Boleta> boletas = new List<Boleta>();
 
@@ -81,7 +86,7 @@ namespace portafolio.Controllers
                             Fiado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("FIADO")),
                             TipoPago = _rdrObj.GetString(_rdrObj.GetOrdinal("TIPO_PAGO")),
                             TotalBoleta = _rdrObj.GetInt32(_rdrObj.GetOrdinal("TOTAL_BOLETA")),
-                            FechaBoleta = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_PAGO")),
+                            FechaBoleta = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_BOLETA")),
                             IdCliente = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_CLIENTE"))
                         });
                     }
@@ -102,6 +107,10 @@ namespace portafolio.Controllers
             return boletas;
         }
 
+
+        // ###########################
+        //      AGREGA BOLETAS
+        // ###########################
         [HttpPost]
         public bool Agregar(Boleta bol)
         {
@@ -116,5 +125,41 @@ namespace portafolio.Controllers
                 return false;
             }
         }
+
+        // ###########################
+        //      ELIMINA BOLETAS
+        // ###########################
+        public bool Eliminar(int numeroBoleta)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_D_BOLETA(numeroBoleta);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        // ###########################
+        //      UPDATEA BOLETAS
+        // ###########################
+        public bool Eliminar(Boleta bol)
+        {
+            var db = new Entities(); //Instancia DB
+            try
+            {
+                db.SP_U_BOLETA(bol.NumeroBoleta, bol.Fiado, bol.TipoPago, bol.TotalBoleta, bol.FechaBoleta);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

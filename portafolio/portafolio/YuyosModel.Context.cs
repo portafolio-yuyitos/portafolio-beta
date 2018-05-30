@@ -246,24 +246,24 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", cANTIDAD_PRODUCTOParameter, iD_PRODUCTOParameter, nUME_PEDIDOParameter, pRECIO_PRODUCTOParameter);
         }
     
-        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, string iD_USUARIO)
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO)
         {
             var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
                 new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
                 new ObjectParameter("ID_PROVEEDOR", typeof(decimal));
     
-            var iD_USUARIOParameter = iD_USUARIO != null ?
+            var iD_USUARIOParameter = iD_USUARIO.HasValue ?
                 new ObjectParameter("ID_USUARIO", iD_USUARIO) :
-                new ObjectParameter("ID_USUARIO", typeof(string));
+                new ObjectParameter("ID_USUARIO", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter);
         }
     
-        public virtual int SP_D_BOLETA(string nUMERO_BOLETA)
+        public virtual int SP_D_BOLETA(Nullable<decimal> nUMERO_BOLETA)
         {
-            var nUMERO_BOLETAParameter = nUMERO_BOLETA != null ?
+            var nUMERO_BOLETAParameter = nUMERO_BOLETA.HasValue ?
                 new ObjectParameter("NUMERO_BOLETA", nUMERO_BOLETA) :
-                new ObjectParameter("NUMERO_BOLETA", typeof(string));
+                new ObjectParameter("NUMERO_BOLETA", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
         }
