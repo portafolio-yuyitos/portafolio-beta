@@ -99,7 +99,7 @@ function valSelect(e) {
     var valido = true;
 
     if (valor !== null) {
-        if (valor.trim() === "Seleccione") {
+        if (valor.trim() === "Seleccione" || valor.trim() === "-1") {
             error.text('Debe estar seleccionado');
             error.removeClass('d-none');
             $(e).addClass('is-invalid');

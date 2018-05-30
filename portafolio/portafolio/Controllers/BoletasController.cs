@@ -108,7 +108,7 @@ namespace portafolio.Controllers
             var db = new Entities(); //Instancia DB
             try
             {
-                db.SP_I_BOLETA(bol.NumeroBoleta,bol.Fiado,bol.TipoPago,bol.TotalBoleta,bol.FechaBoleta,bol.IdCliente);
+                db.SP_I_BOLETA(bol.Fiado,bol.TipoPago,bol.TotalBoleta,bol.FechaBoleta,bol.IdCliente);
                 return true;
             }
             catch (Exception e)

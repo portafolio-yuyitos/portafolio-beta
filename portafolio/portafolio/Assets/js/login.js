@@ -21,7 +21,7 @@ function login() {
          if (data == "True") {
              
              var redirect = window.location.origin;
-             $(location).attr('href', redirect+'/Informes');
+             $(location).attr('href', redirect);
          } else if (data == "False"){
              alert("No Logeado");
          }

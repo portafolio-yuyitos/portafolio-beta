@@ -28,14 +28,14 @@
     var dt = new Date(parseInt(parts[2], 10),
         parseInt(parts[1], 10) - 1,
         parseInt(parts[0], 10));
-
+    debugger;
     if (valido) {
         return boleta = {
             "numeroBoleta": parseInt(numBoleta.val()),
             "fiado": parseInt(montoFiado.val()),
             "tipoPago": tipoPago.val(),
             "totalBoleta": parseInt(totalBoleta.val()),
-            "fechaBoleta": dt,
+            "fechaBoleta": fechaBoleta.val(),
             "idCliente": parseInt(idCliente.val())
         };
     } else {
@@ -48,9 +48,9 @@ function llenarTabla(boleta) {
     var largoTabla = tabla.find('tbody tr').length;
     var fila = '<tr>';
     fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
-    fila += '<td><p>' + boleta.numBoleta + '</p></td>';
-    fila += '<td><p>' + boleta.montoFiado + '</p></td>';
-    fila += '<td><p>' + boleta.tipoPago + '</p></td>';
+    fila += '<td><p>' + boleta.numeroBoleta + '</p></td>';
+    fila += '<td><p>' + boleta.fiado + '</p></td>';
+    fila += '<td><p>' + getNombreTipo(boleta.tipoPago) + '</p></td>';
     fila += '<td><p>' + boleta.fechaBoleta + '</p></td>';
     fila += '<td><p>' + boleta.idCliente + '</p></td>';
     fila += '<td><p>' + boleta.totalBoleta + '</p></td>';
@@ -60,28 +60,53 @@ function llenarTabla(boleta) {
     alert('Se ha agregado la boleta');
 }
 
-function agregarBoleta(boleta) {
+function agregarBoleta(bol) {
     debugger;
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/boletas/agregar',
-    //    cache: false,
-    //    data: JSON.stringify(boleta),
-    //    contenttype: "application/json",
-    //    async: false,
-    //    success: function (data) {
-    //        if (data == "true") {
+    $.ajax({
+        type: 'POST',
+        url: '/boletas/agregar',
+        cache: false,
+        data: bol,
+        contenttype: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
                 llenarTabla(boleta);
                 mostrarTabla($('#tablaBoletas'));
                 limpiarCampos();
-    //        } else if (data == "false") {
-    //            alert("no logeado");
-    //        }
-    //    },
-    //    error: function (ex) {
-    //        alert('error al agregar cliente');
-    //    }
-    //});
+            } else if (data == "False") {
+                alert("no logeado");
+            }
+        },
+        error: function (ex) {
+            alert('error al agregar cliente');
+        }
+    });
+}
+
+function fillSelectClientes() {
+    $.ajax({
+        type: 'POST',
+        url: '/clientes/clientes',
+        cache: false,
+        contenttype: "application/json",
+        async: false,
+        success: function (data) {
+            if (data !== "") {
+                var slcClientes = $('#idCliente');
+                var str = '<option value="-1">Seleccione</option>';
+                $.each(data, function (i, opt) {
+                    str += '<option data="' + opt.Autorizado_fiado + '" value="' + opt.Id + '">' + opt.Nombre + ' / ' + opt.Rut + '</option>';
+                });
+                slcClientes.html(str);
+            } else {
+                alert("No se pudo traer los clientes");
+            }
+        },
+        error: function (ex) {
+            alert('Error al traer los clientes');
+        }
+    });
 }
 
 function fechaHoy(input) {
@@ -106,12 +131,27 @@ function limpiarCampos() {
     $('#montoFiado').val('');
     //$('#tipoPago').val('');
     $('#montoTotal').val('');
-    //$('#fechaBoleta').val('');
-    //$('#idCliente').val('');
+    $('#fechaBoleta').val('-1');
+    $('#idCliente').val('-1');
+}
+
+function getNombreTipo(id) {
+    var nombreTipo = "";
+    switch (id) {
+        case 1:
+            nombreTipo = "Efectivo";
+            break;
+        case 2:
+            nombreTipo = "Tarjeta";
+            break;
+        default:
+    }
+    return nombreTipo;
 }
 
 $('document').ready(function () {
-    fechaHoy($('#fechaBoleta'));
     mostrarTabla($('#tablaBoletas'));
+    fechaHoy($('#fechaBoleta'));
+    fillSelectClientes();
 });
 

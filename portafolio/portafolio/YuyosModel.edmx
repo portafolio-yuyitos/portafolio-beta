@@ -371,7 +371,6 @@
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_NUMERO_BOLETA" Type="number" Mode="In" />
           <Parameter Name="V_FIADO" Type="number" Mode="In" />
           <Parameter Name="V_TIPO_PAGO" Type="varchar2" Mode="In" />
           <Parameter Name="V_TOTAL_BOLETA" Type="number" Mode="In" />
@@ -970,13 +969,12 @@
             <Parameter Name="ID_USUARIO" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_BOLETA">
-            <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
+          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_DETALLE_BOLETA">
-            <Parameter Name="ID_DETALLE" Mode="In" Type="String" />
+          <Parameter Name="ID_DETALLE" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_I_BOLETA">
-            <Parameter Name="V_NUMERO_BOLETA" Mode="In" Type="Decimal" />
             <Parameter Name="V_FIADO" Mode="In" Type="Decimal" />
             <Parameter Name="V_TIPO_PAGO" Mode="In" Type="String" />
             <Parameter Name="V_TOTAL_BOLETA" Mode="In" Type="Decimal" />
