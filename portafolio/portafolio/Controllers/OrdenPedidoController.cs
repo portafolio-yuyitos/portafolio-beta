@@ -3,6 +3,7 @@ using portafolio.Models;
 using portafolio.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -655,17 +656,18 @@ namespace portafolio.Controllers
         }
 
         [HttpPost]
-        public bool Agregar(Pedido ped)
+        public int Agregar(Pedido ped)
         {
             var db = new Entities(); //Instancia DB
             try
             {
-                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario);
-                return true;
+                ObjectParameter iD_PEDIDO = new ObjectParameter("iD_PEDIDO", -1);
+                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, iD_PEDIDO);
+                return int.Parse(iD_PEDIDO.Value.ToString());
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
         }
 

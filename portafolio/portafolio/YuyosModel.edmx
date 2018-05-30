@@ -359,7 +359,7 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="SP_D_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="NUMERO_BOLETA" Type="number" Mode="In" />
+          <Parameter Name="NUMERO_BOLETA" Type="varchar2" Mode="In" />
         </Function>
         <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
@@ -383,6 +383,7 @@
         <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
           <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
+          <Parameter Name="ID_PEDIDO" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_RESET_SEQ_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS" />
         <Function Name="SP_S_VALIDAUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
@@ -953,9 +954,10 @@
           <FunctionImport Name="SP_I_PEDIDO">
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
             <Parameter Name="ID_USUARIO" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_PEDIDO" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_D_BOLETA">
-          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="Decimal" />
+          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_DETALLE_BOLETA">
             <Parameter Name="ID_DETALLE" Mode="In" Type="String" />
