@@ -330,6 +330,9 @@ function mostrarTabla(tabla, producto) {
             // mostrarVacio(tabla,true);
             $('#vacio').addClass('d-flex');
             $('#vacio').removeClass('d-none');
+            $('#proveedor').val('-1').trigger('change.select2');
+            $('#proveedor').attr('disabled',false);
+            $('#proveedor').siblings('.error').addClass('d-none');
             tabla.closest('.productos').addClass('d-none');
             tabla.closest('.productos').removeClass('d-flex');
             tabla.closest('.productos').siblings('.productos').addClass('d-none');

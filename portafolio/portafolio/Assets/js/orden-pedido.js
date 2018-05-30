@@ -73,19 +73,14 @@ function llenarProductos(cantidad, proveedor, producto) {
   fila += '</td></tr>';
   //Pinta en tabla productos
   productos.find('tbody').append(fila);
-  //Limpiar campos
-  proveedor['0'].value = "Seleccione";
-  producto['0'].value = "Seleccione";
-  $('#precio')['0'].value = 1000;
-  cantidad.value = 0;
     mostrarTabla(productos.closest('table'), true);
     limpiarCamposProducto(cantidad, proveedor, producto);
 }
 
 //Limpia campos al agregar producto
 function limpiarCamposProducto(cantidad, proveedor, producto) {
-    cantidad.textContent = 0;
-    proveedor.val('-1').trigger('change.select2');
+    cantidad.value = 0;
+    proveedor.attr('disabled',true);
     proveedor.siblings('.error').addClass('d-none');
     producto.val('-1');
     $('#precio')['0'].value = 0;
@@ -224,21 +219,20 @@ function editarOP(tabla, productos, total, e) {
 
 //Edita orden de pedido
 function agregarOP(tabla, productos, total) {
-
+    debugger;
     var objProductos = JSON.stringify(productos);
     objProductos = objProductos.replace(/\s/g, "_");
 
-    var OP = {//Objeto de orden de pedido
-        'id': 123321,//Esto se quitaría luego
-        'total': total.text(),
-        'productos': objProductos
+    var ped = {//Objeto de orden de pedido
+        'IdProveedor': parseInt(productos[0].proveedor),
+        'IdUsuario': 1
     };
 
     $.ajax({
         type: 'POST',
         url: '/OrdenPedido/agregar',
         cache: false,
-        data: JSON.stringify(OP),
+        data: JSON.stringify(ped),
         contentType: "application/json",
         async: false,
         success: function (data) {
@@ -251,6 +245,8 @@ function agregarOP(tabla, productos, total) {
                 tabla.closest('.productos').siblings('.productos').addClass('d-none');
                 tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
                 tabla.find('tbody').html('');
+                $('#proveedor').val('-1').trigger('change.select2');
+                $('#proveedor').attr('disabled',false);
             } else if (data == "False") {
                 alert("No se ha podido generar la orden pedido");
             }
