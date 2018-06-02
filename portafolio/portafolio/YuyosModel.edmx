@@ -441,6 +441,10 @@
         <Function Name="SP_U_FIADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT" Type="varchar2" Mode="In" />
         </Function>
+        <Function Name="SP_U_PAGAR_FIADO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_ID_FIADO" Type="number" Mode="In" />
+          <Parameter Name="V_ESTADO" Type="varchar2" Mode="In" />
+        </Function>
         <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
           <Parameter Name="V_RAZON_SOCIAL" Type="varchar2" Mode="In" />
@@ -1098,6 +1102,10 @@
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_AUTORIZADO_FIADO" Mode="In" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="SP_U_PAGAR_FIADO">
+            <Parameter Name="V_ID_FIADO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_ESTADO" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1288,6 +1296,7 @@
           <FunctionImportMapping FunctionImportName="SP_U_FIADOR" FunctionName="Model.Store.SP_U_FIADOR" />
           <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_AUTORIZAR_CLIENTE" FunctionName="Model.Store.SP_AUTORIZAR_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_U_PAGAR_FIADO" FunctionName="Model.Store.SP_U_PAGAR_FIADO" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

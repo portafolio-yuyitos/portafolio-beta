@@ -123,6 +123,7 @@ function eliminarProveedor(e, tabla) {
             } else if (data == "False") {
                 alert("No se ha eliminado el proveedor");
             }
+            refrescarFunction();
         },
         error: function (ex) {
             alert("No se ha podido agregar el proveedor");

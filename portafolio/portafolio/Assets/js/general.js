@@ -4,10 +4,14 @@ $(document).ready(function () {
     })
 });
 
+function refrescarFunction() {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })}
+
 window.onload = function () {
     spinner(false);
 };
-
 
 function spinner(estado) {
     if (!estado) {

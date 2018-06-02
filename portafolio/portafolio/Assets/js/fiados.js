@@ -1,17 +1,21 @@
-﻿function cambiarFiado() {
-    var rut = $(e).closest('tr').find('.rut').val();
+﻿function pagarFiado(e) {
+    var idFiado = $(e).closest('tr').find('.idFiado').text();
+    var estadoFiado = $(e).closest('tr').find('.estadoFiado').text();
+
     var data = {
-        "rut": rut
+        "idFiado": parseInt(idFiado),
+        "estadoFiado": estadoFiado
     }
 
     $.ajax({
         type: 'POST',
-        url: '/Fiados/cambiarFiado',
+        url: '/Fiados/pagarFiado',
         cache: false,
-        data: JSON.stringify(data),
+        data: JSON.stringify(fiado),
         contentType: "application/json",
         async: false,
         success: function (data) {
+            debugger;
             if (data == "True") {
                 $(e).closest('tr').remove();
                 mostrarTabla(tabla);//Muestra tabla si tiene filas
@@ -21,7 +25,7 @@
             }
         },
         error: function (ex) {
-            alert('Error al eliminar cliente');
+            alert('Error al pagar fiado');
         }
     });
 }
@@ -82,7 +86,7 @@ function getFiados() {
 
 function abrirBoletas(e) {
     debugger;
-    var boletas = $(e).closest('tbody').find('.boletas');
+    var boletas = $(e).closest('tr').next();
     if (boletas.hasClass('d-none')) {
         boletas.removeClass('d-none');
         $(e).html('Ocultar boletas<i class="ml-2 fas fa-chevron-circle-up"></i>');
