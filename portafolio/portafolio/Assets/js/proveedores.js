@@ -45,27 +45,27 @@ function llenarTabla(proveedor) {
   fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
   fila += '<td>';
   fila += '<p>' + proveedor.rutProveedor + '</p>';
-  fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="rut form-control editar d-none" onkeyup="valTexto(this,10,20)">';
+    fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="rut form-control editar d-none" onkeyup="checkRut(this)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.email + '</p>';
-  fila += '<input type="text" value=' + proveedor.email + ' class="email form-control editar d-none" onkeyup="valEmail(this)">';
+  fila += '<input type="text" value="' + proveedor.email + '" class="email form-control editar d-none" onkeyup="valEmail(this)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.razonSocial + '</p>';
-  fila += '<input type="text" value=' + proveedor.razonSocial + ' class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<input type="text" value="' + proveedor.razonSocial + '" class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.giro + '</p>';
-  fila += '<input type="text" value=' + proveedor.giro + ' class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">';
+  fila += '<input type="text" value="' + proveedor.giro + '" class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
   fila += '<p>' + proveedor.fono + '</p>';
-  fila += '<input type="text" value=' + proveedor.fono + ' class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">';
+  fila += '<input type="text" value="' + proveedor.fono + '" class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
   fila += '<td>';
@@ -90,12 +90,14 @@ function agregarProveedor(proveedor) {
         success: function (data) {
             if (data == "True") {
                 llenarTabla(proveedor);
+                limpiarCampos();
+                alert("Se ha agregado el proveedor correctamente");
             } else if (data == "False") {
-                alert("No Logeado");
+                alert("No se ha agregado el proveedor correctamente");
             }
         },
         error: function (ex) {
-            alert('Error al agregar cliente');
+            alert("Error al agregar el proveedor");
         }
     });
 }
@@ -117,13 +119,13 @@ function eliminarProveedor(e, tabla) {
             if (data == "True") {
                 $(e).closest('tr').remove();
                 mostrarTabla(tabla);//Muestra tabla si tiene filas
-                alert('Se ha eliminado correctamente');
+                alert("Se ha eliminado el proveedor correctamente");
             } else if (data == "False") {
-                alert("No Logeado");
+                alert("No se ha eliminado el proveedor");
             }
         },
         error: function (ex) {
-            alert('Error al eliminar proveedor');
+            alert("No se ha podido agregar el proveedor");
         }
     });
 }
@@ -151,15 +153,23 @@ function updateProveedor(proveedor, editores) {
                         $(editor).siblings('p').removeClass('d-none');
                     }
                 })
-                alert('Se ha editado correctamente');
+                alert('Se ha editado correctamente el proveedor');
             } else if (data == "False") {
-                alert("No se ha podido editar");
+                alert("No se ha podido editar el proveedor");
             }
         },
         error: function (ex) {
             alert('Error al editar proveedor');
         }
     });
+}
+
+function limpiarCampos() {
+    document.getElementById('rut').value="";
+    document.getElementById('fono').value="";
+    $('#email').val('');
+    $('#giro').val('');
+    $('#razon').val('');
 }
 
 $('document').ready(function () {

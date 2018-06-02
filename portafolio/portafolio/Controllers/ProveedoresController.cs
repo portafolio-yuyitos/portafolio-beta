@@ -70,7 +70,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Agregar(Proveedor pro)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_I_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro);
@@ -85,7 +85,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Eliminar(string rut)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_D_PROVEEDOR(rut);
@@ -100,7 +100,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Update(Proveedor pro)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_U_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro);

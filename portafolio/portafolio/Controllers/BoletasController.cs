@@ -114,7 +114,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Agregar(Boleta bol)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_I_BOLETA(bol.Fiado,bol.TipoPago,bol.TotalBoleta,bol.FechaBoleta,bol.IdCliente);
@@ -131,7 +131,7 @@ namespace portafolio.Controllers
         // ###########################
         public bool Eliminar(string numeroBoleta)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_D_BOLETA(numeroBoleta);
@@ -148,7 +148,7 @@ namespace portafolio.Controllers
         // ###########################
         public bool Eliminar(Boleta bol)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_U_BOLETA(bol.NumeroBoleta, bol.Fiado, bol.TipoPago, bol.TotalBoleta, bol.FechaBoleta);

@@ -82,32 +82,32 @@
                         <th scope="row">@contador</th>
                         <td>
                             <p>@item.RutProveedor</p>
-                            <input type="text" value="@item.RutProveedor" class="form-control editar d-none" onkeyup="checkRut(this)">
+                            <input type="text" value="@item.RutProveedor" class="form-control editar d-none rut" onkeyup="checkRut(this)">
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
                             <p>@item.Email</p>
-                            <input type="text" value="@item.Email" class="form-control editar d-none" onkeyup="valEmail(this)">
+                            <input type="text" value="@item.Email" class="form-control editar d-none email" onkeyup="valEmail(this)">
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
                             <p>@item.RazonSocial</p>
-                            <input type="text" value="@item.RazonSocial" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                            <input type="text" value="@item.RazonSocial" class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
                             <p>@item.Giro</p>
-                            <input type="text" value="@item.Giro" class="form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                            <input type="text" value="@item.Giro" class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
                             <p>@item.Fono</p>
-                            <input type="text" value="@item.Fono" class="form-control editar d-none" onkeyup="valNumber(this,9,12)">
+                            <input type="text" value="@item.Fono" class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">
                             <label class="error text-danger d-none "></label>
                         </td>
                         <td>
-                            <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this)" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
-                            <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this)" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
+                            <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
                             <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
                         </td>
                     </tr>

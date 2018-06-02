@@ -133,6 +133,44 @@ function updateCliente(cliente, editores) {
     });
 }
 
+function autorizarFiado(e) {
+
+    var url = '/clientes/desautorizar';
+    var autorizar = 0;
+
+    if (e.checked) {
+        autorizar = 1;
+    }
+
+    var rut = $(e).closest('tr').find('.rut').val();
+
+    var cliente = {
+        "Rut": rut,
+        "Autorizado_fiado": autorizar
+
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/clientes/autorizar',
+        cache: false,
+        data: cliente,
+        contenttype: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                alert('Se ha modificado al cliente');
+            } else if (data == "False") {
+                e.checked = !e.checked;
+                alert("No se ha podido modificar al cliente");
+            }
+        },
+        error: function (ex) {
+            alert('Error al modificar al cliente');
+        }
+    });
+}
+
 $('document').ready(function () {
     mostrarTabla($('#tablaClientes'));
 });

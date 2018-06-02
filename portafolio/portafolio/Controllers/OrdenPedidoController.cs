@@ -658,7 +658,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public int Agregar(Pedido ped)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 ObjectParameter iD_PEDIDO = new ObjectParameter("iD_PEDIDO", -1);
@@ -674,7 +674,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Eliminar(int idPedido)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 // BORRA LOS DETALLES IGUAL
@@ -692,7 +692,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool AgregarDetalle(DetallePedido detaPed)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_I_DETALLE_PEDIDO(detaPed.NumeroPedido, detaPed.IdProducto, detaPed.PrecioProducto, detaPed.CantidadProducto);
@@ -709,7 +709,7 @@ namespace portafolio.Controllers
         /*[HttpPost]
         public bool Update(Proveedor pro)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_U_PROVEEDOR(pro.RutProveedor, pro.RazonSocial, pro.Fono, pro.Email, pro.Giro);

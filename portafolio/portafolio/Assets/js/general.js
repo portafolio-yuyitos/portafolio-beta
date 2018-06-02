@@ -54,7 +54,7 @@ function valTexto(e, min, max) {
 
 //Valida números
 function valNumber(e, min, max) {
-    let valor = e.value;
+    let valor = e.value!=""?e.value:e.defaultValue;
     var reg = new RegExp('^[0-9]+$');
     var error = $(e).siblings('.error');
     var valido = true;
@@ -266,6 +266,7 @@ function guardar(e, tipo) {
                     "nombre": nombres.val()
                 }
                 updateCliente(cliente, editores);
+                break;
             case "proveedor":
                 var rut = $(e).closest('tr').find('.rut');
                 var fono = $(e).closest('tr').find('.fono');
@@ -280,6 +281,7 @@ function guardar(e, tipo) {
                     "razonSocial": razon.val()
                 }
                 updateProveedor(proveedor, editores);
+                break;
             default:
                 return
         }
@@ -298,10 +300,13 @@ function agregar(tipo) {
         switch (tipo) {
             case "clientes":
                 agregarCliente(valido);
+                break;
             case "proveedor":
                 agregarProveedor(valido);
+                break;
             case "boleta":
                 agregarBoleta(valido);
+                break;
             default:
                 return
         }

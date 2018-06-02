@@ -59,13 +59,18 @@
                         </td>
                         <td>
                             <p>@item.Nombre</p>
-                            <input type="text" value="@item.Nombre" class="form-control editar d-none" onkeyup="valTexto(this,4,50)" />
+                            <input type="text" value="@item.Nombre" class="form-control editar d-none nombres" onkeyup="valTexto(this,4,50)" />
                             <label class="error text-danger d-none "></label>
                         </td>
-                        <td class="d-flex">
+                        <td class="d-flex align-items-center">
                             <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Guardar cliente"><i class="fas fa-check-circle"></i></a>
                             <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Eliminar cliente"><i class="fas fa-trash-alt"></i></a>
                             <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this,'clientes')" data-toggle="tooltip" data-placement="top" title="Editar cliente"><i class="fas fa-edit"></i></a>
+                            <!-- Rounded switch -->
+                            <label class="switch ml-2" data-toggle="tooltip" data-placement="top" title="Autorizar para fiar">
+                                <input type="checkbox" class="autorizarFiado" onchange="autorizarFiado(this)" checked="@(item.Autorizado_fiado==0?false:true)">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                     </tr>
                     contador++;

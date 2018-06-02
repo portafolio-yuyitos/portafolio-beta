@@ -248,6 +248,16 @@
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\js\boleta.js" />
     <Content Include="Assets\js\clientes.js" />
+    <Content Include="YuyosModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+      <LastGenOutput>YuyosModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="YuyosModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+      <LastGenOutput>YuyosModel.cs</LastGenOutput>
+    </Content>
     <None Include="Assets\js\data-data-table.json" />
     <Content Include="Assets\js\data-table-clientes.js" />
     <Content Include="Assets\js\fiados.js" />
@@ -271,18 +281,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="YuyosModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>YuyosModel.Context.cs</LastGenOutput>
-      <DependentUpon>YuyosModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="YuyosModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>YuyosModel.edmx</DependentUpon>
-      <LastGenOutput>YuyosModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Boletas\Index.cshtml" />
     <Content Include="Views\Informes\Index.cshtml" />
+    <EntityDeploy Include="YuyosModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>YuyosModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="YuyosModel.edmx.diagram">
+      <DependentUpon>YuyosModel.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,13 +305,6 @@
     <Content Include="Views\Fiados\Index.cshtml" />
     <Content Include="Views\OrdenPedido\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <EntityDeploy Include="YuyosModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>YuyosModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="YuyosModel.edmx.diagram">
-      <DependentUpon>YuyosModel.edmx</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

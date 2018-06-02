@@ -16,8 +16,8 @@ namespace portafolio
     {
         public USUARIO()
         {
-            this.RECEPCION = new HashSet<RECEPCION>();
             this.PEDIDO = new HashSet<PEDIDO>();
+            this.RECEPCION = new HashSet<RECEPCION>();
         }
     
         public decimal ID_USUARIO { get; set; }
@@ -25,8 +25,8 @@ namespace portafolio
         public string CLAVE { get; set; }
         public decimal ID_ROL { get; set; }
     
+        public virtual ICollection<PEDIDO> PEDIDO { get; set; }
         public virtual ICollection<RECEPCION> RECEPCION { get; set; }
         public virtual ROL ROL { get; set; }
-        public virtual ICollection<PEDIDO> PEDIDO { get; set; }
     }
 }

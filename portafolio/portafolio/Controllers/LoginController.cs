@@ -17,7 +17,7 @@ namespace portafolio.Controllers
 
         public bool ValidaUsuario(string nombre, string pass)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             ObjectParameter existe = new ObjectParameter("EXISTE", typeof(string));
             db.SP_S_VALIDAUSUARIO(nombre,pass,existe);
 

@@ -186,6 +186,8 @@ function valSelectBoletas(e) {
             $(e).removeClass('is-invalid');
             if (e.selectedOptions[0].dataset.autorizado != 0) {
                 $('#fiado').removeClass('d-none');
+            } else {
+                $('#fiado').addClass('d-none');
             }
         }
     } else {
@@ -194,6 +196,7 @@ function valSelectBoletas(e) {
     }
     return valido;
 }
+
 
 $('document').ready(function () {
     //mostrarTabla($('#tablaBoletas'));

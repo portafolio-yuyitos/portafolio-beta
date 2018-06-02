@@ -66,7 +66,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Agregar(Cliente cli)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_I_CLIENTE(cli.Rut, cli.Nombre, 0);
@@ -81,7 +81,7 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Eliminar(string rut)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_D_CLIENTE(rut);
@@ -96,10 +96,25 @@ namespace portafolio.Controllers
         [HttpPost]
         public bool Update(Cliente cli)
         {
-            var db = new Entities(); //Instancia DB
+            var db = new YuyosEntities(); //Instancia DB
             try
             {
                 db.SP_U_CLIENTE(cli.Rut,cli.Nombre);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        [HttpPost]
+        public bool Autorizar(Cliente cli)
+        {
+            var db = new YuyosEntities(); //Instancia DB
+            try
+            {
+                db.SP_AUTORIZAR_CLIENTE(cli.Rut,cli.Autorizado_fiado);
                 return true;
             }
             catch (Exception e)
