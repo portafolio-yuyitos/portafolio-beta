@@ -69,7 +69,7 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                db.SP_I_CLIENTE(cli.Rut, cli.Nombre, 0);
+                db.SP_I_CLIENTE(cli.Rut, cli.Nombre, 1);
                 return true;
             }
             catch (Exception e)
