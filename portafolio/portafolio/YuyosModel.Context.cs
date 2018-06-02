@@ -339,5 +339,18 @@ namespace portafolio
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AUTORIZAR_CLIENTE", v_RUT_CLIENTEParameter, v_AUTORIZADO_FIADOParameter);
         }
+    
+        public virtual int SP_U_PAGAR_FIADO(Nullable<decimal> v_ID_FIADO, string v_ESTADO)
+        {
+            var v_ID_FIADOParameter = v_ID_FIADO.HasValue ?
+                new ObjectParameter("V_ID_FIADO", v_ID_FIADO) :
+                new ObjectParameter("V_ID_FIADO", typeof(decimal));
+    
+            var v_ESTADOParameter = v_ESTADO != null ?
+                new ObjectParameter("V_ESTADO", v_ESTADO) :
+                new ObjectParameter("V_ESTADO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter);
+        }
     }
 }
