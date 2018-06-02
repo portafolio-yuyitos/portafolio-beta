@@ -46,9 +46,9 @@
 
                                             <tr>
                                                 <th scope="col">Monto Solicitado</th>
-                                                <th scope="col">Monto Pagado</th>
+                                                @*<th scope="col">Monto Pagado</th>*@
                                                 <th scope="col">Fecha Compra</th>
-                                                <th scope="col">Fecha Pago</th>
+                                                @*<th scope="col">Fecha Pago</th>*@
                                                 <th scope="col">Estado Pago</th>
                                                 <th scope="col">Acciones</th>
                                                 <th scope="col" class="d-none">Id Cliente</th>
@@ -61,11 +61,11 @@
                                             {
                                             <tr>
                                                 <td>@fi.MontoSolicitado</td>
-                                                <td>@fi.MontoPagado</td>
+                                                @*<td>@fi.MontoPagado</td>*@
                                                 <td>@fi.FechaCompra.ToString("dd/MM/yyyy")</td>
-                                                <td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>
+                                                @*<td>@fi.FechaPago.ToString("dd/MM/yyyy")</td>*@
                                                 <td class="estadoFiado">@(fi.EstadoPago == "0" ? "En deuda" : "Pagado")</td>
-                                                <td><button class="btn btn-primary" onclick="pagarBoleta(this)" data-toggle="tooltip" data-placement="top" title="Pagar boleta"><i class="fas fa-check-circle"></i></button></td>
+                                                <td><button class="btn btn-primary" onclick="pagarFiado(this)" data-toggle="tooltip" data-placement="top" title="Pagar boleta"><i class="fas fa-check-circle"></i></button></td>
                                                 <td class="d-none">@fi.IdCliente</td>
                                                 <td class="d-none">@fi.IdBoleta</td>
                                                 <td class="d-none idFiado">@fi.IdFiado</td>

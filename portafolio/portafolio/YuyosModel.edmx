@@ -444,6 +444,7 @@
         <Function Name="SP_U_PAGAR_FIADO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_ID_FIADO" Type="number" Mode="In" />
           <Parameter Name="V_ESTADO" Type="varchar2" Mode="In" />
+          <Parameter Name="V_FECHA_PAGO" Type="date" Mode="In" />
         </Function>
         <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
@@ -1105,6 +1106,7 @@
           <FunctionImport Name="SP_U_PAGAR_FIADO">
             <Parameter Name="V_ID_FIADO" Mode="In" Type="Decimal" />
             <Parameter Name="V_ESTADO" Mode="In" Type="String" />
+            <Parameter Name="V_FECHA_PAGO" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
       </Schema>

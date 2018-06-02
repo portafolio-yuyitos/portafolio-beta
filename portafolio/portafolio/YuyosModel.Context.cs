@@ -340,7 +340,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AUTORIZAR_CLIENTE", v_RUT_CLIENTEParameter, v_AUTORIZADO_FIADOParameter);
         }
     
-        public virtual int SP_U_PAGAR_FIADO(Nullable<decimal> v_ID_FIADO, string v_ESTADO)
+        public virtual int SP_U_PAGAR_FIADO(Nullable<decimal> v_ID_FIADO, string v_ESTADO, Nullable<System.DateTime> v_FECHA_PAGO)
         {
             var v_ID_FIADOParameter = v_ID_FIADO.HasValue ?
                 new ObjectParameter("V_ID_FIADO", v_ID_FIADO) :
@@ -350,7 +350,11 @@ namespace portafolio
                 new ObjectParameter("V_ESTADO", v_ESTADO) :
                 new ObjectParameter("V_ESTADO", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter);
+            var v_FECHA_PAGOParameter = v_FECHA_PAGO.HasValue ?
+                new ObjectParameter("V_FECHA_PAGO", v_FECHA_PAGO) :
+                new ObjectParameter("V_FECHA_PAGO", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter, v_FECHA_PAGOParameter);
         }
     }
 }
