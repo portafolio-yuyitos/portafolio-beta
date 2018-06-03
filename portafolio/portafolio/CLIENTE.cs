@@ -24,6 +24,7 @@ namespace portafolio
         public string RUT_CLIENTE { get; set; }
         public string NOMBRE { get; set; }
         public short AUTORIZADO_FIADO { get; set; }
+        public Nullable<short> ESTADO { get; set; }
     
         public virtual ICollection<BOLETA> BOLETA { get; set; }
         public virtual ICollection<FIADO> FIADO { get; set; }

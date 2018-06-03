@@ -24,6 +24,7 @@
           <Property Name="RUT_CLIENTE" Type="varchar2" MaxLength="11" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="AUTORIZADO_FIADO" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="number" Precision="1" Scale="0" />
         </EntityType>
         <EntityType Name="DETALLE_BOLETA">
           <Key>
@@ -391,6 +392,7 @@
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
+          <Parameter Name="V_SALIDA" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="SP_I_DETALLE_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_CANTIDAD_PRODUCTO" Type="number" Mode="In" />
@@ -566,6 +568,7 @@
           <Property Name="AUTORIZADO_FIADO" Type="Int16" Nullable="false" />
           <NavigationProperty Name="BOLETA" Relationship="Self.BOLETA_ID_CLIENTE_FK" FromRole="CLIENTE" ToRole="BOLETA" />
           <NavigationProperty Name="FIADO" Relationship="Self.FIADO_ID_CLIENTE_FK" FromRole="CLIENTE" ToRole="FIADO" />
+          <Property Name="ESTADO" Type="Int16" />
         </EntityType>
         <EntityType Name="DETALLE_BOLETA">
           <Key>
@@ -1042,6 +1045,7 @@
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_NOMBRE_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_AUTORIZADO_FIADO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_SALIDA" Mode="Out" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_I_DETALLE_BOLETA">
             <Parameter Name="V_CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
@@ -1130,6 +1134,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="Model.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="RUT_CLIENTE" ColumnName="RUT_CLIENTE" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />

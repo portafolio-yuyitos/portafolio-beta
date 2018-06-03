@@ -43,7 +43,8 @@ namespace portafolio.Controllers
                                 Id = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_CLIENTE")),
                                 Rut = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_CLIENTE")),
                                 Nombre = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE")),
-                                Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO"))
+                                Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO")),
+                                Estado = _rdrObj.GetDecimal(_rdrObj.GetOrdinal("ESTADO"))
                             });
                         }
                     }
@@ -64,17 +65,24 @@ namespace portafolio.Controllers
         }
 
         [HttpPost]
-        public bool Agregar(Cliente cli)
+        public string Agregar(Cliente cli)
         {
             var db = new YuyosEntities(); //Instancia DB
+            ObjectParameter salida = new ObjectParameter("v_SALIDA", -1);
+
             try
             {
-                db.SP_I_CLIENTE(cli.Rut, cli.Nombre, 1);
-                return true;
+                db.SP_I_CLIENTE(cli.Rut, cli.Nombre, 1, salida);
+
+                return salida.Value.ToString();
             }
             catch (Exception e)
             {
-                return false;
+                if(e.InnerException.Message.Contains("unique constraint"))
+                {
+                    return "Ya existe el registro";
+                }
+                return "Error";
             }
         }
 
@@ -153,7 +161,8 @@ namespace portafolio.Controllers
                             Id = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_CLIENTE")),
                             Rut = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_CLIENTE")),
                             Nombre = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE")),
-                            Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO"))
+                            Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO")),
+                            Estado = _rdrObj.GetDecimal(_rdrObj.GetOrdinal("ESTADO"))
                         });
                     }
                 }

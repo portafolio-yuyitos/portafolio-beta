@@ -123,7 +123,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_BOLETA", v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter, v_ID_CLIENTEParameter);
         }
     
-        public virtual int SP_I_CLIENTE(string v_RUT_CLIENTE, string v_NOMBRE_CLIENTE, Nullable<decimal> v_AUTORIZADO_FIADO)
+        public virtual int SP_I_CLIENTE(string v_RUT_CLIENTE, string v_NOMBRE_CLIENTE, Nullable<decimal> v_AUTORIZADO_FIADO, ObjectParameter v_SALIDA)
         {
             var v_RUT_CLIENTEParameter = v_RUT_CLIENTE != null ?
                 new ObjectParameter("V_RUT_CLIENTE", v_RUT_CLIENTE) :
@@ -137,7 +137,7 @@ namespace portafolio
                 new ObjectParameter("V_AUTORIZADO_FIADO", v_AUTORIZADO_FIADO) :
                 new ObjectParameter("V_AUTORIZADO_FIADO", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CLIENTE", v_RUT_CLIENTEParameter, v_NOMBRE_CLIENTEParameter, v_AUTORIZADO_FIADOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_CLIENTE", v_RUT_CLIENTEParameter, v_NOMBRE_CLIENTEParameter, v_AUTORIZADO_FIADOParameter, v_SALIDA);
         }
     
         public virtual int SP_I_DETALLE_BOLETA(Nullable<decimal> v_CANTIDAD_PRODUCTO, Nullable<decimal> v_ID_PRODUCTO, Nullable<decimal> v_ID_BOLETA)

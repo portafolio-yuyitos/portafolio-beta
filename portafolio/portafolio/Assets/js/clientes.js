@@ -64,10 +64,12 @@ function agregarCliente(cliente) {
         contentType: "application/json",
         async: false,
         success: function (data) {
-            if (data == "True") {
+            if (data == "OK") {
                 llenarTabla(cliente);
-            } else if (data == "False") {
-                alert("No Logeado");
+            } else if (data == "Ya existe el registro") {
+                alert("Ya existe el registro");
+            } else if (data == "Error") {
+                alert("Error al agregar cliente");
             }
         },
         error: function (ex) {
