@@ -113,6 +113,7 @@
           <Property Name="FONO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="EMAIL" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="GIRO" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="ESTADO" Type="number" Precision="1" Scale="0" />
         </EntityType>
         <EntityType Name="RECEPCION">
           <Key>
@@ -416,6 +417,7 @@
           <Parameter Name="FONO" Type="number" Mode="In" />
           <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="GIRO" Type="varchar2" Mode="In" />
+          <Parameter Name="V_SALIDA" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="SP_RESET_SEQ_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS" />
         <Function Name="SP_S_VALIDAUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
@@ -433,6 +435,7 @@
         <Function Name="SP_U_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="V_ESTADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_U_DETALLE_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_ID_DETALLE" Type="number" Mode="In" />
@@ -454,6 +457,7 @@
           <Parameter Name="V_FONO" Type="number" Mode="In" />
           <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
+          <Parameter Name="V_ESTADO" Type="number" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
@@ -676,6 +680,7 @@
           <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="PEDIDO" />
           <NavigationProperty Name="PRODUCTO" Relationship="Self.PRODUCTO_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="PRODUCTO" />
           <NavigationProperty Name="RECEPCION" Relationship="Self.RECEPCION_ID_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="RECEPCION" />
+          <Property Name="ESTADO" Type="Int16" />
         </EntityType>
         <EntityType Name="RECEPCION">
           <Key>
@@ -1069,6 +1074,7 @@
             <Parameter Name="FONO" Mode="In" Type="Decimal" />
             <Parameter Name="EMAIL" Mode="In" Type="String" />
             <Parameter Name="GIRO" Mode="In" Type="String" />
+            <Parameter Name="V_SALIDA" Mode="Out" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_RESET_SEQ_DETALLE_PEDIDO" />
           <FunctionImport Name="SP_S_VALIDAUSUARIO">
@@ -1086,6 +1092,7 @@
           <FunctionImport Name="SP_U_CLIENTE">
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="V_ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_U_DETALLE_BOLETA">
             <Parameter Name="V_ID_DETALLE" Mode="In" Type="Decimal" />
@@ -1102,6 +1109,7 @@
             <Parameter Name="V_FONO" Mode="In" Type="Decimal" />
             <Parameter Name="V_EMAIL" Mode="In" Type="String" />
             <Parameter Name="V_GIRO" Mode="In" Type="String" />
+            <Parameter Name="V_ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_AUTORIZAR_CLIENTE">
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
@@ -1228,6 +1236,7 @@
           <EntitySetMapping Name="PROVEEDOR">
             <EntityTypeMapping TypeName="Model.PROVEEDOR">
               <MappingFragment StoreEntitySet="PROVEEDOR">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
                 <ScalarProperty Name="RUT_PROVEEDOR" ColumnName="RUT_PROVEEDOR" />
                 <ScalarProperty Name="RAZON_SOCIAL" ColumnName="RAZON_SOCIAL" />

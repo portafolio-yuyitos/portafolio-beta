@@ -246,3 +246,7 @@ input:checked + .slider:before {
         border-radius: 50%;
     }
 /**SWITCH FIN*/
+
+.modal{
+    color: rgba(0,0,0,0.8);
+}

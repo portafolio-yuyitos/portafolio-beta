@@ -1,9 +1,6 @@
 function validarTodo() {
     var rut = document.getElementById('rut');
     var nombres = $('#nombres');
-    var apellidos = $('#apellidos');
-    var email = $('#email');
-    var numero = $('#numero');
 
     var valido = true;
 
@@ -51,11 +48,9 @@ function llenarTabla(cliente) {
     fila += '</tr>';
 
     tabla.find('tbody').append(fila);
-
-    alert('Se ha agregado el cliente');
 }
 
-function agregarCliente(cliente) {
+function agregarCliente(cliente,e) {
     $.ajax({
         type: 'POST',
         url: '/Clientes/agregar',
@@ -66,14 +61,21 @@ function agregarCliente(cliente) {
         success: function (data) {
             if (data == "OK") {
                 llenarTabla(cliente);
+                alert('Se ha agregado el cliente');
+                limpiar();
             } else if (data == "Ya existe el registro") {
                 alert("Ya existe el registro");
-            } else if (data == "Error") {
-                alert("Error al agregar cliente");
+            } else if (data == "Registro eliminado") {
+                document.getElementById('myModal').dataset.rut = cliente.rut;
+                document.getElementById('myModal').dataset.nombre = cliente.nombre;
+                $('#myModal').modal('show');
             }
         },
         error: function (ex) {
             alert('Error al agregar cliente');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 }
@@ -102,6 +104,9 @@ function eliminarCliente(e, tabla) {
         },
         error: function (ex) {
             alert('Error al eliminar cliente');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 }
@@ -136,6 +141,9 @@ function updateCliente(cliente, editores) {
         },
         error: function (ex) {
             alert('Error al editar cliente');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 }
@@ -174,8 +182,51 @@ function autorizarFiado(e) {
         },
         error: function (ex) {
             alert('Error al modificar al cliente');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
+}
+
+function activarCliente() {
+    var rut = document.getElementById('myModal').dataset.rut;
+    var nombre = document.getElementById('myModal').dataset.nombre;
+    var estado = 1;
+    var cli = {
+        "rut": rut,
+        "nombre": nombre,
+        "estado": estado
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/Clientes/update',
+        cache: false,
+        data: JSON.stringify(cli),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                llenarTabla(cli);
+                alert('Se ha editado correctamente');
+                $('#myModal').modal('hide');
+                limpiar();
+            } else if (data == "False") {
+                alert("No se ha podido editar");
+            }
+        },
+        error: function (ex) {
+            alert('Error al editar cliente');
+        },
+        complete: function () {
+            refrescarFunction();
+        }
+    });
+}
+
+function limpiar() {
+    document.getElementById('rut').value = '';
+    $('#nombres').val('');
 }
 
 $('document').ready(function () {

@@ -76,7 +76,6 @@ function llenarTabla(proveedor) {
   fila += '</tr>';
 
   tabla.find('tbody').append(fila);
-  alert('Se ha agregado el proveedor');
 }
 
 function agregarProveedor(proveedor) {
@@ -88,11 +87,20 @@ function agregarProveedor(proveedor) {
         contentType: "application/json",
         async: false,
         success: function (data) {
-            if (data == "True") {
+            if (data == "OK") {
                 llenarTabla(proveedor);
                 limpiarCampos();
-                alert("Se ha agregado el proveedor correctamente");
-            } else if (data == "False") {
+                alert('Se ha agregado el proveedor');
+            } else if (data == "Ya existe el registro") {
+                alert("Ya existe el registro");
+            } else if (data == "Registro eliminado") {
+                document.getElementById('myModal').dataset.rutProveedor = proveedor.rutProveedor;
+                document.getElementById('myModal').dataset.fono = proveedor.fono;
+                document.getElementById('myModal').dataset.email = proveedor.email;
+                document.getElementById('myModal').dataset.giro = proveedor.giro;
+                document.getElementById('myModal').dataset.razonSocial = proveedor.razonSocial;
+                $('#myModal').modal('show');
+            } else {
                 alert("No se ha agregado el proveedor correctamente");
             }
         },
@@ -171,6 +179,48 @@ function limpiarCampos() {
     $('#email').val('');
     $('#giro').val('');
     $('#razon').val('');
+}
+
+function activarProveedor() {
+
+    var rutProveedor = document.getElementById('myModal').dataset.rutProveedor;
+    var fono = document.getElementById('myModal').dataset.fono;
+    var email = document.getElementById('myModal').dataset.email;
+    var giro = document.getElementById('myModal').dataset.giro;
+    var razonSocial = document.getElementById('myModal').dataset.razonSocial;
+    var estado = 1;
+    var proveedor = {
+        "rutProveedor": rutProveedor,
+        "fono": fono,
+        "email": email,
+        "giro": giro,
+        "razonSocial": razonSocial,
+        "estado": estado
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/Proveedores/update',
+        cache: false,
+        data: JSON.stringify(proveedor),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                llenarTabla(proveedor);
+                alert('Se ha editado correctamente');
+                $('#myModal').modal('hide');
+                limpiarCampos();
+            } else if (data == "False") {
+                alert("No se ha podido editar");
+            }
+        },
+        error: function (ex) {
+            alert('Error al editar proveedor');
+        },
+        complete: function () {
+            refrescarFunction();
+        }
+    });
 }
 
 $('document').ready(function () {

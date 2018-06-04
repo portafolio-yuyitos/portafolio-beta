@@ -191,7 +191,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter, iD_PEDIDO);
         }
     
-        public virtual int SP_I_PROVEEDOR(string rUT_PROVEEDOR, string rAZON_SOCIAL, Nullable<decimal> fONO, string eMAIL, string gIRO)
+        public virtual int SP_I_PROVEEDOR(string rUT_PROVEEDOR, string rAZON_SOCIAL, Nullable<decimal> fONO, string eMAIL, string gIRO, ObjectParameter v_SALIDA)
         {
             var rUT_PROVEEDORParameter = rUT_PROVEEDOR != null ?
                 new ObjectParameter("RUT_PROVEEDOR", rUT_PROVEEDOR) :
@@ -213,7 +213,7 @@ namespace portafolio
                 new ObjectParameter("GIRO", gIRO) :
                 new ObjectParameter("GIRO", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PROVEEDOR", rUT_PROVEEDORParameter, rAZON_SOCIALParameter, fONOParameter, eMAILParameter, gIROParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PROVEEDOR", rUT_PROVEEDORParameter, rAZON_SOCIALParameter, fONOParameter, eMAILParameter, gIROParameter, v_SALIDA);
         }
     
         public virtual int SP_RESET_SEQ_DETALLE_PEDIDO()
@@ -259,7 +259,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_BOLETA", v_NUMERO_BOLETAParameter, v_FIADOParameter, v_TIPO_PAGOParameter, v_TOTAL_BOLETAParameter, v_FECHA_BOLETAParameter);
         }
     
-        public virtual int SP_U_CLIENTE(string v_RUT_CLIENTE, string v_NOMBRE)
+        public virtual int SP_U_CLIENTE(string v_RUT_CLIENTE, string v_NOMBRE, Nullable<decimal> v_ESTADO)
         {
             var v_RUT_CLIENTEParameter = v_RUT_CLIENTE != null ?
                 new ObjectParameter("V_RUT_CLIENTE", v_RUT_CLIENTE) :
@@ -269,7 +269,11 @@ namespace portafolio
                 new ObjectParameter("V_NOMBRE", v_NOMBRE) :
                 new ObjectParameter("V_NOMBRE", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_CLIENTE", v_RUT_CLIENTEParameter, v_NOMBREParameter);
+            var v_ESTADOParameter = v_ESTADO.HasValue ?
+                new ObjectParameter("V_ESTADO", v_ESTADO) :
+                new ObjectParameter("V_ESTADO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_CLIENTE", v_RUT_CLIENTEParameter, v_NOMBREParameter, v_ESTADOParameter);
         }
     
         public virtual int SP_U_DETALLE_BOLETA(Nullable<decimal> v_ID_DETALLE, string v_CANTIDAD_PRODUCTO, Nullable<decimal> v_ID_PRODUCTO, Nullable<decimal> v_ID_BOLETA)
@@ -302,7 +306,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_FIADOR", rUTParameter);
         }
     
-        public virtual int SP_U_PROVEEDOR(string v_RUT_PROVEEDOR, string v_RAZON_SOCIAL, Nullable<decimal> v_FONO, string v_EMAIL, string v_GIRO)
+        public virtual int SP_U_PROVEEDOR(string v_RUT_PROVEEDOR, string v_RAZON_SOCIAL, Nullable<decimal> v_FONO, string v_EMAIL, string v_GIRO, Nullable<decimal> v_ESTADO)
         {
             var v_RUT_PROVEEDORParameter = v_RUT_PROVEEDOR != null ?
                 new ObjectParameter("V_RUT_PROVEEDOR", v_RUT_PROVEEDOR) :
@@ -324,7 +328,11 @@ namespace portafolio
                 new ObjectParameter("V_GIRO", v_GIRO) :
                 new ObjectParameter("V_GIRO", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PROVEEDOR", v_RUT_PROVEEDORParameter, v_RAZON_SOCIALParameter, v_FONOParameter, v_EMAILParameter, v_GIROParameter);
+            var v_ESTADOParameter = v_ESTADO.HasValue ?
+                new ObjectParameter("V_ESTADO", v_ESTADO) :
+                new ObjectParameter("V_ESTADO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PROVEEDOR", v_RUT_PROVEEDORParameter, v_RAZON_SOCIALParameter, v_FONOParameter, v_EMAILParameter, v_GIROParameter, v_ESTADOParameter);
         }
     
         public virtual int SP_AUTORIZAR_CLIENTE(string v_RUT_CLIENTE, Nullable<decimal> v_AUTORIZADO_FIADO)

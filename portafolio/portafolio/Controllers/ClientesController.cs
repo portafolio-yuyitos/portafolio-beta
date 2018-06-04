@@ -78,10 +78,6 @@ namespace portafolio.Controllers
             }
             catch (Exception e)
             {
-                if(e.InnerException.Message.Contains("unique constraint"))
-                {
-                    return "Ya existe el registro";
-                }
                 return "Error";
             }
         }
@@ -107,7 +103,7 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                db.SP_U_CLIENTE(cli.Rut,cli.Nombre);
+                db.SP_U_CLIENTE(cli.Rut,cli.Nombre,cli.Estado);
                 return true;
             }
             catch (Exception e)

@@ -3,6 +3,7 @@ using portafolio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Objects;
 using System.Web;
 using System.Web.Mvc;
 
@@ -44,8 +45,8 @@ namespace portafolio.Controllers
                                 Email = _rdrObj.GetString(_rdrObj.GetOrdinal("EMAIL")),
                                 Fono = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("FONO")),
                                 Giro = _rdrObj.GetString(_rdrObj.GetOrdinal("GIRO")),
-                                RazonSocial = _rdrObj.GetString(_rdrObj.GetOrdinal("RAZON_SOCIAL"))
-
+                                RazonSocial = _rdrObj.GetString(_rdrObj.GetOrdinal("RAZON_SOCIAL")),
+                                Estado = _rdrObj.GetDecimal(_rdrObj.GetOrdinal("ESTADO"))
                             });
                         }
                     }
@@ -68,17 +69,18 @@ namespace portafolio.Controllers
         }
 
         [HttpPost]
-        public bool Agregar(Proveedor pro)
+        public string Agregar(Proveedor pro)
         {
             var db = new YuyosEntities(); //Instancia DB
+            System.Data.Objects.ObjectParameter salida = new ObjectParameter("v_SALIDA", -1);
             try
             {
-                db.SP_I_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro);
-                return true;
+                db.SP_I_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro, salida);
+                return salida.Value.ToString();
             }
             catch (Exception e)
             {
-                return false;
+                return "Error";
             }
         }
 
@@ -103,7 +105,7 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                db.SP_U_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro);
+                db.SP_U_PROVEEDOR(pro.RutProveedor,pro.RazonSocial,pro.Fono,pro.Email,pro.Giro,pro.Estado);
                 return true;
             }
             catch (Exception e)
