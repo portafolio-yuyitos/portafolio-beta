@@ -411,6 +411,19 @@
           <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
           <Parameter Name="ID_PEDIDO" Type="number" Mode="Out" />
         </Function>
+        <Function Name="SP_I_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_DESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="V_PRECIO_VENTA" Type="number" Mode="In" />
+          <Parameter Name="V_UNIDAD_MEDIDA" Type="varchar2" Mode="In" />
+          <Parameter Name="V_STOCK" Type="number" Mode="In" />
+          <Parameter Name="V_FECHA_VENCIMIETO" Type="date" Mode="In" />
+          <Parameter Name="V_PRECIO_COMPRA" Type="number" Mode="In" />
+          <Parameter Name="V_STOCK_CRITICO" Type="number" Mode="In" />
+          <Parameter Name="V_ID_PROVEEDOR" Type="number" Mode="In" />
+          <Parameter Name="V_ID_TIPO_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="V_ID_TIPO_MONEDA" Type="number" Mode="In" />
+          <Parameter Name="ID_PRODUCTO" Type="number" Mode="Out" />
+        </Function>
         <Function Name="SP_I_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_PROVEEDOR" Type="varchar2" Mode="In" />
           <Parameter Name="RAZON_SOCIAL" Type="varchar2" Mode="In" />
@@ -1120,6 +1133,19 @@
             <Parameter Name="V_ESTADO" Mode="In" Type="String" />
             <Parameter Name="V_FECHA_PAGO" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="SP_I_PRODUCTO">
+            <Parameter Name="V_DESCRIPCION" Mode="In" Type="String" />
+            <Parameter Name="V_PRECIO_VENTA" Mode="In" Type="Decimal" />
+            <Parameter Name="V_UNIDAD_MEDIDA" Mode="In" Type="String" />
+            <Parameter Name="V_STOCK" Mode="In" Type="Decimal" />
+            <Parameter Name="V_FECHA_VENCIMIETO" Mode="In" Type="DateTime" />
+            <Parameter Name="V_PRECIO_COMPRA" Mode="In" Type="Decimal" />
+            <Parameter Name="V_STOCK_CRITICO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_ID_PROVEEDOR" Mode="In" Type="Decimal" />
+            <Parameter Name="V_ID_TIPO_PRODUCTO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_ID_TIPO_MONEDA" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_PRODUCTO" Mode="Out" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1313,6 +1339,7 @@
           <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_AUTORIZAR_CLIENTE" FunctionName="Model.Store.SP_AUTORIZAR_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_U_PAGAR_FIADO" FunctionName="Model.Store.SP_U_PAGAR_FIADO" />
+          <FunctionImportMapping FunctionImportName="SP_I_PRODUCTO" FunctionName="Model.Store.SP_I_PRODUCTO" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

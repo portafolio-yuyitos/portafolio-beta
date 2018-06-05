@@ -19,7 +19,7 @@
             <div class="px-3 py-4 bg-light text-dark">
                 <div class="form-group">
                     <label class="w-100 d-flex flex-column">
-                        Proveedor @ViewBag.Caca
+                        Proveedor
                         <select class="js-example-basic-single form-control" name="proveedores" id='proveedor' onchange="valSelect(this)"></select>
                         <label class="error text-danger d-none mt-2 mb-0"></label>
                     </label>
@@ -27,14 +27,27 @@
                 <div class="form-group">
                     <label class="w-100 d-flex flex-column">
                         Producto
-                        <select class="form-control" name="productos" id='productos' onchange="valSelect(this)"></select>
+                        @*<select class="form-control" name="productos" id='productos' onchange="valSelect(this)"></select>*@
+                        <input id="productos" type="text" class="form-control" placeholder="Nombre producto" onkeyup="valTexto(this, 2, 50)" />
+                        <label class="error text-danger d-none"></label>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="w-100 d-flex flex-column">
+                        Familia producto
+                        <select id="familiaProducto" type="text" class="form-control" placeholder="Familia producto" onkeyup="valSelect(this)">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                         <label class="error text-danger d-none"></label>
                     </label>
                 </div>
                 <div class="form-group">
                     <label class="w-100">
                         Precio:
-                        <input class="form-control" type="text" value="1000" id='precio' disabled>
+                        <input class="form-control" type="text" value="0" id='precio' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
                     </label>
                 </div>
                 <div class="form-group d-flex flex-column align-items-end">
@@ -53,6 +66,7 @@
                     <tr>
                         <td class="p-2">Proveedor:</td>
                         <td>Producto:</td>
+                        <td>Familia producto:</td>
                         <td>Cantidad:</td>
                         <td>Precio:</td>
                         <td>Acciones</td>

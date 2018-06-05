@@ -364,5 +364,50 @@ namespace portafolio
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter, v_FECHA_PAGOParameter);
         }
+    
+        public virtual int SP_I_PRODUCTO(string v_DESCRIPCION, Nullable<decimal> v_PRECIO_VENTA, string v_UNIDAD_MEDIDA, Nullable<decimal> v_STOCK, Nullable<System.DateTime> v_FECHA_VENCIMIETO, Nullable<decimal> v_PRECIO_COMPRA, Nullable<decimal> v_STOCK_CRITICO, Nullable<decimal> v_ID_PROVEEDOR, Nullable<decimal> v_ID_TIPO_PRODUCTO, Nullable<decimal> v_ID_TIPO_MONEDA, ObjectParameter iD_PRODUCTO)
+        {
+            var v_DESCRIPCIONParameter = v_DESCRIPCION != null ?
+                new ObjectParameter("V_DESCRIPCION", v_DESCRIPCION) :
+                new ObjectParameter("V_DESCRIPCION", typeof(string));
+    
+            var v_PRECIO_VENTAParameter = v_PRECIO_VENTA.HasValue ?
+                new ObjectParameter("V_PRECIO_VENTA", v_PRECIO_VENTA) :
+                new ObjectParameter("V_PRECIO_VENTA", typeof(decimal));
+    
+            var v_UNIDAD_MEDIDAParameter = v_UNIDAD_MEDIDA != null ?
+                new ObjectParameter("V_UNIDAD_MEDIDA", v_UNIDAD_MEDIDA) :
+                new ObjectParameter("V_UNIDAD_MEDIDA", typeof(string));
+    
+            var v_STOCKParameter = v_STOCK.HasValue ?
+                new ObjectParameter("V_STOCK", v_STOCK) :
+                new ObjectParameter("V_STOCK", typeof(decimal));
+    
+            var v_FECHA_VENCIMIETOParameter = v_FECHA_VENCIMIETO.HasValue ?
+                new ObjectParameter("V_FECHA_VENCIMIETO", v_FECHA_VENCIMIETO) :
+                new ObjectParameter("V_FECHA_VENCIMIETO", typeof(System.DateTime));
+    
+            var v_PRECIO_COMPRAParameter = v_PRECIO_COMPRA.HasValue ?
+                new ObjectParameter("V_PRECIO_COMPRA", v_PRECIO_COMPRA) :
+                new ObjectParameter("V_PRECIO_COMPRA", typeof(decimal));
+    
+            var v_STOCK_CRITICOParameter = v_STOCK_CRITICO.HasValue ?
+                new ObjectParameter("V_STOCK_CRITICO", v_STOCK_CRITICO) :
+                new ObjectParameter("V_STOCK_CRITICO", typeof(decimal));
+    
+            var v_ID_PROVEEDORParameter = v_ID_PROVEEDOR.HasValue ?
+                new ObjectParameter("V_ID_PROVEEDOR", v_ID_PROVEEDOR) :
+                new ObjectParameter("V_ID_PROVEEDOR", typeof(decimal));
+    
+            var v_ID_TIPO_PRODUCTOParameter = v_ID_TIPO_PRODUCTO.HasValue ?
+                new ObjectParameter("V_ID_TIPO_PRODUCTO", v_ID_TIPO_PRODUCTO) :
+                new ObjectParameter("V_ID_TIPO_PRODUCTO", typeof(decimal));
+    
+            var v_ID_TIPO_MONEDAParameter = v_ID_TIPO_MONEDA.HasValue ?
+                new ObjectParameter("V_ID_TIPO_MONEDA", v_ID_TIPO_MONEDA) :
+                new ObjectParameter("V_ID_TIPO_MONEDA", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PRODUCTO", v_DESCRIPCIONParameter, v_PRECIO_VENTAParameter, v_UNIDAD_MEDIDAParameter, v_STOCKParameter, v_FECHA_VENCIMIETOParameter, v_PRECIO_COMPRAParameter, v_STOCK_CRITICOParameter, v_ID_PROVEEDORParameter, v_ID_TIPO_PRODUCTOParameter, v_ID_TIPO_MONEDAParameter, iD_PRODUCTO);
+        }
     }
 }
