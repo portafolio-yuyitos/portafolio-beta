@@ -1,0 +1,107 @@
+﻿@model List<portafolio.Models.Pedido>
+@{
+    ViewBag.Title = "Recepción productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="container my-5">
+    <div class="row flex-column">
+        <h1 class="mb-0">Recepción de productos</h1>
+        <small>
+            Podrás buscar órdenes de pedido y aceptar los productos que hay en ella.
+            También puedes editar el stock de su almacén
+        </small>
+    </div>
+</header>
+<main class="container">
+    <div class="row justify-content-between bg-dark py-5 px-3 border-top box-shadow border-radius">
+        <div class="col-md-12">
+            <h5 class="c-orange mb-4">Busca la orden de pedido:</h5>
+        </div>
+        <div class="col-md-12 d-flex ">
+
+            <div class="mr-5 form-group">
+                <label class="w-100">
+                    ID Orden de pedido:
+                    <input class="form-control" type="text" value="0" id='idOP' onkeyup="valCantidad(this,1,999999999999)" onchange="valCantidad(this,1,999999999999)">
+                    <label class="error text-danger d-none position-absolute"></label>
+                </label>
+            </div>
+
+            <div class=" justify-content-end d-flex align-items-center">
+                <button class="btn btn-secondary d-block" onclick="buscarOP()">Buscar orden de pedido</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="d-none row mt-5" id="listadoProductos">
+        <div class="col-md-12">
+            <h5 class="c-orange mb-4">Listado de productos:</h5>
+        </div>
+        <div class="w-100">
+            <div class="accordion" id="accordionExample">
+                <div class="card bg-dark">
+                    <div class="card-header d-flex justify-content-between align-items-center cursor-pointer" id="1" data-toggle="collapse" data-target="#1a" aria-expanded="true" aria-controls="1a">
+                        <div class="w-75 d-flex">
+                            <div class="d-flex justify-content-between flex-column mr-4">
+                                @*<p class="mr-3"><strong>Código: </strong>132456789</p>*@
+                                <p class="mb-0"><strong>Descripción: </strong>Arroz Miraflores</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 mr-3"><strong>Estado: </strong>En almacén</p>
+                    </div>
+
+                    <div id="1a" class="collapse" aria-labelledby="1" data-parent="#accordionExample">
+                        <div class="card-body bg-dark-dark d-flex flex-column">
+                            <div class="d-flex">
+                                <p class="col-md-3"><strong>Familia: </strong>Abarrotes</p>
+                                <p class="col-md-3"><strong>Vence: </strong>26/06/2019</p>
+                                <p class="col-md-3"><strong>Unidad de medida: </strong>Kilo</p>
+                                <p class="col-md-3"><strong>Stock traído: </strong>Kilo</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="col-md-3"><strong>Stock en almacén: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Stock crítico: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Precio compra: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Precio venta: </strong>132456789</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-dark">
+                    <div class="card-header d-flex justify-content-between align-items-center cursor-pointer" id="2" data-toggle="collapse" data-target="#2a" aria-expanded="true" aria-controls="2a">
+                        <div class="w-75 d-flex d-flex">
+                            <div class="d-flex justify-content-between flex-column mr-4">
+                                @*<p class="mr-3"><strong>Código: </strong>132456789</p>*@
+                                <p class="mb-0"><strong>Descripción: </strong>Arroz Miraflores</p>
+                            </div>
+                        </div>
+                        <p class="mb-0 mr-3"><strong>Estado: </strong>No existe en almacén</p>
+                    </div>
+
+                    <div id="2a" class="collapse" aria-labelledby="2" data-parent="#accordionExample">
+                        <div class="card-body bg-dark-dark d-flex flex-column">
+                            <div class="d-flex">
+                                <p class="col-md-3"><strong>Familia: </strong>Abarrotes</p>
+                                <p class="col-md-3"><strong>Vence: </strong>26/06/2019</p>
+                                <p class="col-md-3"><strong>Unidad de medida: </strong>Kilo</p>
+                                <p class="col-md-3"><strong>Stock traído: </strong>Kilo</p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="col-md-3"><strong>Stock en almacén: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Stock crítico: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Precio compra: </strong>132456789</p>
+                                <p class="col-md-3"><strong>Precio venta: </strong>132456789</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 justify-content-end d-flex align-items-center mt-4">
+            <button class="btn btn-primary d-block" onclick="aceptarOP()">Aceptar Orden de pedido</button>
+        </div>
+    </div>
+</main>
+
+<script src="@Url.Content("~/assets/js/recepcion-pedido.js")"></script>
