@@ -38,18 +38,14 @@ function validarTodo() {
     debugger;
     var proveedor = $('#proveedor');
     var producto = $('#productos');
-    var familia = $('#familiaProducto');
-    var cantidad = document.getElementById('cantidad');
+    var cantidad = document.getElementById('stock');
 
     var valido = true;
 
     if (!valSelect(proveedor)) {
         valido = false;
     }
-    if (!valSelect(familia)) {
-        valido = false;
-    }
-    if (!valTexto(producto, 4, 50)) {
+    if (!valSelect(producto)) {
         valido = false;
     }
     if (!valCantidad(cantidad, 1, 99999999)) {
@@ -63,7 +59,7 @@ function validarTodo() {
 }
 
 //Llena la tabla de productos con una fila nueva
-function llenarProductos(cantidad, proveedor, producto, familia) {
+function llenarProductos(cantidad, proveedor, producto ) {
     debugger;
     var nombreProveedor = $('#select2-proveedor-container').text();
     var nombreProducto = producto[0].value;
@@ -72,7 +68,6 @@ function llenarProductos(cantidad, proveedor, producto, familia) {
     var fila = '<tr>'; //Crea fila
     fila += '<td data-id="' + proveedor.val() + '">' + nombreProveedor + '</td>';
     fila += '<td>' + nombreProducto + '</td>';
-    fila += '<td>' + familia.val() + '</td>';
     fila += '<td>' + cantidad.value + '</td>';
     fila += '<td class="precio">' + precio + '</td>';
     fila += '<td><button class="btn btn-danger mr-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
@@ -80,17 +75,16 @@ function llenarProductos(cantidad, proveedor, producto, familia) {
     //Pinta en tabla productos
     productos.find('tbody').append(fila);
     mostrarTabla(productos.closest('table'), true);
-    limpiarCamposProducto(cantidad, proveedor, producto, familia);
+    limpiarCamposProducto(cantidad, proveedor, producto);
 }
 
 //Limpia campos al agregar producto
-function limpiarCamposProducto(cantidad, proveedor, producto, familia) {
+function limpiarCamposProducto(cantidad, proveedor, producto) {
     cantidad.value = 0;
     proveedor.attr('disabled', true);
     proveedor.siblings('.error').addClass('d-none');
     producto.val('');
     $('#precio')['0'].value = 0;
-    familia.val('');
 }
 
 //Agregar Producto
@@ -471,19 +465,19 @@ function pad(n, length) {
 
 $(document).ready(function () {
     fillSelectProveedor();
-    //$('#proveedor').on('select2:select', function (e) {
-    //    // Do something
-    //    var idProveedor = e.target.value;
-    //    fillSelectProductos(idProveedor);
-    //});
+    $('#proveedor').on('select2:select', function (e) {
+        // Do something
+        var idProveedor = e.target.value;
+        fillSelectProductos(idProveedor);
+    });
 
-    //$('#productos').on('change', function (e) {
-    //    var precio = e.target.selectedOptions
-    //    if (precio.length > 0) {
-    //        precio = precio['0'].dataset.precio;
-    //        $('#precio').val(precio);
-    //    } else {
-    //        $('#precio').val(0);
-    //    }
-    //});
+    $('#productos').on('change', function (e) {
+        var precio = e.target.selectedOptions
+        if (precio.length > 0) {
+            precio = precio['0'].dataset.precio;
+            $('#precio').val(precio);
+        } else {
+            $('#precio').val(0);
+        }
+    });
 });

@@ -24,43 +24,16 @@
                     </label>
                 </div>
                 <div class="form-group col-md-3">
-                    <label class="w-100">
-                        Producto
-                        @*<select class="form-control" name="productos" id='productos' onchange="valSelect(this)"></select>*@
-                        <input id="productos" type="text" class="form-control" placeholder="Nombre producto" onkeyup="valTexto(this, 2, 50)" />
-                        <label class="error text-danger d-none"></label>
-                    </label>
-                </div>
-                <div class="form-group col-md-3">
                     <label class="d-flex flex-column">
-                        Familia producto
-                        <select id="familiaProducto" type="text" class="form-control" placeholder="Familia producto" onkeyup="valSelect(this)">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                        <label class="error text-danger d-none"></label>
+                        Productos
+                        <select class="form-control" id='productos' onchange="valSelect(this)"></select>
+                        <label class="error text-danger d-none mt-2 mb-0"></label>
                     </label>
                 </div>
                 <div class="col-md-3 form-group">
                     <label class="w-100">
                         Precio compra:
-                        <input class="form-control" type="text" value="0" id='precioCompra' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
-                        <label class="error text-danger d-none"></label>
-                    </label>
-                </div>
-                <div class="col-md-3 form-group">
-                    <label class="w-100">
-                        Precio venta:
-                        <input class="form-control" type="text" value="0" id='precioVenta' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
-                        <label class="error text-danger d-none"></label>
-                    </label>
-                </div>
-                <div class="col-md-3 form-group">
-                    <label class="w-100">
-                        Unidad de medida:
-                        <input class="form-control" type="text" value="0" id='unidadMedida' onkeyup="valTexto(this, 1, 20)" />
+                        <input class="form-control" type="text" value="0" id='precio' disabled onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
                         <label class="error text-danger d-none"></label>
                     </label>
                 </div>
@@ -71,30 +44,7 @@
                         <label class="error text-danger d-none position-absolute"></label>
                     </label>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="w-100">
-                        Stock crítico:
-                        <input class="form-control" type="number" value="0" id='stockCritico' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
-                        <label class="error text-danger d-none position-absolute"></label>
-                    </label>
-                </div>
-                <div class="col-md-3 form-group">
-                    <label class="w-100">
-                        Fecha de vencimiento:
-                        <input class="form-control" type="date" value="0" id='fechaVencimiento' />
-                        <label class="error text-danger d-none position-absolute"></label>
-                    </label>
-                </div>
-                <div class="form-group col-md-3">
-                    <label class="d-flex flex-column">
-                        Tipo moneda
-                        <select id="tipoMoneda" type="text" class="form-control" onkeyup="valSelect(this)">
-                            <option value="1">Pesos chilenos</option>
-                        </select>
-                        <label class="error text-danger d-none"></label>
-                    </label>
-                </div>
-                <div class="col-md-6 justify-content-end d-flex align-items-center">
+                <div class="col-md-12 justify-content-end d-flex align-items-center">
                     <button class="btn btn-secondary d-block" onclick="agregarProducto()">Agregar Producto</button>
                 </div>
         </div>
