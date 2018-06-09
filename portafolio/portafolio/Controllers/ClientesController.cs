@@ -127,8 +127,30 @@ namespace portafolio.Controllers
             }
         }
 
+        
+
         [HttpPost]
         public JsonResult Clientes()
+        {
+            List<Cliente> clientes = new List<Cliente>();
+            try
+            {
+                clientes = ClientesList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return new JsonResult()
+            {
+                Data = clientes,
+                JsonRequestBehavior = JsonRequestBehavior.DenyGet
+            };
+        }
+
+        [HttpPost]
+        public List<Cliente> ClientesList()
         {
             List<Cliente> clientes = new List<Cliente>();
 
@@ -157,8 +179,7 @@ namespace portafolio.Controllers
                             Id = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_CLIENTE")),
                             Rut = _rdrObj.GetString(_rdrObj.GetOrdinal("RUT_CLIENTE")),
                             Nombre = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE")),
-                            Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO")),
-                            Estado = _rdrObj.GetDecimal(_rdrObj.GetOrdinal("ESTADO"))
+                            Autorizado_fiado = (long)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("AUTORIZADO_FIADO"))
                         });
                     }
                 }
@@ -173,11 +194,7 @@ namespace portafolio.Controllers
                 throw new Exception(ex.Message);
             }
 
-            return new JsonResult()
-            {
-                Data = clientes,
-                JsonRequestBehavior = JsonRequestBehavior.DenyGet
-            };
+            return clientes;
         }
     }
 }
