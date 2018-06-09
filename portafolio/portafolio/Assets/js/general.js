@@ -1,13 +1,15 @@
-$(document).ready(function () {
+
+function refrescarFunction() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
-});
+    $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
+}
+
 
 window.onload = function () {
     spinner(false);
 };
-
 
 function spinner(estado) {
     if (!estado) {
@@ -289,7 +291,7 @@ function guardar(e, tipo) {
 }
 
 //Funcion que agrega, llenando tabla. Se le pasa el tipo para que vay a la funcion
-function agregar(tipo) {
+function agregar(tipo,e) {
 
     var valido = validarTodo();
 
@@ -299,7 +301,7 @@ function agregar(tipo) {
     } else {
         switch (tipo) {
             case "clientes":
-                agregarCliente(valido);
+                agregarCliente(valido,e);
                 break;
             case "proveedor":
                 agregarProveedor(valido);
@@ -352,4 +354,8 @@ $('document').ready(function () {
     //Mostrar o no las tablas si es que tienen filas
     mostrarTabla($('#productosContainer'), true);
     mostrarTabla($('#tablaOP'));
+    refrescarFunction();
+    $("button").click(function () {
+        $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
+    });
 });

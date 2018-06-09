@@ -171,6 +171,7 @@
     <Compile Include="Controllers\OrdenPedidoController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\RecepcionProductoController.cs" />
     <Compile Include="DETALLE_BOLETA.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
     </Compile>
@@ -252,6 +253,7 @@
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\js\boleta.js" />
     <Content Include="Assets\js\clientes.js" />
+    <Content Include="Assets\js\recepcion-pedido.js" />
     <Content Include="YuyosModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>YuyosModel.edmx</DependentUpon>
@@ -294,6 +296,7 @@
     <Content Include="YuyosModel.edmx.diagram">
       <DependentUpon>YuyosModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\RecepcionProducto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

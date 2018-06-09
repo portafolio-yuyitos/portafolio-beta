@@ -11,6 +11,7 @@ namespace portafolio.Models
         private string nombre;
         private string rut;
         private decimal autorizado_fiado;
+        private decimal estado;
 
         public decimal Autorizado_fiado
         {
@@ -21,6 +22,18 @@ namespace portafolio.Models
             set
             {
                 autorizado_fiado = value;
+            }
+        }
+
+        public decimal Estado
+        {
+            get
+            {
+                return estado;
+            }
+            set
+            {
+                estado = value;
             }
         }
 
@@ -47,7 +60,6 @@ namespace portafolio.Models
                 nombre = value;
             }
         }
-
 
         public int Id
         {

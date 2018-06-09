@@ -27,6 +27,7 @@ namespace portafolio
         public decimal FONO { get; set; }
         public string EMAIL { get; set; }
         public string GIRO { get; set; }
+        public Nullable<short> ESTADO { get; set; }
     
         public virtual ICollection<PEDIDO> PEDIDO { get; set; }
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }

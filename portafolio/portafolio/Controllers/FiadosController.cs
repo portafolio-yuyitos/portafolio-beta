@@ -162,7 +162,20 @@ namespace portafolio.Controllers
             return listaClientes;
         }
 
-
+        public bool pagarFiado(int idFiado, string estadoFiado)
+        {
+            var db = new YuyosEntities(); //Instancia DB
+            try
+            {
+                DateTime now = DateTime.Now;
+                db.SP_U_PAGAR_FIADO(idFiado, estadoFiado, now);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
 

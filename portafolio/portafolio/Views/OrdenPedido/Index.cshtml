@@ -15,44 +15,46 @@
         <div class="col-md-12">
             <h5 class="c-orange mb-4">Gestión orden de pedido:</h5>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="px-3 py-4 bg-light text-dark">
-                <div class="form-group">
-                    <label class="w-100 d-flex flex-column">
-                        Proveedor @ViewBag.Caca
+        <div class="mb-4 py-4 bg-light text-dark row mx-3">
+                <div class="form-group col-md-3">
+                    <label class="d-flex flex-column">
+                        Proveedor
                         <select class="js-example-basic-single form-control" name="proveedores" id='proveedor' onchange="valSelect(this)"></select>
                         <label class="error text-danger d-none mt-2 mb-0"></label>
                     </label>
                 </div>
-                <div class="form-group">
-                    <label class="w-100 d-flex flex-column">
-                        Producto
-                        <select class="form-control" name="productos" id='productos' onchange="valSelect(this)"></select>
+                <div class="form-group col-md-3">
+                    <label class="d-flex flex-column">
+                        Productos
+                        <select class="form-control" id='productos' onchange="valSelect(this)"></select>
+                        <label class="error text-danger d-none mt-2 mb-0"></label>
+                    </label>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label class="w-100">
+                        Precio compra:
+                        <input class="form-control" type="text" value="0" id='precio' disabled onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
                         <label class="error text-danger d-none"></label>
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="col-md-3 form-group">
                     <label class="w-100">
-                        Precio:
-                        <input class="form-control" type="text" value="1000" id='precio' disabled>
-                    </label>
-                </div>
-                <div class="form-group d-flex flex-column align-items-end">
-                    <label class="w-100">
-                        Cantidad:
-                        <input class="form-control" type="number" value="0" id='cantidad' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
+                        Stock:
+                        <input class="form-control" type="number" value="0" id='stock' onkeyup="valCantidad(this,1,9999999)" onchange="valCantidad(this,1,9999999)">
                         <label class="error text-danger d-none position-absolute"></label>
                     </label>
-                    <button class="btn btn-secondary d-block mt-4" onclick="agregarProducto()">Agregar Producto</button>
                 </div>
-            </div>
+                <div class="col-md-12 justify-content-end d-flex align-items-center">
+                    <button class="btn btn-secondary d-block" onclick="agregarProducto()">Agregar Producto</button>
+                </div>
         </div>
-        <div class="col-md-8 d-flex flex-column justify-content-between productos">
+        <div class="col-md-12 d-flex flex-column justify-content-between productos">
             <table class="table table-dark table-hover border-top" id='productosContainer'>
                 <thead>
                     <tr>
                         <td class="p-2">Proveedor:</td>
                         <td>Producto:</td>
+                        <td>Familia producto:</td>
                         <td>Cantidad:</td>
                         <td>Precio:</td>
                         <td>Acciones</td>
@@ -74,8 +76,8 @@
             <button class="btn btn-primary d-none" id="editarOP" onclick="generarOP(this)">Guardar Orden de Pedido</button>
         </div>
 
-        <div class="col-md-8 d-flex flex-column text-light justify-content-center align-items-center" id="vacio">
-            <i class="fas fa-file-alt fnt-40 mb-5"></i>
+        <div class="col-md-12 my-4 d-flex flex-column text-light justify-content-center align-items-center" id="vacio">
+            <i class="fas fa-file-alt fnt-40 mb-4"></i>
             <h3>No existe orden de pedido para generar</h3>
         </div>
     </div>

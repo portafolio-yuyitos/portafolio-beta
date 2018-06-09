@@ -36,5 +36,9 @@ namespace portafolio.Models
         {
             get; set;
         }
+        public decimal Estado
+        {
+            get; set;
+        }
     }
 }

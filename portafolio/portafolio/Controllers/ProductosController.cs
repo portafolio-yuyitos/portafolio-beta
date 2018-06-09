@@ -2,6 +2,7 @@
 using portafolio.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -82,6 +83,21 @@ namespace portafolio.Controllers
                 Data = prods,
                 JsonRequestBehavior = JsonRequestBehavior.DenyGet
             };
+        }
+
+        public int Agregar(Producto producto)
+        {
+            var db = new YuyosEntities(); //Instancia DB
+            System.Data.Objects.ObjectParameter salida = new ObjectParameter("iD_PRODUCTO", -1);
+            try
+            {
+                db.SP_I_PRODUCTO(producto.Descripcion,producto.PrecioVenta,producto.UnidadMedida,producto.Stock,producto.FechaVentimiento,producto.PrecioCompra,producto.StockCritico,producto.IdProveedor,producto.IdTipoProducto,producto.IdTipoMoneda,salida);
+                return (int)salida.Value;
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
         }
     }
 }

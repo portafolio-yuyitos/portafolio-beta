@@ -78,44 +78,68 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <th scope="row">@contador</th>
-                        <td>
-                            <p>@item.RutProveedor</p>
-                            <input type="text" value="@item.RutProveedor" class="form-control editar d-none rut" onkeyup="checkRut(this)">
-                            <label class="error text-danger d-none "></label>
-                        </td>
-                        <td>
-                            <p>@item.Email</p>
-                            <input type="text" value="@item.Email" class="form-control editar d-none email" onkeyup="valEmail(this)">
-                            <label class="error text-danger d-none "></label>
-                        </td>
-                        <td>
-                            <p>@item.RazonSocial</p>
-                            <input type="text" value="@item.RazonSocial" class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                            <label class="error text-danger d-none "></label>
-                        </td>
-                        <td>
-                            <p>@item.Giro</p>
-                            <input type="text" value="@item.Giro" class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">
-                            <label class="error text-danger d-none "></label>
-                        </td>
-                        <td>
-                            <p>@item.Fono</p>
-                            <input type="text" value="@item.Fono" class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">
-                            <label class="error text-danger d-none "></label>
-                        </td>
-                        <td>
-                            <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
-                            <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
-                            <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
-                        </td>
-                    </tr>
-                    contador++;
+                    if (item.Estado != 0)
+                    {
+
+                        <tr>
+                            <th scope="row">@contador</th>
+                            <td>
+                                <p>@item.RutProveedor</p>
+                                <input type="text" value="@item.RutProveedor" class="form-control editar d-none rut" onkeyup="checkRut(this)">
+                                <label class="error text-danger d-none "></label>
+                            </td>
+                            <td>
+                                <p>@item.Email</p>
+                                <input type="text" value="@item.Email" class="form-control editar d-none email" onkeyup="valEmail(this)">
+                                <label class="error text-danger d-none "></label>
+                            </td>
+                            <td>
+                                <p>@item.RazonSocial</p>
+                                <input type="text" value="@item.RazonSocial" class="razon form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                                <label class="error text-danger d-none "></label>
+                            </td>
+                            <td>
+                                <p>@item.Giro</p>
+                                <input type="text" value="@item.Giro" class="giro form-control editar d-none" onkeyup="valTexto(this,4,50)">
+                                <label class="error text-danger d-none "></label>
+                            </td>
+                            <td>
+                                <p>@item.Fono</p>
+                                <input type="text" value="@item.Fono" class="fono form-control editar d-none" onkeyup="valNumber(this,9,12)">
+                                <label class="error text-danger d-none "></label>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary editar d-none cursor-pointer" onclick="guardar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Guardar contacto"><i class="fas fa-check-circle"></i></a>
+                                <a class="btn btn-danger btnEliminar mr-2 cursor-pointer" onclick="eliminar(this,'proveedor')" data-toggle="tooltip" data-placement="top" title="Eliminar contacto"><i class="fas fa-trash-alt"></i></a>
+                                <a class="btn btn-secondary btnEditar cursor-pointer" onclick="editar(this)" data-toggle="tooltip" data-placement="top" title="Editar contacto"><i class="fas fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        contador++;
+                    }
                 }
             </tbody>
         </table>
     </div>
 </main>
-
+<section>
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Almacén Yuyitos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>El proveedor ya existía. ¿Desea volver a activarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="activarProveedor()">Activar cliente</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <script src="@Url.Content("~/assets/js/proveedores.js")"></script>

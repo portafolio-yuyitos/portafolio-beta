@@ -38,7 +38,7 @@ function validarTodo() {
     debugger;
     var proveedor = $('#proveedor');
     var producto = $('#productos');
-    var cantidad = document.getElementById('cantidad');
+    var cantidad = document.getElementById('stock');
 
     var valido = true;
 
@@ -52,21 +52,22 @@ function validarTodo() {
         valido = false;
     }
     if (valido) {
-        llenarProductos(cantidad, proveedor, producto);//Llena los productos
+        llenarProductos(cantidad, proveedor, producto, familia);//Llena los productos
     }
 
     return valido;
 }
 
 //Llena la tabla de productos con una fila nueva
-function llenarProductos(cantidad, proveedor, producto) {
+function llenarProductos(cantidad, proveedor, producto ) {
+    debugger;
     var nombreProveedor = $('#select2-proveedor-container').text();
-    var nombreProducto = producto[0].selectedOptions[0].innerText;
+    var nombreProducto = producto[0].value;
     var precio = $('#precio')['0'].value * cantidad.value;
     var productos = $('#productosContainer');
     var fila = '<tr>'; //Crea fila
     fila += '<td data-id="' + proveedor.val() + '">' + nombreProveedor + '</td>';
-    fila += '<td data-id="' + producto.val() + '">' + nombreProducto + '</td>';
+    fila += '<td>' + nombreProducto + '</td>';
     fila += '<td>' + cantidad.value + '</td>';
     fila += '<td class="precio">' + precio + '</td>';
     fila += '<td><button class="btn btn-danger mr-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
@@ -82,7 +83,7 @@ function limpiarCamposProducto(cantidad, proveedor, producto) {
     cantidad.value = 0;
     proveedor.attr('disabled', true);
     proveedor.siblings('.error').addClass('d-none');
-    producto.val('-1');
+    producto.val('');
     $('#precio')['0'].value = 0;
 }
 
@@ -133,13 +134,15 @@ function generarOP(e) {
                         producto.nombreProveedor = columna.textContent;
                         break;
                     case 1://Producto
-                        producto.id = columna.dataset.id;
+                        //producto.id = columna.dataset.id;
                         producto.nombreProducto = columna.textContent;
                         break;
-                    case 2://Cantidad
+                    case 2://Familia
+                        producto.familia = columna.textContent;
+                    case 3://Cantidad
                         producto.cantidad = columna.textContent;
                         break;
-                    case 3://precio
+                    case 4://precio
                         producto.precio = columna.textContent;
                         break;
                     default:
@@ -238,6 +241,9 @@ function agregarOP(tabla, productos, total) {
         success: function (data) {
             if (data !== "-1") {
                 $.each(productos, function (i, val) {
+
+                    var idProducto = pad(productos[0].proveedor, 3);
+                    idProducto = idProducto;
 
                     var detaPed = {
                         "NumeroPedido": parseInt(data),
@@ -452,6 +458,11 @@ function eliminarProducto(e, tabla) {
     mostrarTabla(tabla, 'producto');//Muestra tabla si tiene filas
 }
 
+function pad(n, length) {
+    var len = length - ('' + n).length;
+    return (len > 0 ? new Array(++len).join('0') : '') + n
+}
+
 $(document).ready(function () {
     fillSelectProveedor();
     $('#proveedor').on('select2:select', function (e) {
@@ -459,8 +470,8 @@ $(document).ready(function () {
         var idProveedor = e.target.value;
         fillSelectProductos(idProveedor);
     });
+
     $('#productos').on('change', function (e) {
-        // Do something
         var precio = e.target.selectedOptions
         if (precio.length > 0) {
             precio = precio['0'].dataset.precio;
@@ -468,6 +479,5 @@ $(document).ready(function () {
         } else {
             $('#precio').val(0);
         }
-
     });
 });

@@ -9,6 +9,10 @@
     width: 20%;
 }
 
+.w-25 {
+    width: 25%;
+}
+
 .h-100vh {
     height: 100vh;
 }
@@ -90,7 +94,9 @@ main {
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-
+.select1-container{
+    width:100% !important;
+}
 .select2-container--default .select2-selection--single {
     background-color: transparent !important;
     border: none !important;
@@ -246,3 +252,15 @@ input:checked + .slider:before {
         border-radius: 50%;
     }
 /**SWITCH FIN*/
+
+.modal{
+    color: rgba(0,0,0,0.8);
+}
+
+#listadoProductos .card-header:hover{
+    background: rgba(255,255,255,0.15);
+}
+
+/*#listadoProductos .collapse p {
+    margin-bottom: 0;
+}*/

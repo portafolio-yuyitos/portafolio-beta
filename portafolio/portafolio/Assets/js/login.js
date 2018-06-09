@@ -23,11 +23,11 @@ function login() {
              var redirect = window.location.origin;
              $(location).attr('href', redirect);
          } else if (data == "False"){
-             alert("No Logeado");
+             alert("El usuario o contraseña son incorrectos");
          }
      },
      error: function (ex) {
-       alert('ERROOOOOOR');
+       alert('Error al logear');
         },
         complete: function () {
             spinner(false);
@@ -35,3 +35,24 @@ function login() {
    });
 
 }
+
+$('document').ready(function () {
+    document.getElementById('nombre').addEventListener("keyup", function (event) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            login();
+        }
+    });
+    document.getElementById('pass').addEventListener("keyup", function (event) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Trigger the button element with a click
+            login();
+        }
+    });
+});
