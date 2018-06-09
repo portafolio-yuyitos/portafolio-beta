@@ -15,6 +15,7 @@
           <Property Name="TOTAL_BOLETA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="FECHA_BOLETA" Type="date" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISANULADA" Type="number" Precision="1" Scale="0" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -365,13 +366,7 @@
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_D_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="NUMERO_BOLETA" Type="varchar2" Mode="In" />
-        </Function>
-        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
-        </Function>
-        <Function Name="SP_D_DETALLE_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="ID_DETALLE" Type="varchar2" Mode="In" />
+          <Parameter Name="NUMERO_BOLETA" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
@@ -393,12 +388,6 @@
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_NOMBRE_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
-          <Parameter Name="V_SALIDA" Type="varchar2" Mode="Out" />
-        </Function>
-        <Function Name="SP_I_DETALLE_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_CANTIDAD_PRODUCTO" Type="number" Mode="In" />
-          <Parameter Name="V_ID_PRODUCTO" Type="number" Mode="In" />
-          <Parameter Name="V_ID_BOLETA" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="CANTIDAD_PRODUCTO" Type="number" Mode="In" />
@@ -411,26 +400,12 @@
           <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
           <Parameter Name="ID_PEDIDO" Type="number" Mode="Out" />
         </Function>
-        <Function Name="SP_I_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_DESCRIPCION" Type="varchar2" Mode="In" />
-          <Parameter Name="V_PRECIO_VENTA" Type="number" Mode="In" />
-          <Parameter Name="V_UNIDAD_MEDIDA" Type="varchar2" Mode="In" />
-          <Parameter Name="V_STOCK" Type="number" Mode="In" />
-          <Parameter Name="V_FECHA_VENCIMIETO" Type="date" Mode="In" />
-          <Parameter Name="V_PRECIO_COMPRA" Type="number" Mode="In" />
-          <Parameter Name="V_STOCK_CRITICO" Type="number" Mode="In" />
-          <Parameter Name="V_ID_PROVEEDOR" Type="number" Mode="In" />
-          <Parameter Name="V_ID_TIPO_PRODUCTO" Type="number" Mode="In" />
-          <Parameter Name="V_ID_TIPO_MONEDA" Type="number" Mode="In" />
-          <Parameter Name="ID_PRODUCTO" Type="number" Mode="Out" />
-        </Function>
         <Function Name="SP_I_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_PROVEEDOR" Type="varchar2" Mode="In" />
           <Parameter Name="RAZON_SOCIAL" Type="varchar2" Mode="In" />
           <Parameter Name="FONO" Type="number" Mode="In" />
           <Parameter Name="EMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="GIRO" Type="varchar2" Mode="In" />
-          <Parameter Name="V_SALIDA" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="SP_RESET_SEQ_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS" />
         <Function Name="SP_S_VALIDAUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
@@ -450,19 +425,8 @@
           <Parameter Name="V_NOMBRE" Type="varchar2" Mode="In" />
           <Parameter Name="V_ESTADO" Type="number" Mode="In" />
         </Function>
-        <Function Name="SP_U_DETALLE_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_ID_DETALLE" Type="number" Mode="In" />
-          <Parameter Name="V_CANTIDAD_PRODUCTO" Type="varchar2" Mode="In" />
-          <Parameter Name="V_ID_PRODUCTO" Type="number" Mode="In" />
-          <Parameter Name="V_ID_BOLETA" Type="number" Mode="In" />
-        </Function>
         <Function Name="SP_U_FIADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT" Type="varchar2" Mode="In" />
-        </Function>
-        <Function Name="SP_U_PAGAR_FIADO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="V_ID_FIADO" Type="number" Mode="In" />
-          <Parameter Name="V_ESTADO" Type="varchar2" Mode="In" />
-          <Parameter Name="V_FECHA_PAGO" Type="date" Mode="In" />
         </Function>
         <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
@@ -470,7 +434,6 @@
           <Parameter Name="V_FONO" Type="number" Mode="In" />
           <Parameter Name="V_EMAIL" Type="varchar2" Mode="In" />
           <Parameter Name="V_GIRO" Type="varchar2" Mode="In" />
-          <Parameter Name="V_ESTADO" Type="number" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="YUYOS" store:Type="Tables" />
@@ -574,6 +537,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="Self.BOLETA_ID_CLIENTE_FK" FromRole="BOLETA" ToRole="CLIENTE" />
           <NavigationProperty Name="DETALLE_BOLETA" Relationship="Self.DETALLE_ID_BOLETA_FK" FromRole="BOLETA" ToRole="DETALLE_BOLETA" />
           <NavigationProperty Name="FIADO1" Relationship="Self.FIADO_ID_BOLETA_FK" FromRole="BOLETA" ToRole="FIADO" />
+          <Property Name="ISANULADA" Type="Int16" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -1035,7 +999,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
           <FunctionImport Name="SP_D_BOLETA">
-          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
+          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_D_CLIENTE">
           <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
@@ -1063,7 +1027,6 @@
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_NOMBRE_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_AUTORIZADO_FIADO" Mode="In" Type="Decimal" />
-            <Parameter Name="V_SALIDA" Mode="Out" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_I_DETALLE_BOLETA">
             <Parameter Name="V_CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
@@ -1087,7 +1050,6 @@
             <Parameter Name="FONO" Mode="In" Type="Decimal" />
             <Parameter Name="EMAIL" Mode="In" Type="String" />
             <Parameter Name="GIRO" Mode="In" Type="String" />
-            <Parameter Name="V_SALIDA" Mode="Out" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_RESET_SEQ_DETALLE_PEDIDO" />
           <FunctionImport Name="SP_S_VALIDAUSUARIO">
@@ -1122,7 +1084,6 @@
             <Parameter Name="V_FONO" Mode="In" Type="Decimal" />
             <Parameter Name="V_EMAIL" Mode="In" Type="String" />
             <Parameter Name="V_GIRO" Mode="In" Type="String" />
-            <Parameter Name="V_ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_AUTORIZAR_CLIENTE">
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
@@ -1156,6 +1117,7 @@
           <EntitySetMapping Name="BOLETA">
             <EntityTypeMapping TypeName="Model.BOLETA">
               <MappingFragment StoreEntitySet="BOLETA">
+                <ScalarProperty Name="ISANULADA" ColumnName="ISANULADA" />
                 <ScalarProperty Name="NUMERO_BOLETA" ColumnName="NUMERO_BOLETA" />
                 <ScalarProperty Name="FIADO" ColumnName="FIADO" />
                 <ScalarProperty Name="TIPO_PAGO" ColumnName="TIPO_PAGO" />
@@ -1319,14 +1281,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_D_BOLETA" FunctionName="Model.Store.SP_D_BOLETA" />
-          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE" FunctionName="Model.Store.SP_D_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_D_DETALLE_BOLETA" FunctionName="Model.Store.SP_D_DETALLE_BOLETA" />
           <FunctionImportMapping FunctionImportName="SP_D_DETALLE_PEDIDO" FunctionName="Model.Store.SP_D_DETALLE_PEDIDO" />
           <FunctionImportMapping FunctionImportName="SP_D_PEDIDO" FunctionName="Model.Store.SP_D_PEDIDO" />
           <FunctionImportMapping FunctionImportName="SP_D_PROVEEDOR" FunctionName="Model.Store.SP_D_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_I_BOLETA" FunctionName="Model.Store.SP_I_BOLETA" />
           <FunctionImportMapping FunctionImportName="SP_I_CLIENTE" FunctionName="Model.Store.SP_I_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_I_DETALLE_BOLETA" FunctionName="Model.Store.SP_I_DETALLE_BOLETA" />
           <FunctionImportMapping FunctionImportName="SP_I_DETALLE_PEDIDO" FunctionName="Model.Store.SP_I_DETALLE_PEDIDO" />
           <FunctionImportMapping FunctionImportName="SP_I_PEDIDO" FunctionName="Model.Store.SP_I_PEDIDO" />
           <FunctionImportMapping FunctionImportName="SP_I_PROVEEDOR" FunctionName="Model.Store.SP_I_PROVEEDOR" />
@@ -1334,13 +1293,10 @@
           <FunctionImportMapping FunctionImportName="SP_S_VALIDAUSUARIO" FunctionName="Model.Store.SP_S_VALIDAUSUARIO" />
           <FunctionImportMapping FunctionImportName="SP_U_BOLETA" FunctionName="Model.Store.SP_U_BOLETA" />
           <FunctionImportMapping FunctionImportName="SP_U_CLIENTE" FunctionName="Model.Store.SP_U_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_U_DETALLE_BOLETA" FunctionName="Model.Store.SP_U_DETALLE_BOLETA" />
           <FunctionImportMapping FunctionImportName="SP_U_FIADOR" FunctionName="Model.Store.SP_U_FIADOR" />
           <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_AUTORIZAR_CLIENTE" FunctionName="Model.Store.SP_AUTORIZAR_CLIENTE" />
-          <FunctionImportMapping FunctionImportName="SP_U_PAGAR_FIADO" FunctionName="Model.Store.SP_U_PAGAR_FIADO" />
-          <FunctionImportMapping FunctionImportName="SP_I_PRODUCTO" FunctionName="Model.Store.SP_I_PRODUCTO" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
