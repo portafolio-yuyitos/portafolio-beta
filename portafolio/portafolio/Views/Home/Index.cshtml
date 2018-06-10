@@ -1,7 +1,109 @@
-﻿@{
+﻿@model portafolio.Models.ViewModels.Bienvenida
+@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Logeado = "logeado";
+
 }
 
 <h1 class="mt-5 pt-5 text-center h-100vh">Almacén Yuyitos</h1>
+
+@*<h1 style="margin-top: 20px; margin-bottom: 30px;" class="text-center">Almacén Yuyitos</h1>*@
+
+<div class="container-fluid">
+    <div class="row" style="color: white">
+        <div class="col-7 text-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="4">@Session["usuario"] Estás son las últiimas 5 boletas generadas:</th>
+                    </tr>
+                    <tr>
+                        <th>N° Bol</th>
+                        <th>Fecha Boleta</th>
+                        <th>Tipo Pago</th>
+                        <th>Total Boleta</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    @{
+                        var maxCiclos = 0;
+                        if (Model.Ultimas5Boletas != null)
+                        {
+                            foreach (var item in Model.Ultimas5Boletas)
+                            {
+                                <tr>
+                                    <td scope="col">@item.NumeroBoleta</td>
+                                    <td scope="col">@item.FechaBoleta.ToShortDateString()</td>
+                                    <td scope="col">@item.TipoPago</td>
+                                    <td scope="col">@item.TotalBoleta </td>
+                                </tr>
+
+                                maxCiclos++;
+                                // Saca del ciclo cuando lleva las cinco boletas
+                                if (maxCiclos == 5) { break; }
+
+                            }
+
+                        }
+                        else
+                        {
+                            <tr> <td>Debes tener el procedimiento del package UltimasBoletas 30 Dias </td> </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div style="margin-top:30px" class="col-7 text-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="6">@Session["usuario"] estos son los productos que poseen menos porcentaje de stock actualmente:</th>
+                    </tr>
+                    <tr>
+                        <th>ID Producto</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Crítico</th>
+                        <th>Queda</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        maxCiclos = 0;
+                        if (Model.Ultimas5Boletas != null)
+                        {
+                            foreach (var item in Model.ProductosPocoStock)
+                            {
+                                <tr>
+                                    <td>@item.IdProducto</td>
+                                    <td>@item.Descripcion</td>
+                                    <td>@item.PrecioVenta</td>
+                                    <td>@item.Stock</td>
+                                    <td>@item.StockCritico</td>
+                                    <td>@item.PorcentajeStock</td>
+                                </tr>
+
+                                maxCiclos++;
+                                // Saca del ciclo cuando lleva las cinco boletas
+                                if (maxCiclos == 5) { break; }
+
+                            }
+
+                        }
+                        else
+                        {
+                            <tr> <td colspan="6">Debes tener el procedimiento del package PRODUCTOS_POCO_STOCK </td> </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-7 text-center">Aquí debería ir otra tabla </div>
+    </div>
+</div>

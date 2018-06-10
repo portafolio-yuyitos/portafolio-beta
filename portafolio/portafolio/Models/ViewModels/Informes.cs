@@ -12,5 +12,6 @@ namespace portafolio.Models.ViewModels
         public List<ProveedorProducto_I> InformeProveedorProducto { get; set; }
         public List<PeoresFiadores_I> InformePeoresFiadores { get; set; }
         public List<Boleta> InformeBoletas30Dias { get; set; }
+        public List<ProductoPorcentajeStock> InformeStockProductos { get; set; }
     }
 }

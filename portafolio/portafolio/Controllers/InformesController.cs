@@ -25,7 +25,8 @@ namespace portafolio.Controllers
                     InformeClienteFiados = ClientesFiadosList(),
                     InformeProveedorProducto = ProveedorProductoList(),
                     InformePeoresFiadores = PeoresFiadoresList(),
-                    InformeBoletas30Dias = Boletas30DiasList()
+                    InformeBoletas30Dias = Boletas30DiasList(),
+                    InformeStockProductos = ProductosPorStock(1)
 
                 };
                 return View(inf);
@@ -328,7 +329,7 @@ namespace portafolio.Controllers
 
             return lista;
         }
-        private List<Boleta> Boletas30DiasList()
+        public List<Boleta> Boletas30DiasList()
         {
             List<Boleta> lista = new List<Boleta>();
 
@@ -361,6 +362,76 @@ namespace portafolio.Controllers
                             FechaBoleta = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_BOLETA")),
                             IdCliente = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_CLIENTE")),
                             IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA"))
+
+                        });
+                    }
+                }
+
+                _connObj.Close();
+                _connObj.Dispose();
+                _connObj = null;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return lista;
+        }
+
+        //##############
+        //  SE LE PUEDE PASAR 1 PARA QUE DEVUELVA ORDEN ASCENDENTE POR PORCENTAJE
+        //  O CERO Y DEVUELVE DESCENDENTE
+        //##############
+
+        public List<ProductoPorcentajeStock> ProductosPorStock(int modificador)
+        {
+            
+            List<ProductoPorcentajeStock> lista = new List<ProductoPorcentajeStock>();
+
+            String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+            try
+            {
+                OracleConnection _connObj = new OracleConnection(_connstring);
+                _connObj.Open();
+                OracleCommand _comObj = _connObj.CreateCommand();
+                _comObj.CommandText = "PKG_INFORMES.PRODUCTOS_POCO_STOCK";
+                _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+                OracleParameter modifier = new OracleParameter();
+                modifier.ParameterName = "modificador";
+                modifier.OracleDbType = OracleDbType.Decimal;
+                modifier.Direction = System.Data.ParameterDirection.Input;
+                modifier.Value = modificador;
+                _comObj.Parameters.Add(modifier);
+
+
+                OracleParameter _RefParam = new OracleParameter();
+                _RefParam.ParameterName = "auxCur";
+                _RefParam.OracleDbType = OracleDbType.RefCursor;
+                _RefParam.Direction = System.Data.ParameterDirection.Output;
+                _comObj.Parameters.Add(_RefParam);
+                OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                if (_rdrObj.HasRows)
+                {
+                    while (_rdrObj.Read())
+                    {
+                        lista.Add(new ProductoPorcentajeStock
+                        {
+                            IdProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PRODUCTO")),
+                            Descripcion = _rdrObj.GetString(_rdrObj.GetOrdinal("DESCRIPCION")),
+                            PrecioVenta = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PRECIO_VENTA")),
+                            UnidadMedida = _rdrObj.GetString(_rdrObj.GetOrdinal("UNIDAD_MEDIDA")),
+                            Stock = _rdrObj.GetInt32(_rdrObj.GetOrdinal("STOCK")),
+                            FechaVentimiento = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_VENCIMIENTO")),
+                            PrecioCompra = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PRECIO_COMPRA")),
+                            StockCritico = _rdrObj.GetInt32(_rdrObj.GetOrdinal("STOCK_CRITICO")),
+                            IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
+                            IdTipoProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_TIPO_PRODUCTO")),
+                            IdTipoMoneda = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_TIPO_MONEDA")),
+                            PorcentajeStock = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PORCENTAJE_STOCK"))
 
                         });
                     }

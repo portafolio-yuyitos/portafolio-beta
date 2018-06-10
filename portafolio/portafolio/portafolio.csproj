@@ -205,6 +205,7 @@
     <Compile Include="Models\TipoMoneda.cs" />
     <Compile Include="Models\TipoProducto.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\ViewModels\Bienvenida.cs" />
     <Compile Include="Models\ViewModels\BoletaDetallesBoleta.cs" />
     <Compile Include="Models\ViewModels\ClienteFiados.cs" />
     <Compile Include="Models\ViewModels\ClienteFiados_I.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\ViewModels\Informes.cs" />
     <Compile Include="Models\ViewModels\OPedidoDetalles.cs" />
     <Compile Include="Models\ViewModels\PeoresFiadores_I.cs" />
+    <Compile Include="Models\ViewModels\ProductoPorcentajeStock.cs" />
     <Compile Include="Models\ViewModels\ProveedorProducto_I.cs" />
     <Compile Include="PEDIDO.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
