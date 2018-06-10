@@ -23,7 +23,7 @@
             <div class="mr-5 form-group">
                 <label class="w-100">
                     ID Orden de pedido:
-                    <input class="form-control" type="text" value="0" id='idOP' onkeyup="valCantidad(this,1,999999999999)" onchange="valCantidad(this,1,999999999999)">
+                    <input class="form-control" type="text" value="0" id='idOP' onkeyup="valTexto(this,1,12)">
                     <label class="error text-danger d-none position-absolute"></label>
                 </label>
             </div>
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="col-md-12 justify-content-end d-flex align-items-center mt-4">
-            <button class="btn btn-primary d-block" onclick="aceptarOP()">Aceptar Orden de pedido</button>
+            <button class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button>
         </div>
     </div>
 </main>

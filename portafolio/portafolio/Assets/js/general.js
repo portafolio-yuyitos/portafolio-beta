@@ -6,7 +6,6 @@ function refrescarFunction() {
     $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
 }
 
-
 window.onload = function () {
     spinner(false);
 };

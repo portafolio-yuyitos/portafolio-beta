@@ -52,17 +52,17 @@ function validarTodo() {
         valido = false;
     }
     if (valido) {
-        llenarProductos(cantidad, proveedor, producto, familia);//Llena los productos
+        llenarProductos(cantidad, proveedor, producto);//Llena los productos
     }
 
     return valido;
 }
 
 //Llena la tabla de productos con una fila nueva
-function llenarProductos(cantidad, proveedor, producto ) {
+function llenarProductos(cantidad, proveedor, producto) {
     debugger;
     var nombreProveedor = $('#select2-proveedor-container').text();
-    var nombreProducto = producto[0].value;
+    var nombreProducto = producto[0].selectedOptions[0].textContent;
     var precio = $('#precio')['0'].value * cantidad.value;
     var productos = $('#productosContainer');
     var fila = '<tr>'; //Crea fila
@@ -83,7 +83,7 @@ function limpiarCamposProducto(cantidad, proveedor, producto) {
     cantidad.value = 0;
     proveedor.attr('disabled', true);
     proveedor.siblings('.error').addClass('d-none');
-    producto.val('');
+    producto.val('-1');
     $('#precio')['0'].value = 0;
 }
 
