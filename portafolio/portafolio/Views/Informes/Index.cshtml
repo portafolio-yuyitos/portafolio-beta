@@ -1,10 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model portafolio.Models.ViewModels.Informes
 
-@model List<portafolio.Models.Boleta>
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,86 +13,135 @@
     </div>
 </header>
 <main class="container">
+
+
+
     <div class="row">
         <div class="w-100">
             <div class="accordion" id="accordionExample">
+
                 <div class="card bg-dark">
+
                     <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
                         <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
                             <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Mejores fiadores
+                                Informes Cliente
                             </a>
+
                         </h4>
-                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Descargar en Excel">
-                            <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
-                        </button>
+
                     </div>
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body bg-dark-dark">
-                            <table class="table table-hover table-warning text-dark"" id="tablaBoletas">
-                                <thead class="bg-warning text-dark">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Rut</th>
-                                        <th scope="col">Nombres</th>
+                                        <th>#</th>
+                                        <th>Informe</th>
+                                        <th>Descripción</th>
+                                        <th>Acción</th>
                                     </tr>
+
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <td>1</td>
+                                        <td>Clientes</td>
+                                        <td>Permite descargar todos los clientes que posee.</td>
                                         <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
+                                            <a href="@Url.Action("EClientes","Informes")" class="btn btn-warning">
+                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">3</th>
+                                        <td>2</td>
+                                        <td>Clientes y Gasto </td>
+                                        <td>Un informe excel con el total de gastos realizado por cada cliente.</td>
                                         <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
+                                            <a href="@Url.Action("EClientesGasto","Informes")" class="btn btn-warning">
+                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                                            </a>
                                         </td>
                                     </tr>
-                                    @*@foreach (var item in Model)
-                                        {
-                                        <tr>
-                                            <th scope="row">@contador</th>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.Fiado</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.FechaBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.IdCliente</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.TotalBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                        </tr>
-                                            contador++;
-                                        }*@
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Clientes y Fiado </td>
+                                        <td>Un archivo excel con cada fiado realizado, ordenado por cliente.</td>
+                                        <td>
+                                            <a href="@Url.Action("EClientesFiados","Informes")" class="btn btn-warning">
+                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
+
+
+                            @*<table class="table table-hover table-warning text-dark"" id="tablaBoletas">
+                        <thead class="bg-warning text-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Rut</th>
+                                <th scope="col">Nombres</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>
+                                    <p>p</p>
+                                </td>
+                                <td>
+                                    <p>q</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>
+                                    <p>p</p>
+                                </td>
+                                <td>
+                                    <p>q</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>
+                                    <p>p</p>
+                                </td>
+                                <td>
+                                    <p>q</p>
+                                </td>
+                            </tr>
+                            @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <th scope="row">@contador</th>
+                                    <td>
+                                        <p>@item.NumeroBoleta</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.Fiado</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.FechaBoleta</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.IdCliente</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.TotalBoleta</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.NumeroBoleta</p>
+                                    </td>
+                                </tr>
+                                    contador++;
+                                }
+                        </tbody>
+                    </table>*@
                         </div>
                     </div>
                 </div>
@@ -105,77 +149,70 @@
                     <div class="card-header d-flex justify-content-between align-items-center" id="1">
                         <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
                             <a data-toggle="collapse" data-target="#1a" aria-expanded="true" aria-controls="1a">
-                                Clientes que más compran
+                                Proveedores y Productos
                             </a>
                         </h4>
-                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Descargar en Excel">
+
+                        <a href="@Url.Action("EProveedorProducto","Informes")" class="btn btn-success">
                             <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
-                        </button>
+                        </a>
+
+
                     </div>
 
                     <div id="1a" class="collapse" aria-labelledby="1" data-parent="#accordionExample">
                         <div class="card-body bg-dark-dark">
-                            <table class="table table-hover table-warning text-dark"" id="tablaBoletas">
+                            <table class="table table-hover table-warning text-dark" id="tablaBoletas">
                                 <thead class="bg-warning text-dark">
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">ID Prov</th>
                                         <th scope="col">Rut</th>
-                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Razón Social</th>
+                                        <th scope="col">Giro</th>
+                                        <th scope="col">ID Prod</th>
+                                        <th scope="col">Descripción Prod</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Stock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
-                                    </tr>
-                                    @*@foreach (var item in Model)
-                                        {
-                                        <tr>
-                                            <th scope="row">@contador</th>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.Fiado</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.FechaBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.IdCliente</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.TotalBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                        </tr>
-                                            contador++;
-                                        }*@
+                                    @{ var c = 0;}
+                                    @foreach (var item in Model.InformeProveedorProducto)
+                        {
+                            <tr>
+
+                                <td>
+                                    <p>@item.IdProveedor</p>
+                                </td>
+                                <td>
+                                    <p>@item.RutProveedor</p>
+                                </td>
+                                <td>
+                                    <p>@item.RazonSocial</p>
+                                </td>
+                                <td>
+                                    <p>@item.Giro</p>
+                                </td>
+                                <td>
+                                    <p>@item.IdProducto</p>
+                                </td>
+                                <td>
+                                    <p>@item.DescProducto</p>
+                                </td>
+                                <td>
+                                    <p>@item.PrecioVenta</p>
+                                </td>
+                                <td>
+                                    <p>@item.Stock</p>
+                                </td>
+                            </tr>
+                contador++;
+                c++;
+                if (c == 5)
+                {
+                    break;
+                }
+            }
                                 </tbody>
                             </table>
                         </div>
@@ -185,7 +222,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center" id="2">
                         <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
                             <a data-toggle="collapse" data-target="#2a" aria-expanded="true" aria-controls="2a">
-                                Peores fiadores
+                                Boletas Últimos 30 Días
                             </a>
                         </h4>
                         <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Descargar en Excel">
@@ -198,64 +235,97 @@
                             <table class="table table-hover table-warning text-dark" id="tablaBoletas">
                                 <thead class="bg-warning text-dark">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Rut</th>
-                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Número Boleta</th>
+                                        <th scope="col">Fiado</th>
+                                        <th scope="col">Tipo Pago</th>
+                                        <th scope="col">Total Boleta</th>
+                                        <th scope="col">Fecha Boleta</th>
+                                        <th scope="col">Anulada?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    @foreach (var item in Model.InformeBoletas30Dias)
+                            {
                                     <tr>
-                                        <th scope="row">1</th>
+                                        
                                         <td>
-                                            <p>p</p>
+                                            <p>@item.NumeroBoleta</p>
                                         </td>
                                         <td>
-                                            <p>q</p>
+                                            <p>@item.Fiado</p>
                                         </td>
+                                        <td>
+                                            <p>@item.TipoPago</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.TotalBoleta</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.FechaBoleta</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.IdCliente</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.IsAnulada</p>
+                                    </td>
                                     </tr>
+                                contador++;
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-dark">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="2">
+                        <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
+                            <a data-toggle="collapse" data-target="#3a" aria-expanded="true" aria-controls="3a">
+                                Peores fiadores
+                            </a>
+                        </h4>
+                        <a href="@Url.Action("EPeoresFiadores","Informes")" class="btn btn-success">
+                            <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                        </a>
+                    </div>
+
+                    <div id="3a" class="collapse" aria-labelledby="2" data-parent="#accordionExample">
+                        <div class="card-body bg-dark-dark">
+                            <table class="table table-hover table-warning text-dark" id="tablaBoletas">
+                                <thead class="bg-warning text-dark">
                                     <tr>
-                                        <th scope="row">2</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
+                                        <th scope="col">ID Cliente</th>
+                                        <th scope="col">Rut</th>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">ID Fiado</th>
+                                        <th scope="col">MontoAdeudado</th>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>
-                                            <p>p</p>
-                                        </td>
-                                        <td>
-                                            <p>q</p>
-                                        </td>
-                                    </tr>
-                                    @*@foreach (var item in Model)
-                                        {
-                                        <tr>
-                                            <th scope="row">@contador</th>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.Fiado</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.FechaBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.IdCliente</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.TotalBoleta</p>
-                                            </td>
-                                            <td>
-                                                <p>@item.NumeroBoleta</p>
-                                            </td>
-                                        </tr>
-                                            contador++;
-                                        }*@
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.InformePeoresFiadores)
+                            {
+                            <tr>
+                                
+                                <td>
+                                    <p>@item.IdCliente</p>
+                                </td>
+                                <td>
+                                    <p>@item.RutCliente</p>
+                                </td>
+                                <td>
+                                    <p>@item.Nombre</p>
+                                </td>
+                                <td>
+                                    <p>@item.IdFiado</p>
+                                </td>
+                                <td>
+                                    <p>@item.MontoAdeudado</p>
+                                </td>
+                            </tr>
+                                contador++;
+                            }
                                 </tbody>
                             </table>
                         </div>

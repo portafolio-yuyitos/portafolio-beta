@@ -73,8 +73,16 @@
                     <th scope="col">Fono</th>
                     <th scope="col">Acciones</th>
                 </tr>
+                <tr>
+                    <th>
+                        Filtros
+                    </th>
+                    <th colspan="6"><input type="text" class="form-control" id="rutFilterInput" onkeyup="RutFilter()" placeholder="Busca por rut..."></th>
+                    @*<th><input type="text" class="form-control" id="nombreFilterInput" onkeyup="NombreFilter()" placeholder="Busca por nombre..."></th>
+            <th></th>*@
+                </tr>
             </thead>
-            <tbody>
+            <tbody id="tablita">
 
                 @foreach (var item in Model)
                 {
@@ -84,7 +92,7 @@
                         <tr>
                             <th scope="row">@contador</th>
                             <td>
-                                <p>@item.RutProveedor</p>
+                                <p><span>@item.RutProveedor</span></p>
                                 <input type="text" value="@item.RutProveedor" class="form-control editar d-none rut" onkeyup="checkRut(this)">
                                 <label class="error text-danger d-none "></label>
                             </td>
@@ -142,4 +150,24 @@
         </div>
     </div>
 </section>
+<script>
+    var RutFilter = function () {
+        // Variables
+        var input, filter, tbody, tr, a, i;
+        input = document.getElementById('rutFilterInput');
+        filter = input.value.toUpperCase();
+        tbody = document.getElementById("tablita");
+        tr = tbody.getElementsByTagName('tr');
+
+        // Loopear por cada item, luego esconde lo que no hace match
+        for (i = 0; i < tr.length; i++) {
+            a = tr[i].getElementsByTagName("span")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    };
+</script>
 <script src="@Url.Content("~/assets/js/proveedores.js")"></script>

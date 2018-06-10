@@ -231,4 +231,7 @@ function limpiar() {
 
 $('document').ready(function () {
     mostrarTabla($('#tablaClientes'));
+
+   
 });
+
