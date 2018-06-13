@@ -44,11 +44,11 @@ namespace portafolio
         public DbSet<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
         public DbSet<USUARIO> USUARIO { get; set; }
     
-        public virtual int SP_D_BOLETA(Nullable<decimal> nUMERO_BOLETA)
+        public virtual int SP_D_BOLETA(string nUMERO_BOLETA)
         {
-            var nUMERO_BOLETAParameter = nUMERO_BOLETA.HasValue ?
+            var nUMERO_BOLETAParameter = nUMERO_BOLETA != null ?
                 new ObjectParameter("NUMERO_BOLETA", nUMERO_BOLETA) :
-                new ObjectParameter("NUMERO_BOLETA", typeof(decimal));
+                new ObjectParameter("NUMERO_BOLETA", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
         }
