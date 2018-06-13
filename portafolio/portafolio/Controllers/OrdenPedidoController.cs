@@ -662,7 +662,7 @@ namespace portafolio.Controllers
             try
             {
                 ObjectParameter iD_PEDIDO = new ObjectParameter("iD_PEDIDO", -1);
-                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, iD_PEDIDO);
+                //db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, iD_PEDIDO);
                 return int.Parse(iD_PEDIDO.Value.ToString());
             }
             catch (Exception e)
@@ -695,7 +695,7 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                db.SP_I_DETALLE_PEDIDO(detaPed.NumeroPedido, detaPed.IdProducto, detaPed.PrecioProducto, detaPed.CantidadProducto);
+                //db.SP_I_DETALLE_PEDIDO(detaPed.NumeroPedido, detaPed.IdProducto, detaPed.PrecioProducto, detaPed.CantidadProducto);
                 return true;
             }
             catch (Exception e)
@@ -703,6 +703,29 @@ namespace portafolio.Controllers
                 return false;
             }
         }
+
+        public bool AgregarOrdenPedido(OPedidoDetalles OPedidoDetalles)
+        {
+
+            var db = new YuyosEntities(); //Instancia DB
+            ObjectParameter OutIdPedido = new ObjectParameter("OUT_ID_PEDIDO", -1);
+            db.SP_I_PEDIDO(
+                            OPedidoDetalles.Encabezado.IdProveedor,
+                            OPedidoDetalles.Encabezado.IdUsuario,
+                            OutIdPedido);
+
+            foreach(var item in OPedidoDetalles.Detalles)
+            {
+                db.SP_I_DETALLE_PEDIDO(
+                    int.Parse(OutIdPedido.Value.ToString()),
+                    item.NumeroDetalle,
+                    item.CantidadProducto,
+                    item.PrecioProducto,
+                    item.IdProducto);
+            }
+            return true;
+        }
+
 
 
         //    NOE ESTÁ CREADO

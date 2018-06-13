@@ -391,15 +391,16 @@
           <Parameter Name="V_SALIDA" Type="varchar2" Mode="Out" />
         </Function>
         <Function Name="SP_I_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="CANTIDAD_PRODUCTO" Type="number" Mode="In" />
-          <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="NUME_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="NUME_DETA_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="CANTIDAD_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="PRECIO_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
           <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
-          <Parameter Name="ID_PEDIDO" Type="number" Mode="Out" />
+          <Parameter Name="OUT_ID_PEDIDO" Type="number" Mode="Out" />
         </Function>
         <Function Name="SP_I_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_DESCRIPCION" Type="varchar2" Mode="In" />
@@ -1051,15 +1052,16 @@
             <Parameter Name="V_ID_BOLETA" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_DETALLE_PEDIDO">
-            <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
-            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="NUME_PEDIDO" Mode="In" Type="Decimal" />
+            <Parameter Name="NUME_DETA_PEDIDO" Mode="In" Type="Decimal" />
+            <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="PRECIO_PRODUCTO" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PEDIDO">
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
             <Parameter Name="ID_USUARIO" Mode="In" Type="Decimal" />
-            <Parameter Name="ID_PEDIDO" Mode="Out" Type="Decimal" />
+            <Parameter Name="OUT_ID_PEDIDO" Mode="Out" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PROVEEDOR">
             <Parameter Name="RUT_PROVEEDOR" Mode="In" Type="String" />
