@@ -261,6 +261,7 @@
     <Content Include="Assets\js\boleta.js" />
     <Content Include="Assets\js\clientes.js" />
     <Content Include="Assets\js\recepcion-pedido.js" />
+    <Content Include="Test\OPedidoTest.html" />
     <Content Include="YuyosModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>YuyosModel.edmx</DependentUpon>

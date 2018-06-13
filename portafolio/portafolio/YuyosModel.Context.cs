@@ -157,28 +157,32 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_BOLETA", v_CANTIDAD_PRODUCTOParameter, v_ID_PRODUCTOParameter, v_ID_BOLETAParameter);
         }
     
-        public virtual int SP_I_DETALLE_PEDIDO(Nullable<decimal> cANTIDAD_PRODUCTO, Nullable<decimal> iD_PRODUCTO, Nullable<decimal> nUME_PEDIDO, Nullable<decimal> pRECIO_PRODUCTO)
+        public virtual int SP_I_DETALLE_PEDIDO(Nullable<decimal> nUME_PEDIDO, Nullable<decimal> nUME_DETA_PEDIDO, Nullable<decimal> cANTIDAD_PRODUCTO, Nullable<decimal> pRECIO_PRODUCTO, Nullable<decimal> iD_PRODUCTO)
         {
-            var cANTIDAD_PRODUCTOParameter = cANTIDAD_PRODUCTO.HasValue ?
-                new ObjectParameter("CANTIDAD_PRODUCTO", cANTIDAD_PRODUCTO) :
-                new ObjectParameter("CANTIDAD_PRODUCTO", typeof(decimal));
-    
-            var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
-                new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
-                new ObjectParameter("ID_PRODUCTO", typeof(decimal));
-    
             var nUME_PEDIDOParameter = nUME_PEDIDO.HasValue ?
                 new ObjectParameter("NUME_PEDIDO", nUME_PEDIDO) :
                 new ObjectParameter("NUME_PEDIDO", typeof(decimal));
+    
+            var nUME_DETA_PEDIDOParameter = nUME_DETA_PEDIDO.HasValue ?
+                new ObjectParameter("NUME_DETA_PEDIDO", nUME_DETA_PEDIDO) :
+                new ObjectParameter("NUME_DETA_PEDIDO", typeof(decimal));
+    
+            var cANTIDAD_PRODUCTOParameter = cANTIDAD_PRODUCTO.HasValue ?
+                new ObjectParameter("CANTIDAD_PRODUCTO", cANTIDAD_PRODUCTO) :
+                new ObjectParameter("CANTIDAD_PRODUCTO", typeof(decimal));
     
             var pRECIO_PRODUCTOParameter = pRECIO_PRODUCTO.HasValue ?
                 new ObjectParameter("PRECIO_PRODUCTO", pRECIO_PRODUCTO) :
                 new ObjectParameter("PRECIO_PRODUCTO", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", cANTIDAD_PRODUCTOParameter, iD_PRODUCTOParameter, nUME_PEDIDOParameter, pRECIO_PRODUCTOParameter);
+            var iD_PRODUCTOParameter = iD_PRODUCTO.HasValue ?
+                new ObjectParameter("ID_PRODUCTO", iD_PRODUCTO) :
+                new ObjectParameter("ID_PRODUCTO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", nUME_PEDIDOParameter, nUME_DETA_PEDIDOParameter, cANTIDAD_PRODUCTOParameter, pRECIO_PRODUCTOParameter, iD_PRODUCTOParameter);
         }
     
-        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO, ObjectParameter iD_PEDIDO)
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO, ObjectParameter oUT_ID_PEDIDO)
         {
             var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
                 new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
@@ -188,7 +192,7 @@ namespace portafolio
                 new ObjectParameter("ID_USUARIO", iD_USUARIO) :
                 new ObjectParameter("ID_USUARIO", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter, iD_PEDIDO);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter, oUT_ID_PEDIDO);
         }
     
         public virtual int SP_I_PROVEEDOR(string rUT_PROVEEDOR, string rAZON_SOCIAL, Nullable<decimal> fONO, string eMAIL, string gIRO, ObjectParameter v_SALIDA)

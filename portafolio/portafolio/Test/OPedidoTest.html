@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Id OP</td>
+            <td>Id Proveedor</td>
+            <td>Id Usuario</td>
+        </tr>
+        <tr>
+            <td><input type="text" id="txtIdOP" value="" /></td>
+            <td><input type="text" id="txtIdProveedor" value="" /></td>
+            <td><input type="text" id="txtIdUsuario" value="" /></td>
+        </tr>deta2
+        <tr>
+            <td>Id Detalle</td>
+            <td>Id Producto</td>
+            <td>Cant Prod</td>
+            <td>Precio Prod</td>
+        </tr>
+        <tr>
+            <td><input type="text" id="txtIdDetalle" value="1" /></td>
+            <td><input type="text" id="txtIdProducto" value="1" /></td>
+            <td><input type="text" id="txtCantProd" value="5" /></td>
+            <td><input type="text" id="txtPrecProd" value="1000" /></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="txtIdDetalle1" value="2" /></td>
+            <td><input type="text" id="txtIdProducto1" value="1" /></td>
+            <td><input type="text" id="txtCantProd1" value="5" /></td>
+            <td><input type="text" id="txtPrecProd1" value="2000" /></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="txtIdDetalle2" value="3" /></td>
+            <td><input type="text" id="txtIdProducto2" value="1" /></td>
+            <td><input type="text" id="txtCantProd2" value="5" /></td>
+            <td><input type="text" id="txtPrecProd2" value="500" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" id="btnagregarprodTEST" value="add" /></td>
+        </tr>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script>
+        var txtIdOP = document.getElementById("txtIdOP");
+        var txtIdProveedor = document.getElementById("txtIdProveedor");
+        var txtIdUsuario = document.getElementById("txtIdUsuario");
+        var boton = document.getElementById("btnagregarprodTEST");
+        boton.addEventListener('click', function () {
+            
+
+            var Encabezado = new Object();
+            Encabezado.NumeroPedido = txtIdOP.value;
+            Encabezado.IdProveedor = txtIdProveedor.value;
+            Encabezado.IdUsuario = txtIdUsuario.value;
+
+            var deta1 = new Object();
+            deta1.NumeroPedido = 1;
+            deta1.NumeroDetalle = 1;
+            deta1.IdProducto = 1;
+            deta1.CantidadProducto = 5;
+            deta1.PrecioProducto = 500;
+
+            var deta2 = new Object();
+            deta2.NumeroPedido = 1;
+            deta2.NumeroDetalle = 2;
+            deta2.IdProducto = 1;
+            deta2.CantidadProducto = 6;
+            deta2.PrecioProducto = 200;
+
+
+            var Detalles = new Array();
+            Detalles.push(deta1, deta2);
+
+            // Generamos objeto OPedidoDetalles
+            var OPedidoDetalles = new Object();
+            OPedidoDetalles.Encabezado = Encabezado;
+            OPedidoDetalles.Detalles = Detalles;
+
+
+            console.log(OPedidoDetalles);
+
+            $.ajax({
+                type: 'POST',
+                url: '/OrdenPedido/AgregarOrdenPedido',
+                cache: false,
+                data: JSON.stringify(OPedidoDetalles),
+                contentType: "application/json",
+                async: false,
+                success: function (data) {
+                    if (data == "True") {
+                        alert("llegue");
+                    } else {
+                        alert("No se ha podido generar la orden pedido");
+                    }
+                },
+                error: function (err) {
+                    alert("No se ha podido generar la orden pedido");
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>
