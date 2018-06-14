@@ -712,7 +712,10 @@ namespace portafolio.Controllers
             db.SP_I_PEDIDO(
                             OPedidoDetalles.Encabezado.IdProveedor,
                             OPedidoDetalles.Encabezado.IdUsuario,
-                            OutIdPedido);
+                            OPedidoDetalles.Encabezado.NombreProveedor,
+                            OutIdPedido,
+                            OPedidoDetalles.Encabezado.Estado,
+                            OPedidoDetalles.Encabezado.IsEnviado);
 
             foreach(var item in OPedidoDetalles.Detalles)
             {
@@ -721,7 +724,11 @@ namespace portafolio.Controllers
                     item.NumeroDetalle,
                     item.CantidadProducto,
                     item.PrecioProducto,
-                    item.IdProducto);
+                    item.IdProducto,
+                    item.IdProveedor,
+                    item.NombreProducto,
+                    item.Estado
+                    );
             }
             return true;
         }

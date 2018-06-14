@@ -22,6 +22,9 @@ namespace portafolio
         public decimal NUMERO_PEDIDO { get; set; }
         public decimal ID_PROVEEDOR { get; set; }
         public decimal ID_USUARIO { get; set; }
+        public string NOMBRE_PROVEEDOR { get; set; }
+        public decimal ESTADO { get; set; }
+        public decimal ISENVIADO { get; set; }
     
         public virtual ICollection<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }

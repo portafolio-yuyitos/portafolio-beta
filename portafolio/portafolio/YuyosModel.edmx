@@ -46,6 +46,9 @@
           <Property Name="CANTIDAD_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="PRECIO_PRODUCTO" Type="number" Precision="38" Scale="0" />
           <Property Name="ID_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" />
+          <Property Name="NOMBRE_PRODUCTO" Type="varchar2" MaxLength="150" />
+          <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="EMPRESA">
           <Key>
@@ -87,6 +90,9 @@
           <Property Name="NUMERO_PEDIDO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE_PROVEEDOR" Type="varchar2" MaxLength="150" />
+          <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISENVIADO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -396,11 +402,17 @@
           <Parameter Name="CANTIDAD_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="PRECIO_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
+          <Parameter Name="NOMBRE_PRODUCTO" Type="varchar2" Mode="In" />
+          <Parameter Name="ESTADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
           <Parameter Name="ID_USUARIO" Type="number" Mode="In" />
+          <Parameter Name="NOMBRE_PROVEEDOR" Type="varchar2" Mode="In" />
           <Parameter Name="OUT_ID_PEDIDO" Type="number" Mode="Out" />
+          <Parameter Name="ESTADO" Type="number" Mode="In" />
+          <Parameter Name="ISENVIADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_DESCRIPCION" Type="varchar2" Mode="In" />
@@ -591,6 +603,9 @@
           <Property Name="ID_PRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <NavigationProperty Name="PRODUCTO" Relationship="Self.DETA_PEDIDO_ID_PRODUCTO" FromRole="DETALLE_PEDIDO" ToRole="PRODUCTO" />
           <NavigationProperty Name="PEDIDO" Relationship="Self.DETA_PEDIDO_NUME_PEDIDO" FromRole="DETALLE_PEDIDO" ToRole="PEDIDO" />
+          <Property Name="ID_PROVEEDOR" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NOMBRE_PRODUCTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="EMPRESA">
           <Key>
@@ -638,6 +653,9 @@
           <NavigationProperty Name="DETALLE_PEDIDO" Relationship="Self.DETA_PEDIDO_NUME_PEDIDO" FromRole="PEDIDO" ToRole="DETALLE_PEDIDO" />
           <NavigationProperty Name="PROVEEDOR" Relationship="Self.PEDIDO_ID_PROVEEDOR_FK" FromRole="PEDIDO" ToRole="PROVEEDOR" />
           <NavigationProperty Name="USUARIO" Relationship="Self.PEDIDO_ID_USUARIO_FK" FromRole="PEDIDO" ToRole="USUARIO" />
+          <Property Name="NOMBRE_PROVEEDOR" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ISENVIADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -1057,11 +1075,17 @@
             <Parameter Name="CANTIDAD_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="PRECIO_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
+            <Parameter Name="NOMBRE_PRODUCTO" Mode="In" Type="String" />
+            <Parameter Name="ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PEDIDO">
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
             <Parameter Name="ID_USUARIO" Mode="In" Type="Decimal" />
+            <Parameter Name="NOMBRE_PROVEEDOR" Mode="In" Type="String" />
             <Parameter Name="OUT_ID_PEDIDO" Mode="Out" Type="Decimal" />
+            <Parameter Name="ESTADO" Mode="In" Type="Decimal" />
+            <Parameter Name="ISENVIADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PROVEEDOR">
             <Parameter Name="RUT_PROVEEDOR" Mode="In" Type="String" />
@@ -1185,6 +1209,9 @@
           <EntitySetMapping Name="DETALLE_PEDIDO">
             <EntityTypeMapping TypeName="Model.DETALLE_PEDIDO">
               <MappingFragment StoreEntitySet="DETALLE_PEDIDO">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="NOMBRE_PRODUCTO" ColumnName="NOMBRE_PRODUCTO" />
+                <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
                 <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
                 <ScalarProperty Name="NUMERO_DETALLE" ColumnName="NUMERO_DETALLE" />
                 <ScalarProperty Name="CANTIDAD_PRODUCTO" ColumnName="CANTIDAD_PRODUCTO" />
@@ -1232,6 +1259,9 @@
           <EntitySetMapping Name="PEDIDO">
             <EntityTypeMapping TypeName="Model.PEDIDO">
               <MappingFragment StoreEntitySet="PEDIDO">
+                <ScalarProperty Name="ISENVIADO" ColumnName="ISENVIADO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="NOMBRE_PROVEEDOR" ColumnName="NOMBRE_PROVEEDOR" />
                 <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
                 <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />

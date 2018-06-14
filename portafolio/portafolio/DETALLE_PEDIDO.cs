@@ -19,6 +19,9 @@ namespace portafolio
         public decimal CANTIDAD_PRODUCTO { get; set; }
         public Nullable<decimal> PRECIO_PRODUCTO { get; set; }
         public decimal ID_PRODUCTO { get; set; }
+        public Nullable<decimal> ID_PROVEEDOR { get; set; }
+        public string NOMBRE_PRODUCTO { get; set; }
+        public decimal ESTADO { get; set; }
     
         public virtual PRODUCTO PRODUCTO { get; set; }
         public virtual PEDIDO PEDIDO { get; set; }
