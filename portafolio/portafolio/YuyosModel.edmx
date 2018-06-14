@@ -15,7 +15,7 @@
           <Property Name="TOTAL_BOLETA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="FECHA_BOLETA" Type="date" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ISANULADA" Type="number" Precision="1" Scale="0" />
+          <Property Name="ISANULADA" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -372,7 +372,7 @@
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_D_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="NUMERO_BOLETA" Type="number" Mode="In" />
+          <Parameter Name="NUMERO_BOLETA" Type="varchar2" Mode="In" />
         </Function>
         <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
@@ -1034,7 +1034,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
           <FunctionImport Name="SP_D_BOLETA">
-          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="Decimal" />
+          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_D_CLIENTE">
           <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />

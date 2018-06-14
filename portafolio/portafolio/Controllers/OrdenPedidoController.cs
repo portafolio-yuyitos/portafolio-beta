@@ -661,9 +661,9 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                ObjectParameter iD_PEDIDO = new ObjectParameter("iD_PEDIDO", -1);
-                //db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, iD_PEDIDO);
-                return int.Parse(iD_PEDIDO.Value.ToString());
+                ObjectParameter oUT_ID_PEDIDO = new ObjectParameter("oUT_ID_PEDIDO", -1);
+                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, oUT_ID_PEDIDO);
+                return int.Parse(oUT_ID_PEDIDO.Value.ToString());
             }
             catch (Exception e)
             {

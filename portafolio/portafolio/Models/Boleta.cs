@@ -13,6 +13,6 @@ namespace portafolio.Models
         public int TotalBoleta { get; set; }
         public DateTime FechaBoleta { get; set; }
         public int IdCliente { get; set; }
-        public int? IsAnulada { get; set; }
+        public int IsAnulada { get; set; }
     }
 }

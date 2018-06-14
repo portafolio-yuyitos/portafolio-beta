@@ -129,7 +129,7 @@ namespace portafolio.Controllers
         // ###########################
         //      ELIMINA BOLETAS
         // ###########################
-        public bool Eliminar(int numeroBoleta)
+        public bool Eliminar(string numeroBoleta)
         {
             var db = new YuyosEntities(); //Instancia DB
             try
