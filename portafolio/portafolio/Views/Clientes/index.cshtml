@@ -35,8 +35,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="w-100 title-table">
-            <h5 class="c-orange mb-4">Listado de clientes:</h5>
+        <div class="w-100 title-table d-flex justify-content-between">
+            <h5 class="c-orange">Listado de clientes:</h5>
+            <label class="d-flex">Filtro:
+                <input type="text" class="form-control mb-4 ml-4 w-50" id="rutFilterInput" onkeyup="RutFilter()" placeholder="Busca por rut...">
+            </label>
         </div>
         <table class="table table-dark table-hover border-top" id="tablaClientes">
             <thead>
@@ -45,14 +48,6 @@
                     <th scope="col">Rut</th>
                     <th scope="col">Nombres</th>
                     <th scope="col">Acciones</th>
-                </tr>
-                <tr>
-                    <th>
-                        Filtros
-                    </th>
-                    <th colspan="3"><input type="text" class="form-control" id="rutFilterInput" onkeyup="RutFilter()" placeholder="Busca por rut..."></th>
-                    @*<th><input type="text" class="form-control" id="nombreFilterInput" onkeyup="NombreFilter()" placeholder="Busca por nombre..."></th>
-                    <th></th>*@
                 </tr>
             </thead>
             
