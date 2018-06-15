@@ -48,7 +48,6 @@
           <Property Name="ID_PRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" />
           <Property Name="NOMBRE_PRODUCTO" Type="varchar2" MaxLength="150" />
-          <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="EMPRESA">
           <Key>
@@ -91,8 +90,9 @@
           <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBRE_PROVEEDOR" Type="varchar2" MaxLength="150" />
-          <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISANULADA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ISENVIADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -367,6 +367,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_ANULA_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="NUME_PEDIDO" Type="number" Mode="In" />
+        </Function>
         <Function Name="SP_AUTORIZAR_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_CLIENTE" Type="varchar2" Mode="In" />
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
@@ -382,6 +385,12 @@
         </Function>
         <Function Name="SP_D_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT_PROVEEDOR_D" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINA_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="NUME_PEDIDO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ENVIA_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="NUME_PEDIDO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_FIADO" Type="number" Mode="In" />
@@ -404,7 +413,6 @@
           <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
           <Parameter Name="NOMBRE_PRODUCTO" Type="varchar2" Mode="In" />
-          <Parameter Name="ESTADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
@@ -605,7 +613,6 @@
           <NavigationProperty Name="PEDIDO" Relationship="Self.DETA_PEDIDO_NUME_PEDIDO" FromRole="DETALLE_PEDIDO" ToRole="PEDIDO" />
           <Property Name="ID_PROVEEDOR" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="NOMBRE_PRODUCTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="EMPRESA">
           <Key>
@@ -654,8 +661,9 @@
           <NavigationProperty Name="PROVEEDOR" Relationship="Self.PEDIDO_ID_PROVEEDOR_FK" FromRole="PEDIDO" ToRole="PROVEEDOR" />
           <NavigationProperty Name="USUARIO" Relationship="Self.PEDIDO_ID_USUARIO_FK" FromRole="PEDIDO" ToRole="USUARIO" />
           <Property Name="NOMBRE_PROVEEDOR" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
           <Property Name="ISENVIADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ISANULADA" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ESTADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -1077,7 +1085,6 @@
             <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
             <Parameter Name="NOMBRE_PRODUCTO" Mode="In" Type="String" />
-            <Parameter Name="ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PEDIDO">
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
@@ -1165,6 +1172,15 @@
             <Parameter Name="V_ID_TIPO_MONEDA" Mode="In" Type="Decimal" />
             <Parameter Name="ID_PRODUCTO" Mode="Out" Type="Decimal" />
           </FunctionImport>
+          <FunctionImport Name="SP_ANULA_PEDIDO">
+          <Parameter Name="NUME_PEDIDO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ELIMINA_PEDIDO">
+          <Parameter Name="NUME_PEDIDO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ENVIA_PEDIDO">
+          <Parameter Name="NUME_PEDIDO" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1209,7 +1225,6 @@
           <EntitySetMapping Name="DETALLE_PEDIDO">
             <EntityTypeMapping TypeName="Model.DETALLE_PEDIDO">
               <MappingFragment StoreEntitySet="DETALLE_PEDIDO">
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="NOMBRE_PRODUCTO" ColumnName="NOMBRE_PRODUCTO" />
                 <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
                 <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
@@ -1259,8 +1274,9 @@
           <EntitySetMapping Name="PEDIDO">
             <EntityTypeMapping TypeName="Model.PEDIDO">
               <MappingFragment StoreEntitySet="PEDIDO">
-                <ScalarProperty Name="ISENVIADO" ColumnName="ISENVIADO" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ISANULADA" ColumnName="ISANULADA" />
+                <ScalarProperty Name="ISENVIADO" ColumnName="ISENVIADO" />
                 <ScalarProperty Name="NOMBRE_PROVEEDOR" ColumnName="NOMBRE_PROVEEDOR" />
                 <ScalarProperty Name="NUMERO_PEDIDO" ColumnName="NUMERO_PEDIDO" />
                 <ScalarProperty Name="ID_PROVEEDOR" ColumnName="ID_PROVEEDOR" />
@@ -1361,6 +1377,9 @@
           <FunctionImportMapping FunctionImportName="SP_U_PROVEEDOR" FunctionName="Model.Store.SP_U_PROVEEDOR" />
           <FunctionImportMapping FunctionImportName="SP_AUTORIZAR_CLIENTE" FunctionName="Model.Store.SP_AUTORIZAR_CLIENTE" />
           <FunctionImportMapping FunctionImportName="SP_I_PRODUCTO1" FunctionName="Model.Store.SP_I_PRODUCTO" />
+          <FunctionImportMapping FunctionImportName="SP_ANULA_PEDIDO" FunctionName="Model.Store.SP_ANULA_PEDIDO" />
+          <FunctionImportMapping FunctionImportName="SP_ELIMINA_PEDIDO" FunctionName="Model.Store.SP_ELIMINA_PEDIDO" />
+          <FunctionImportMapping FunctionImportName="SP_ENVIA_PEDIDO" FunctionName="Model.Store.SP_ENVIA_PEDIDO" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

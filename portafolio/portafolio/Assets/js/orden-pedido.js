@@ -131,12 +131,12 @@ function generarOP(e) {
                 switch (j) {//verificar columna paa llenar objeto Producto
                     case 0://Proveedor
                         producto.IdProveedor = columna.dataset.id;
-                        //producto.nombreProveedor = columna.textContent;
+                        producto.NombreProveedor = columna.textContent;
                         break;
                     case 1://Producto
                         producto.IdProducto = columna.dataset.id;
-                        producto.NumeroDetalle = j;
-                        //producto.nombreProducto = columna.textContent;
+                        producto.NumeroDetalle = i+1;
+                        producto.NombreProducto = columna.textContent;
                         break;
                     case 2://Familia
                         //producto.familia = columna.textContent;
@@ -244,6 +244,9 @@ function agregarOP(tabla, productos, total) {
                 Encabezado.NumeroPedido = data;
                 Encabezado.IdProveedor = ped.IdProveedor;
                 Encabezado.IdUsuario = ped.IdUsuario;
+                Encabezado.NombreProveedor = productos[0].NombreProveedor;
+                Encabezado.IsAnulado = 0;
+                Encabezado.IsEnviado = 0;
 
                 var Detalles = new Array();
 
@@ -302,12 +305,13 @@ function llenarTabla(OPedidoDetalles, total) {
     var productos = { detalles: OPedidoDetalles.Detalles };
     var tabla = $('#tablaOP');
     var largoTabla = tabla.find('tbody tr').length + 1;
-    var fila = '<tr data-enviada="1" data-productos=' + JSON.stringify(productos) + '>';//Genera fila
+    var fila = '<tr data-enviada="0" data-id-proveedor="' + OPedidoDetalles.Encabezado.IdProveedor + '" data-productos=' + JSON.stringify(productos) + '>';//Genera fila
     fila += '<th scope="row">' + largoTabla + '</th>';
     fila += '<td>' + OPedidoDetalles.Encabezado.NumeroPedido + '</td>';
     fila += '<td>' + total["0"].textContent + '</td>';
     fila += '<td><button class="btn btn-danger mr-2" onclick="eliminarOP(this)">Eliminar</button>';
-    fila += '<button class="btn btn-secondary" onclick="muestraOP(this)">Editar</button>';
+    fila += '<button class="btn btn-secondary mr-2" onclick="muestraOP(this)">Editar</button>';
+    fila += '<button class="btn btn-secondary" onclick="enviarOP(this)">Enviar</button>';
     fila += '</td></tr>';
     tabla.find('tbody').append(fila);//pinta fila
     mostrarTabla(tabla);
@@ -315,6 +319,7 @@ function llenarTabla(OPedidoDetalles, total) {
 
 //Eliminar orden de pedido si no ha sido enviada
 function eliminarOP(elem) {
+    debugger;
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
@@ -353,31 +358,44 @@ function eliminarOP(elem) {
 
 var idOPModificar = 0;
 
+function enviarOP() { }
+
 //Muestra la Orden de Pedido, se le pasa elemento
 function muestraOP(elem) {
-
-    idOPModificar = $(elem).closest('tr').find('th')[0].textContent;
-    var productos = $('#productosContainer');//body de tabla productos
-    limpiarTablaProductos(productos);
-    var fila = $(elem).closest('tr');
-    var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de productos guardado en la fila
-    $.each(productosObjeto.detalles, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
-        var nombreProveedor = prod.nombreProveedor.replace(/_/g, " ");
-        var nombreProducto = prod.nombreProducto.replace(/_/g, " ");
-        var fila = '<tr class="border-bottom">'; //Crea fila
-        fila += '<td class="p-2" data-id="' + prod.proveedor + '">' + nombreProveedor + '</td>';
-        fila += '<td class="p-2" data-id="' + prod.id + '">' + nombreProducto + '</td>';
-        fila += '<td>' + prod.cantidad + '</td>';
-        fila += '<td class="precio">' + prod.precio + '</td>';
-        fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
-        fila += '</td></tr>';
-        //Pinta en tabla productos
-        productos.find('tbody').append(fila);
-    });
-    //Mostrar la tabla
-    $('#generarOP').addClass('d-none');
-    $('#editarOP').removeClass('d-none');
-    mostrarTabla(productos, true);
+    debugger;
+    var fila = $(elem).closest('tr');//Fila
+    var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
+    if (enviada === "1") {//Si esta eviada === 1
+        alert('No se puede editar, está enviada');
+        return false;
+    } else {
+        idOPModificar = $(elem).closest('tr').children().eq(1)[0].textContent;
+        var productos = $('#productosContainer');//body de tabla productos
+        limpiarTablaProductos(productos);
+        var fila = $(elem).closest('tr');
+        var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de productos guardado en la fila
+        var IdProveedor = fila['0'].dataset.idProveedor;
+        $.each(productosObjeto.detalles, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
+            var nombreProveedor = prod.NombreProveedor.replace(/_/g, " ");
+            var nombreProducto = prod.NombreProducto.replace(/_/g, " ");
+            var fila = '<tr class="border-bottom">'; //Crea fila
+            fila += '<td class="p-2" data-id="' + prod.IdProveedor + '">' + nombreProveedor + '</td>';
+            fila += '<td class="p-2" data-id="' + prod.IdProducto + '">' + nombreProducto + '</td>';
+            fila += '<td>' + prod.CantidadProducto + '</td>';
+            fila += '<td class="precio">' + prod.PrecioProducto + '</td>';
+            fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
+            fila += '</td></tr>';
+            //Pinta en tabla productos
+            productos.find('tbody').append(fila);
+        });
+        //Mostrar la tabla
+        $('#generarOP').addClass('d-none');
+        $('#editarOP').removeClass('d-none');
+        var tabla = fila.closest('table');
+        fila.remove();
+        mostrarTabla(tabla);
+        mostrarTabla(productos, true);
+    }
 }
 
 function limpiarTablaProductos(tabla) {

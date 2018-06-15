@@ -662,7 +662,7 @@ namespace portafolio.Controllers
             try
             {
                 ObjectParameter oUT_ID_PEDIDO = new ObjectParameter("oUT_ID_PEDIDO", -1);
-                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, oUT_ID_PEDIDO);
+                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario,ped.NombreProveedor, oUT_ID_PEDIDO,ped.Estado,ped.IsEnviado);
                 return int.Parse(oUT_ID_PEDIDO.Value.ToString());
             }
             catch (Exception e)
@@ -726,8 +726,7 @@ namespace portafolio.Controllers
                     item.PrecioProducto,
                     item.IdProducto,
                     item.IdProveedor,
-                    item.NombreProducto,
-                    item.Estado
+                    item.NombreProducto
                     );
             }
             return true;
