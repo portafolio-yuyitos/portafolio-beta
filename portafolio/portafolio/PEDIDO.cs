@@ -25,6 +25,7 @@ namespace portafolio
         public string NOMBRE_PROVEEDOR { get; set; }
         public decimal ESTADO { get; set; }
         public decimal ISENVIADO { get; set; }
+        public decimal ISANULADA { get; set; }
     
         public virtual ICollection<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }

@@ -23,6 +23,8 @@ namespace portafolio.Controllers
             return Redirect("~/Login/");
         }
 
+
+
         // ###########################
         //      DEVUELVE PEDIDOS
         // ###########################
@@ -39,12 +41,7 @@ namespace portafolio.Controllers
                 _comObj.CommandText = "PKG_PEDIDOS.SP_S_PEDIDO";
                 _comObj.CommandType = System.Data.CommandType.StoredProcedure;
 
-                /*OracleParameter _IdProvParam = new OracleParameter();
-                _IdProvParam.ParameterName = "idProveedor";
-                _IdProvParam.OracleDbType = OracleDbType.Int32;
-                _IdProvParam.Direction = System.Data.ParameterDirection.Input;
-                _IdProvParam.Value = idProveedor;
-                _comObj.Parameters.Add(_IdProvParam);*/
+                
 
                 OracleParameter _RefParam = new OracleParameter();
                 _RefParam.ParameterName = "pedidosCur";
@@ -80,6 +77,8 @@ namespace portafolio.Controllers
 
             return pedidos;
         }
+
+
 
         public JsonResult PedidosEnJson()
         {
@@ -662,7 +661,7 @@ namespace portafolio.Controllers
             try
             {
                 ObjectParameter oUT_ID_PEDIDO = new ObjectParameter("oUT_ID_PEDIDO", -1);
-                db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, oUT_ID_PEDIDO);
+                //db.SP_I_PEDIDO(ped.IdProveedor,ped.IdUsuario, oUT_ID_PEDIDO);
                 return int.Parse(oUT_ID_PEDIDO.Value.ToString());
             }
             catch (Exception e)
@@ -715,7 +714,9 @@ namespace portafolio.Controllers
                             OPedidoDetalles.Encabezado.NombreProveedor,
                             OutIdPedido,
                             OPedidoDetalles.Encabezado.Estado,
-                            OPedidoDetalles.Encabezado.IsEnviado);
+                            OPedidoDetalles.Encabezado.IsEnviado,
+                            OPedidoDetalles.Encabezado.IsAnulada
+                            );
 
             foreach(var item in OPedidoDetalles.Detalles)
             {
@@ -732,6 +733,152 @@ namespace portafolio.Controllers
             }
             return true;
         }
+
+        public JsonResult ObtienePedidosJson()
+        {
+            List<OPedidoDetalles> lista = SelectPedidos();
+            return new JsonResult()
+            {
+                Data = lista,
+                JsonRequestBehavior = JsonRequestBehavior.DenyGet
+            };
+        }
+
+        public List<OPedidoDetalles> SelectPedidos()
+        {
+            List<OPedidoDetalles> pedidos = new List<OPedidoDetalles>();
+            OPedidoDetalles ordenPedido;
+            Pedido ped;
+            List<DetallePedido> detaPed;
+
+            String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+            try
+            {
+                OracleConnection _connObj = new OracleConnection(_connstring);
+                _connObj.Open();
+                OracleCommand _comObj = _connObj.CreateCommand();
+                _comObj.CommandText = "PKG_PEDIDOS.SP_S_PEDIDO";
+                _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+
+                OracleParameter _RefParam = new OracleParameter();
+                _RefParam.ParameterName = "pedidosCur";
+                _RefParam.OracleDbType = OracleDbType.RefCursor;
+                _RefParam.Direction = System.Data.ParameterDirection.Output;
+                _comObj.Parameters.Add(_RefParam);
+                OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                if (_rdrObj.HasRows)
+                {
+                    while (_rdrObj.Read())
+                    {
+                        ordenPedido = new OPedidoDetalles();
+                        ped = new Pedido
+                        {
+                            NumeroPedido = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_PEDIDO")),
+                            IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
+                            IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO")),
+                            Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO")),
+                            IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA")),
+                            IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO")),
+                            NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"))
+                        };
+
+                        detaPed = new List<DetallePedido>();
+                        detaPed = SelectDetalles(ped.NumeroPedido);
+
+
+                        ordenPedido.Encabezado = ped;
+                        ordenPedido.Detalles = detaPed;
+                        
+
+                        
+                        pedidos.Add(ordenPedido);
+
+
+                    }
+                }
+
+                _connObj.Close();
+                _connObj.Dispose();
+                _connObj = null;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return pedidos;
+        }
+
+        public List<DetallePedido> SelectDetalles(int numeroPedido)
+        {
+            
+            List<DetallePedido> detaPed = new List<DetallePedido>();
+
+            String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
+            try
+            {
+                OracleConnection _connObj = new OracleConnection(_connstring);
+                _connObj.Open();
+                OracleCommand _comObj = _connObj.CreateCommand();
+                _comObj.CommandText = "PKG_DETALLE_PEDIDO.SP_S_DETAPEDIDO_NUME_PEDIDO";
+                _comObj.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                OracleParameter _numePediParam = new OracleParameter();
+                _numePediParam.ParameterName = "numeroPedido";
+                _numePediParam.OracleDbType = OracleDbType.Int32;
+                _numePediParam.Direction = System.Data.ParameterDirection.Input;
+                _numePediParam.Value = numeroPedido;
+                _comObj.Parameters.Add(_numePediParam);
+
+
+
+                OracleParameter _RefParam = new OracleParameter();
+                _RefParam.ParameterName = "detaPedidosCur";
+                _RefParam.OracleDbType = OracleDbType.RefCursor;
+                _RefParam.Direction = System.Data.ParameterDirection.Output;
+                _comObj.Parameters.Add(_RefParam);
+                OracleDataReader _rdrObj = _comObj.ExecuteReader();
+
+                if (_rdrObj.HasRows)
+                {
+                    while (_rdrObj.Read())
+                    {
+                        detaPed.Add(new DetallePedido
+                        {
+                            NumeroPedido = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_PEDIDO")),
+                            NumeroDetalle = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_DETALLE")),
+                            IdProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PRODUCTO")),
+                            NombreProducto = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PRODUCTO")),
+                            CantidadProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("CANTIDAD_PRODUCTO")),
+                            PrecioProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PRECIO_PRODUCTO")),
+                            IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR"))
+                        });
+                    }
+                }
+
+                _connObj.Close();
+                _connObj.Dispose();
+                _connObj = null;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return detaPed;
+        }
+
+
 
 
 
