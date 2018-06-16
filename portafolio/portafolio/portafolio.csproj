@@ -305,6 +305,7 @@
       <DependentUpon>YuyosModel.edmx</DependentUpon>
     </Content>
     <Content Include="Views\RecepcionProducto\Index.cshtml" />
+    <Content Include="Views\OrdenPedido\_OrdenesPedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

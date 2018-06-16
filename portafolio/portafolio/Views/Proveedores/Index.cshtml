@@ -59,8 +59,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="w-100 title-table">
-            <h5 class="c-orange mb-4">Listado de proveedores:</h5>
+        <div class="w-100 title-table d-flex justify-content-between">
+            <h5 class="c-orange">Listado de proveedores:</h5>
+            <label class="d-flex">
+                Filtro:
+                <input type="text" class="form-control ml-4" id="rutFilterInput" onkeyup="RutFilter()" placeholder="Busca por rut...">
+            </label>
         </div>
         <table class="table table-hover table-dark border-top" id="tabla">
             <thead>
@@ -72,14 +76,6 @@
                     <th scope="col">Giro</th>
                     <th scope="col">Fono</th>
                     <th scope="col">Acciones</th>
-                </tr>
-                <tr>
-                    <th>
-                        Filtros
-                    </th>
-                    <th colspan="6"><input type="text" class="form-control" id="rutFilterInput" onkeyup="RutFilter()" placeholder="Busca por rut..."></th>
-                    @*<th><input type="text" class="form-control" id="nombreFilterInput" onkeyup="NombreFilter()" placeholder="Busca por nombre..."></th>
-            <th></th>*@
                 </tr>
             </thead>
             <tbody id="tablita">
