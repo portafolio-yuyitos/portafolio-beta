@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Objects;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,7 +18,7 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                List<Pedido> pedidos = ObtenerPedidos();
+                List<OPedidoDetalles> pedidos = SelectPedidos();
                 return View(pedidos);
             }
             return Redirect("~/Login/");
@@ -727,7 +728,8 @@ namespace portafolio.Controllers
                     item.PrecioProducto,
                     item.IdProducto,
                     item.IdProveedor,
-                    item.NombreProducto
+                    item.NombreProducto,
+                    item.Estado
                     );
             }
             return true;
@@ -964,9 +966,62 @@ namespace portafolio.Controllers
             return ordenPedido;
         }
 
+        // METODO ANULA PEDIDO
+        public bool AnularPedido(int numePedido)
+        {
+            try
+            {
+                var db = new YuyosEntities(); //Instancia DB
+                db.SP_ANULA_PEDIDO(numePedido);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        // METODO ENVIA PEDIDO
+        public bool EnviarPedido(int numePedido)
+        {
+            try
+            {
+                var db = new YuyosEntities(); //Instancia DB
+                db.SP_ENVIA_PEDIDO(numePedido);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         
+        //Método Elimina PEDIDO
+        [HttpPost]
+        public bool EliminaPedido(int numePedido)
+        {
+
+            try
+            {
+                var db = new YuyosEntities(); //Instancia DB
+                db.SP_ELIMINA_PEDIDO(numePedido);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
 
+        public ActionResult GetOrdenes()
+        {
+            List<OPedidoDetalles> pedidos = SelectPedidos();
+            return PartialView("~/Views/OrdenPedido/_OrdenesPedido.cshtml", pedidos);
+        }
 
 
         //    NOE ESTÁ CREADO

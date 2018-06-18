@@ -157,7 +157,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_BOLETA", v_CANTIDAD_PRODUCTOParameter, v_ID_PRODUCTOParameter, v_ID_BOLETAParameter);
         }
     
-        public virtual int SP_I_DETALLE_PEDIDO(Nullable<decimal> nUME_PEDIDO, Nullable<decimal> nUME_DETA_PEDIDO, Nullable<decimal> cANTIDAD_PRODUCTO, Nullable<decimal> pRECIO_PRODUCTO, Nullable<decimal> iD_PRODUCTO, Nullable<decimal> iD_PROVEEDOR, string nOMBRE_PRODUCTO)
+        public virtual int SP_I_DETALLE_PEDIDO(Nullable<decimal> nUME_PEDIDO, Nullable<decimal> nUME_DETA_PEDIDO, Nullable<decimal> cANTIDAD_PRODUCTO, Nullable<decimal> pRECIO_PRODUCTO, Nullable<decimal> iD_PRODUCTO, Nullable<decimal> iD_PROVEEDOR, string nOMBRE_PRODUCTO, Nullable<decimal> eSTADO)
         {
             var nUME_PEDIDOParameter = nUME_PEDIDO.HasValue ?
                 new ObjectParameter("NUME_PEDIDO", nUME_PEDIDO) :
@@ -187,7 +187,11 @@ namespace portafolio
                 new ObjectParameter("NOMBRE_PRODUCTO", nOMBRE_PRODUCTO) :
                 new ObjectParameter("NOMBRE_PRODUCTO", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", nUME_PEDIDOParameter, nUME_DETA_PEDIDOParameter, cANTIDAD_PRODUCTOParameter, pRECIO_PRODUCTOParameter, iD_PRODUCTOParameter, iD_PROVEEDORParameter, nOMBRE_PRODUCTOParameter);
+            var eSTADOParameter = eSTADO.HasValue ?
+                new ObjectParameter("ESTADO", eSTADO) :
+                new ObjectParameter("ESTADO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", nUME_PEDIDOParameter, nUME_DETA_PEDIDOParameter, cANTIDAD_PRODUCTOParameter, pRECIO_PRODUCTOParameter, iD_PRODUCTOParameter, iD_PROVEEDORParameter, nOMBRE_PRODUCTOParameter, eSTADOParameter);
         }
     
         public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO, string nOMBRE_PROVEEDOR, ObjectParameter oUT_ID_PEDIDO, Nullable<decimal> eSTADO, Nullable<decimal> iSENVIADO, Nullable<decimal> iSANULADA)

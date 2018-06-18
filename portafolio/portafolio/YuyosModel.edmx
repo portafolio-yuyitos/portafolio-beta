@@ -15,7 +15,7 @@
           <Property Name="TOTAL_BOLETA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="FECHA_BOLETA" Type="date" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ISANULADA" Type="number" Precision="38" Scale="0" />
+          <Property Name="ISANULADA" Type="number" Precision="1" Scale="0" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -90,9 +90,9 @@
           <Property Name="ID_PROVEEDOR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="NOMBRE_PROVEEDOR" Type="varchar2" MaxLength="150" />
-          <Property Name="ISANULADA" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ISENVIADO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ESTADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISENVIADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISANULADA" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -375,7 +375,7 @@
           <Parameter Name="V_AUTORIZADO_FIADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_D_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
-          <Parameter Name="NUMERO_BOLETA" Type="varchar2" Mode="In" />
+          <Parameter Name="NUMERO_BOLETA" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
@@ -413,6 +413,7 @@
           <Parameter Name="ID_PRODUCTO" Type="number" Mode="In" />
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
           <Parameter Name="NOMBRE_PRODUCTO" Type="varchar2" Mode="In" />
+          <Parameter Name="ESTADO" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="ID_PROVEEDOR" Type="number" Mode="In" />
@@ -421,6 +422,7 @@
           <Parameter Name="OUT_ID_PEDIDO" Type="number" Mode="Out" />
           <Parameter Name="ESTADO" Type="number" Mode="In" />
           <Parameter Name="ISENVIADO" Type="number" Mode="In" />
+          <Parameter Name="ISANULADA" Type="number" Mode="In" />
         </Function>
         <Function Name="SP_I_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_DESCRIPCION" Type="varchar2" Mode="In" />
@@ -1042,7 +1044,7 @@
             <End Role="USUARIO" EntitySet="USUARIO" />
           </AssociationSet>
           <FunctionImport Name="SP_D_BOLETA">
-          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="String" />
+          <Parameter Name="NUMERO_BOLETA" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_D_CLIENTE">
           <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
@@ -1085,6 +1087,7 @@
             <Parameter Name="ID_PRODUCTO" Mode="In" Type="Decimal" />
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
             <Parameter Name="NOMBRE_PRODUCTO" Mode="In" Type="String" />
+            <Parameter Name="ESTADO" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PEDIDO">
             <Parameter Name="ID_PROVEEDOR" Mode="In" Type="Decimal" />
@@ -1093,6 +1096,7 @@
             <Parameter Name="OUT_ID_PEDIDO" Mode="Out" Type="Decimal" />
             <Parameter Name="ESTADO" Mode="In" Type="Decimal" />
             <Parameter Name="ISENVIADO" Mode="In" Type="Decimal" />
+            <Parameter Name="ISANULADA" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PROVEEDOR">
             <Parameter Name="RUT_PROVEEDOR" Mode="In" Type="String" />
