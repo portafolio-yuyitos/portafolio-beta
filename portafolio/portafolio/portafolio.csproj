@@ -210,11 +210,13 @@
     <Compile Include="Models\ViewModels\ClienteFiados.cs" />
     <Compile Include="Models\ViewModels\ClienteFiados_I.cs" />
     <Compile Include="Models\ViewModels\ClientesGasto.cs" />
+    <Compile Include="Models\ViewModels\DetallePedidoStock.cs" />
     <Compile Include="Models\ViewModels\Informes.cs" />
     <Compile Include="Models\ViewModels\OPedidoDetalles.cs" />
     <Compile Include="Models\ViewModels\PeoresFiadores_I.cs" />
     <Compile Include="Models\ViewModels\ProductoPorcentajeStock.cs" />
     <Compile Include="Models\ViewModels\ProveedorProducto_I.cs" />
+    <Compile Include="Models\ViewModels\RecepcionOrdenPedido.cs" />
     <Compile Include="PEDIDO.cs">
       <DependentUpon>YuyosModel.tt</DependentUpon>
     </Compile>

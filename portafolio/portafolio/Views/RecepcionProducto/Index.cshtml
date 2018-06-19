@@ -29,12 +29,17 @@
             </div>
 
             <div class=" justify-content-end d-flex align-items-center">
-                <button class="btn btn-secondary d-block" onclick="buscarOP()">Buscar orden de pedido</button>
+                <button class="btn btn-secondary d-block" onclick="buscarOrden($('#idOP').val())">Buscar orden de pedido</button>
             </div>
         </div>
 
     </div>
-    <div class="d-none row mt-5" id="listadoProductos">
+    <div class="container">
+        <div id="llenar"></div>
+    </div>
+
+    
+    @*@<div class="d-none row mt-5" id="listadoProductos">
         <div class="col-md-12">
             <h5 class="c-orange mb-4">Listado de productos:</h5>
         </div>
@@ -44,7 +49,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center cursor-pointer" id="1" data-toggle="collapse" data-target="#1a" aria-expanded="true" aria-controls="1a">
                         <div class="w-75 d-flex">
                             <div class="d-flex justify-content-between flex-column mr-4">
-                                @*<p class="mr-3"><strong>Código: </strong>132456789</p>*@
+                                <!--p class="mr-3"><strong>Código: </strong>132456789</p-->
                                 <p class="mb-0"><strong>Descripción: </strong>Arroz Miraflores</p>
                             </div>
                         </div>
@@ -72,7 +77,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center cursor-pointer" id="2" data-toggle="collapse" data-target="#2a" aria-expanded="true" aria-controls="2a">
                         <div class="w-75 d-flex d-flex">
                             <div class="d-flex justify-content-between flex-column mr-4">
-                                @*<p class="mr-3"><strong>Código: </strong>132456789</p>*@
+                                <!--p class="mr-3"><strong>Código: </strong>132456789</p-->
                                 <p class="mb-0"><strong>Descripción: </strong>Arroz Miraflores</p>
                             </div>
                         </div>
@@ -101,7 +106,131 @@
         <div class="col-md-12 justify-content-end d-flex align-items-center mt-4">
             <button class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button>
         </div>
-    </div>
+    </div>*@
 </main>
 
 <script src="@Url.Content("~/assets/js/recepcion-pedido.js")"></script>
+<script type="text/javascript">
+
+    
+    function buscarOrden(numePedido) {
+        var data = {
+            numePedido: numePedido
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/RecepcionProducto/ObPedidoPorNPedido',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                var proveedor = retornaProveedor(data.Encabezado.IdProveedor);
+                var encabezado =
+                    `<div class="row" style="margin-top: 100px">
+                        <div id="titulo" class="col-9" style="margin-bottom: 50px">
+                            <h1 class="text-center">Orden de Compra</h1>
+                            <h3 class="text-center">Almacen Yutitos</h3>
+                        </div>
+                        <div class="col-3">
+                            <h3 class="text-center">N° de Pedido</h3>
+                            <h3 class="text-center" id="numeroPedido">${data.Encabezado.NumeroPedido}</h3>
+                        </div>
+                        <div class="col-4">
+                            <h5 id="idProveedor">Id Proveedor: ${data.Encabezado.IdProveedor}</h5>
+                            <h5 id="idProveedor">Rut Proveedor: ${proveedor.RutProveedor}</h5>
+                            <h5 id="idProveedor">Razon Social: ${proveedor.RazonSocial}</h5>
+                
+                
+                        </div>
+                        <div class="col-4">
+                            <h5 id="idProveedor">Giro: ${proveedor.Giro}</h5>
+                            <h5 id="idProveedor">Fono: ${proveedor.Fono}</h5>
+                            <h5 id="idProveedor">Email: ${proveedor.Email}</h5>
+                        </div>
+                        <div class="col-4">
+                            <h5 id="usuario">Responsable: ${retornaUsuario(data.Encabezado.IdUsuario)}</h5>
+                            <h5 id="isEnviado">Estado de Envío: ${data.Encabezado.IsEnviado == 1 ? "No enviada" : "Enviada"}</h5>
+                            <h5 id="isEnviado">Anulada: ${data.Encabezado.IsAnulada == 1 ? "Si" : "No"}</h5>
+                            <h5 id="isEnviado">Eliminada: ${data.Encabezado.Estado == 1 ? "Si" : "No"}</h5>
+                        </div>
+                    </div>
+                    `;
+
+                var detalle = `<div class="row">
+                                    <div class="col-2" >N°</div >
+                                    <div class="col-2">ID PROD</div>
+                                    <div class="col-4">PRODUCTO</div>
+                                    <div class="col-2">Cantidad</div>
+                                    <div class="col-2">Precio</div>
+                                </div >`;
+                var total = 0;
+                console.log(data);
+                for (i in data.Detalles) {
+
+                    detalle += `<div class="row">
+                                        <div class="col-2">${data.Detalles[i].NumeroDetalle}</div>
+                                        <div class="col-2">${data.Detalles[i].IdProducto}</div>
+                                        <div class="col-4">${data.Detalles[i].NombreProducto}</div>
+                                        <div class="col-2">${data.Detalles[i].CantidadProducto}</div>
+                                        <div class="col-2">${data.Detalles[i].PrecioProducto}</div>
+                                    </div>`;
+
+                    total += data.Detalles[i].PrecioProducto;
+                };
+                detalle += `<div class="row" style="margin-top: 50px"><div class="col-12"><h3 class="text-right">TOTAL: ${total}</h3></div></div>`;
+
+                
+
+                $("#llenar").html(encabezado+detalle);
+            },
+            error: function (err) {
+                alert("No se ha podido enviar.");
+            }
+        });
+    };
+
+    function retornaUsuario(idUsuario) {
+        var data = {
+            idUsuario: idUsuario
+        }
+        var usuario = "";
+        $.ajax({
+            type: 'POST',
+            url: '/RecepcionProducto/BuscarUsuario',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                usuario = data;
+            },
+            error: function (err) {
+                alert("No se ha podido enviar.");
+            }
+        });
+        return usuario;
+    }
+
+    function retornaProveedor(idProveedor) {
+        var data = {
+            idProveedor: idProveedor
+        }
+        var proveedor = "";
+        $.ajax({
+            type: 'POST',
+            url: '/RecepcionProducto/BuscarProveedor',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                proveedor = data;
+            },
+            error: function (err) {
+                alert("No se ha podido enviar.");
+            }
+        });
+        return proveedor;
+    }
+</script>

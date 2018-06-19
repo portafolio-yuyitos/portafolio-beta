@@ -96,6 +96,30 @@
     $(document).ready(function () {
         getOrdenes();
     });
+
+    
+    function enviarOrden(numePedido) {
+        var data = {
+            numePedido: numePedido
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/OrdenPedido/EnviarPedido',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                bloqueoBotones();
+                alert("Orden Enviada");
+            },
+            error: function (err) {
+                alert("No se ha podido enviar.");
+                getOrdenes();
+            }
+        });
+    };
+
     function eliminarOrden(numePedido) {
         var data = {
             numePedido: numePedido
@@ -108,7 +132,8 @@
             contentType: "application/json",
             async: false,
             success: function (data) {
-                alert("Hola")
+                alert("Hola");
+                
             },
             error: function (err) {
                 alert("Error");
@@ -121,5 +146,21 @@
             $('#listadoOP').html(response);
         });
     }
+
+    function bloqueoBotones() {
+        $('#botonEliminarOrden').prop('disabled', true);
+        $('#botonEliminarOrden').attr({
+            'data-toggle': "tooltip",
+            'data-placement': "top",
+            'title': "No se puede eliminar una orden enviada."
+        });
+
+        $('#botonEnviarOrden').prop('disabled', true).attr({
+            'data-toggle': "tooltip",
+            'data-placement': "top",
+            'title': "No se puede eliminar una orden enviada."
+        });;
+    }
+
     getOrdenes();
 </script>
