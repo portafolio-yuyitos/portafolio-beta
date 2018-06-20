@@ -19,7 +19,7 @@ function login() {
      contentType: "application/json",
      success: function (data) {
          if (data == "True") {
-             
+             localStorage.setItem('login',true);
              var redirect = window.location.origin;
              $(location).attr('href', redirect);
          } else if (data == "False"){

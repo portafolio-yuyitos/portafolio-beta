@@ -29,10 +29,11 @@ namespace portafolio.Controllers
             return true;
         }
 
-        public ActionResult CerrarSesion()
+        [HttpPost]
+        public bool CerrarSesion()
         {
             Session["usuario"] = null;
-            return Redirect("/");
+            return true;
         }
     }
 }

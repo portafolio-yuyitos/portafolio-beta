@@ -348,9 +348,35 @@ function mostrarTabla(tabla, producto) {
 
 }
 
+function testLogin() {
+    if (!localStorage.getItem('login') && (window.location.pathname !== "/Login/"  window.location.pathname !== "/Login")) {
+        localStorage.setItem('contTest',1);
+        var redirect = window.location.origin;
+        $(location).attr('href', redirect);
+    }
+}
+
+function logout() {
+    var proveedor = "";
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/Login/CerrarSesion',
+        cache: false,
+        contentType: "application/json",
+        async: false
+    });
+    if (promise) {
+        localStorage.removeItem('login');
+        localStorage.removeItem('contTest');
+        var redirect = window.location.origin;
+        $(location).attr('href', redirect);
+    }
+}
+
 //DOCUMENT READY
 $('document').ready(function () {
     //Mostrar o no las tablas si es que tienen filas
+    testLogin();
     mostrarTabla($('#productosContainer'), true);
     mostrarTabla($('#tablaOP'));
     refrescarFunction();
