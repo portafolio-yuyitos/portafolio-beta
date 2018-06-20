@@ -157,7 +157,7 @@
                     </div>
                     `;
 
-                var detalle = `<div class="row">
+                var detalle = `<div id="detalles-todos"><div class="row">
                                     <div class="col-2" >N°</div >
                                     <div class="col-2">ID PROD</div>
                                     <div class="col-4">PRODUCTO</div>
@@ -168,17 +168,22 @@
                 console.log(data);
                 for (i in data.Detalles) {
 
-                    detalle += `<div class="row">
+                    detalle += `<div class="row deta" id="deta${data.Detalles[i].NumeroDetalle}">
                                         <div class="col-2">${data.Detalles[i].NumeroDetalle}</div>
-                                        <div class="col-2">${data.Detalles[i].IdProducto}</div>
+                                        <div class="col-2" data-idproducto="${data.Detalles[i].IdProducto}">${data.Detalles[i].IdProducto}</div>
                                         <div class="col-4">${data.Detalles[i].NombreProducto}</div>
-                                        <div class="col-2">${data.Detalles[i].CantidadProducto}</div>
+                                        <div class="col-2" data-cantidadproducto="${data.Detalles[i].CantidadProducto}">${data.Detalles[i].CantidadProducto}</div>
                                         <div class="col-2">${data.Detalles[i].PrecioProducto}</div>
                                     </div>`;
 
                     total += data.Detalles[i].PrecioProducto;
                 };
                 detalle += `<div class="row" style="margin-top: 50px"><div class="col-12"><h3 class="text-right">TOTAL: ${total}</h3></div></div>`;
+                detalle += `<div class="row" style="margin-top: 50px">
+                                <div class="col-5"></div><div class="col-7">
+                                    <button class="btn btn-success" onclick="aceptarOrden()"></button>
+                                </div>
+                            </div></div>`;
 
                 
 
@@ -189,6 +194,12 @@
             }
         });
     };
+
+    function aceptarOrden() {
+        alert('Estas aceptando la orden');
+        var detalles = document.getElementsByClassName('deta');
+        console.log(detalles);
+    }
 
     function retornaUsuario(idUsuario) {
         var data = {
