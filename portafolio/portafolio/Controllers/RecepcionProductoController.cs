@@ -78,7 +78,7 @@ namespace portafolio.Controllers
                                 IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
                                 IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO")),
                                 Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO")),
-                                IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA")),
+                                IsAnulado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA")),
                                 IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO")),
                                 NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"))
                             };

@@ -134,7 +134,7 @@ namespace portafolio.Controllers
             var db = new YuyosEntities(); //Instancia DB
             try
             {
-                db.SP_D_BOLETA(numeroBoleta);
+                db.SP_D_BOLETA(numeroBoleta.ToString());
                 return true;
             }
             catch (Exception e)

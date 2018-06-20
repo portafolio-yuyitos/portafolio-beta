@@ -231,71 +231,53 @@ function agregarOP(tabla, productos, total) {
         'IdUsuario': 1
     };
 
+    var Encabezado = new Object();
+    //Encabezado.NumeroPedido = data;
+    Encabezado.IdProveedor = ped.IdProveedor;
+    Encabezado.IdUsuario = ped.IdUsuario;
+    Encabezado.NombreProveedor = productos[0].NombreProveedor;
+    Encabezado.IsAnulado = 0;
+    Encabezado.IsEnviado = 0;
+
+    var Detalles = new Array();
+
+    $.each(productos, function (i, val) {
+        //val.NumeroPedido = data;
+        delete val.IdProveedor;
+        Detalles.push(val);
+    });
+
+    // Generamos objeto OPedidoDetalles
+    var OPedidoDetalles = new Object();
+    OPedidoDetalles.Encabezado = Encabezado;
+    OPedidoDetalles.Detalles = Detalles;
+
     $.ajax({
         type: 'POST',
-        url: '/OrdenPedido/agregar',
+        url: '/OrdenPedido/AgregarOrdenPedido',
         cache: false,
-        data: JSON.stringify(ped),
+        data: JSON.stringify(OPedidoDetalles),
         contentType: "application/json",
         async: false,
         success: function (data) {
-            if (data !== "-1") {
-                var Encabezado = new Object();
-                Encabezado.NumeroPedido = data;
-                Encabezado.IdProveedor = ped.IdProveedor;
-                Encabezado.IdUsuario = ped.IdUsuario;
-                Encabezado.NombreProveedor = productos[0].NombreProveedor;
-                Encabezado.IsAnulado = 0;
-                Encabezado.IsEnviado = 0;
-
-                var Detalles = new Array();
-
-                $.each(productos, function (i, val) {
-                    val.NumeroPedido = data;
-                    delete val.IdProveedor;
-                    Detalles.push(val);
-                });
-
-                // Generamos objeto OPedidoDetalles
-                var OPedidoDetalles = new Object();
-                OPedidoDetalles.Encabezado = Encabezado;
-                OPedidoDetalles.Detalles = Detalles;
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/OrdenPedido/AgregarOrdenPedido',
-                    cache: false,
-                    data: JSON.stringify(OPedidoDetalles),
-                    contentType: "application/json",
-                    async: false,
-                    success: function (data) {
-                        if (data == "True") {
-                            alert("Se ha agregado la orden de pedido correctamente");
-                            llenarTabla(OPedidoDetalles, total);//Llenar la tabla
-                            $('#vacio').addClass('d-flex');
-                            $('#vacio').removeClass('d-none');
-                            tabla.closest('.productos').addClass('d-none');
-                            tabla.closest('.productos').removeClass('d-flex');
-                            tabla.closest('.productos').siblings('.productos').addClass('d-none');
-                            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
-                            tabla.find('tbody').html('');
-                            $('#proveedor').val('-1').trigger('change.select2');
-                            $('#proveedor').attr('disabled', false);
-                        } else {
-                            alert("No se ha podido generar la orden pedido");
-                        }
-                    },
-                    error: function (err) {
-                        alert("No se ha podido generar la orden pedido");
-                    }
-                });
-
+            if (data == "True") {
+                alert("Se ha agregado la orden de pedido correctamente");
+                llenarTabla(OPedidoDetalles, total);//Llenar la tabla
+                $('#vacio').addClass('d-flex');
+                $('#vacio').removeClass('d-none');
+                tabla.closest('.productos').addClass('d-none');
+                tabla.closest('.productos').removeClass('d-flex');
+                tabla.closest('.productos').siblings('.productos').addClass('d-none');
+                tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+                tabla.find('tbody').html('');
+                $('#proveedor').val('-1').trigger('change.select2');
+                $('#proveedor').attr('disabled', false);
             } else {
                 alert("No se ha podido generar la orden pedido");
             }
         },
-        error: function (ex) {
-            alert('Error al generar la orden de pedido');
+        error: function (err) {
+            alert("No se ha podido generar la orden pedido");
         }
     });
 }
@@ -308,6 +290,7 @@ function llenarTabla(OPedidoDetalles, total) {
     var fila = '<tr data-enviada="0" data-id-proveedor="' + OPedidoDetalles.Encabezado.IdProveedor + '" data-productos=' + JSON.stringify(productos) + '>';//Genera fila
     fila += '<th scope="row">' + largoTabla + '</th>';
     fila += '<td>' + OPedidoDetalles.Encabezado.NumeroPedido + '</td>';
+    fila += '<td>' + OPedidoDetalles.Encabezado.NombreProveedor + '</td>';
     fila += '<td>' + total["0"].textContent + '</td>';
     fila += '<td><button class="btn btn-danger mr-2" onclick="eliminarOP(this)">Eliminar</button>';
     fila += '<button class="btn btn-secondary mr-2" onclick="muestraOP(this)">Editar</button>';
@@ -362,7 +345,6 @@ function enviarOP() { }
 
 //Muestra la Orden de Pedido, se le pasa elemento
 function muestraOP(elem) {
-    debugger;
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
@@ -375,26 +357,29 @@ function muestraOP(elem) {
         var fila = $(elem).closest('tr');
         var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de productos guardado en la fila
         var IdProveedor = fila['0'].dataset.idProveedor;
-        $.each(productosObjeto.detalles, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
-            var nombreProveedor = prod.NombreProveedor.replace(/_/g, " ");
-            var nombreProducto = prod.NombreProducto.replace(/_/g, " ");
-            var fila = '<tr class="border-bottom">'; //Crea fila
-            fila += '<td class="p-2" data-id="' + prod.IdProveedor + '">' + nombreProveedor + '</td>';
-            fila += '<td class="p-2" data-id="' + prod.IdProducto + '">' + nombreProducto + '</td>';
-            fila += '<td>' + prod.CantidadProducto + '</td>';
-            fila += '<td class="precio">' + prod.PrecioProducto + '</td>';
-            fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
-            fila += '</td></tr>';
-            //Pinta en tabla productos
-            productos.find('tbody').append(fila);
-        });
-        //Mostrar la tabla
-        $('#generarOP').addClass('d-none');
-        $('#editarOP').removeClass('d-none');
-        var tabla = fila.closest('table');
-        fila.remove();
-        mostrarTabla(tabla);
-        mostrarTabla(productos, true);
+        var promise = retornaProveedor(IdProveedor);
+        if (promise) {
+            $.each(productosObjeto, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
+                var nombreProveedor = promise.responseJSON.RazonSocial.replace(/_/g, " ");
+                var nombreProducto = prod.NombreProducto.replace(/_/g, " ");
+                var fila = '<tr class="border-bottom">'; //Crea fila
+                fila += '<td class="p-2" data-id="' + promise.responseJSON.IdProveedor + '">' + nombreProveedor + '</td>';
+                fila += '<td class="p-2" data-id="' + prod.IdProducto + '">' + nombreProducto + '</td>';
+                fila += '<td>' + prod.CantidadProducto + '</td>';
+                fila += '<td class="precio">' + prod.PrecioProducto + '</td>';
+                fila += '<td><button class="btn btn-danger mr-2 my-2" onclick="eliminar(this,' + "'productos'" + ')">Eliminar</button>';
+                fila += '</td></tr>';
+                //Pinta en tabla productos
+                productos.find('tbody').append(fila);
+            });
+            //Mostrar la tabla
+            $('#generarOP').addClass('d-none');
+            $('#editarOP').removeClass('d-none');
+            var tabla = fila.closest('table');
+            fila.remove();
+            mostrarTabla(tabla);
+            mostrarTabla(productos, true);
+        }
     }
 }
 
@@ -474,7 +459,21 @@ function pad(n, length) {
     return (len > 0 ? new Array(++len).join('0') : '') + n
 }
 
-
+function retornaProveedor(idProveedor) {
+    var data = {
+        idProveedor: idProveedor
+    }
+    var proveedor = "";
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/RecepcionProducto/BuscarProveedor',
+        cache: false,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        async: false
+    });
+    return promise;
+}
 
 
 $(document).ready(function () {

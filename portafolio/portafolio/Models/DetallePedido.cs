@@ -14,6 +14,6 @@ namespace portafolio.Models
         public int PrecioProducto { get; set; }
         public int IdProveedor { get; set; }
         public string NombreProducto { get; set; }
-        public int Estado { get; set; }
+        //public int Estado { get; set; }
     }
 }

@@ -18,8 +18,8 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                List<OPedidoDetalles> pedidos = SelectPedidos();
-                return View(pedidos);
+                //List<OPedidoDetalles> pedidos = SelectPedidos();
+                return View();
             }
             return Redirect("~/Login/");
         }
@@ -663,7 +663,7 @@ namespace portafolio.Controllers
             try
             {
                 ObjectParameter oUT_ID_PEDIDO = new ObjectParameter("oUT_ID_PEDIDO", -1);
-                db.SP_I_PEDIDO(ped.IdProveedor, ped.IdUsuario, ped.NombreProveedor, oUT_ID_PEDIDO, ped.Estado, ped.IsEnviado, ped.IsAnulada);
+                db.SP_I_PEDIDO(ped.IdProveedor, ped.IdUsuario, ped.NombreProveedor, oUT_ID_PEDIDO, ped.Estado, ped.IsEnviado, ped.IsAnulado);
                 return int.Parse(oUT_ID_PEDIDO.Value.ToString());
             }
             catch (Exception e)
@@ -717,9 +717,9 @@ namespace portafolio.Controllers
                             OutIdPedido,
                             OPedidoDetalles.Encabezado.Estado,
                             OPedidoDetalles.Encabezado.IsEnviado,
-                            OPedidoDetalles.Encabezado.IsAnulada);
+                            OPedidoDetalles.Encabezado.IsAnulado);
 
-            foreach(var item in OPedidoDetalles.Detalles)
+            foreach (var item in OPedidoDetalles.Detalles)
             {
                 db.SP_I_DETALLE_PEDIDO(
                     int.Parse(OutIdPedido.Value.ToString()),
@@ -728,8 +728,8 @@ namespace portafolio.Controllers
                     item.PrecioProducto,
                     item.IdProducto,
                     item.IdProveedor,
-                    item.NombreProducto,
-                    item.Estado
+                    item.NombreProducto
+                    //,item.Estado
                     );
             }
             return true;
@@ -780,16 +780,24 @@ namespace portafolio.Controllers
                     while (_rdrObj.Read())
                     {
                         ordenPedido = new OPedidoDetalles();
-                        ped = new Pedido
-                        {
-                            NumeroPedido = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_PEDIDO")),
-                            IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
-                            IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO")),
-                            Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO")),
-                            IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA")),
-                            IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO")),
-                            NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"))
-                        };
+                        ped = new Pedido();
+                        ped.NumeroPedido = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_PEDIDO"));
+                        ped.IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR"));
+                        ped.IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO"));
+                        ped.Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO"));
+                        ped.IsAnulado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADO"));
+                        ped.IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO"));
+                        ped.NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"));
+
+                        //{
+                        //    NumeroPedido = _rdrObj.GetInt32(_rdrObj.GetOrdinal("NUMERO_PEDIDO")),
+                        //    IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
+                        //    IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO")),
+                        //    Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO")),
+                        //    IsAnulado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADO")),
+                        //    IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO")),
+                        //    NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"))
+                        //};
 
                         detaPed = new List<DetallePedido>();
                         detaPed = SelectDetalles(ped.NumeroPedido);
@@ -936,7 +944,7 @@ namespace portafolio.Controllers
                                 IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
                                 IdUsuario = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_USUARIO")),
                                 Estado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ESTADO")),
-                                IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA")),
+                                IsAnulado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADO")),
                                 IsEnviado = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISENVIADO")),
                                 NombreProveedor = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE_PROVEEDOR"))
                             };

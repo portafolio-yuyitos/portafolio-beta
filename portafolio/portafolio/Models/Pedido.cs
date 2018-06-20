@@ -13,6 +13,6 @@ namespace portafolio.Models
         public string NombreProveedor { get; set; }
         public int Estado { get; set; }
         public int IsEnviado { get; set; }
-        public int IsAnulada { get; set; }
+        public int IsAnulado { get; set; }
     }
 }
