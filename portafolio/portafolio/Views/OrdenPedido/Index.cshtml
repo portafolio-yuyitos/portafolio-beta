@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <h5 class="c-orange mb-4">Gestión orden de pedido:</h5>
         </div>
-        <div class="mb-4 py-4 bg-light text-dark row mx-3">
+        <div class="mb-4 py-4 bg-light text-dark row mx-3 w-100">
             <div class="form-group col-md-3">
                 <label class="d-flex flex-column">
                     Proveedor
@@ -91,73 +91,9 @@
 <script src="@Url.Content("~/assets/js/orden-pedido.js")"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        getOrdenes();
+        //getOrdenes();
     });
 
     
-    function enviarOrden(numePedido) {
-        var data = {
-            numePedido: numePedido
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/OrdenPedido/EnviarPedido',
-            cache: false,
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            async: false,
-            success: function (data) {
-                bloqueoBotones();
-                alert("Orden Enviada");
-            },
-            error: function (err) {
-                alert("No se ha podido enviar.");
-                getOrdenes();
-            }
-        });
-    };
 
-    function eliminarOrden(numePedido) {
-        var data = {
-            numePedido: numePedido
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/OrdenPedido/EliminaPedido',
-            cache: false,
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            async: false,
-            success: function (data) {
-                alert("Hola");
-                
-            },
-            error: function (err) {
-                alert("Error");
-            }
-        }).done(getOrdenes());
-    };
-
-    function getOrdenes() {
-        $.get('/OrdenPedido/GetOrdenes').then(function (response) {
-            $('#listadoOP').html(response);
-        });
-    }
-
-    function bloqueoBotones() {
-        $('#botonEliminarOrden').prop('disabled', true);
-        $('#botonEliminarOrden').attr({
-            'data-toggle': "tooltip",
-            'data-placement': "top",
-            'title': "No se puede eliminar una orden enviada."
-        });
-
-        $('#botonEnviarOrden').prop('disabled', true).attr({
-            'data-toggle': "tooltip",
-            'data-placement': "top",
-            'title': "No se puede eliminar una orden enviada."
-        });;
-    }
-
-    getOrdenes();
 </script>

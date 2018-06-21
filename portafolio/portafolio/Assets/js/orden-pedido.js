@@ -154,7 +154,8 @@ function generarOP(e) {
 
         //Acá hay que llamar a un ajax
         if (e.id === "editarOP") {
-            editarOP(tabla, productos, total, e);
+            var numeroPedido = filas[0].dataset.numeroPedido;
+            editarOP(tabla, productos, total, e, numeroPedido);
         } else {
             agregarOP(tabla, productos, total);
         }
@@ -162,67 +163,78 @@ function generarOP(e) {
 }
 
 //Agrega orden de pedido
-function editarOP(tabla, productos, total, e) {
+function editarOP(tabla, productos, total, e, numeroPedido) {
 
     var objProductos = JSON.stringify(productos);
     objProductos = objProductos.replace(/\s/g, "_");
 
-    var OP = {//Objeto de orden de pedido
-        'id': 123321,//Esto se quitaría luego
-        'total': total.text(),
-        'productos': objProductos
+    var ped = {//Objeto de orden de pedido
+        'IdProveedor': parseInt(productos[0].IdProveedor),
+        'IdUsuario': 1
     };
 
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/OrdenPedido/agregar',
-    //    cache: false,
-    //    data: JSON.stringify(OP),
-    //    contentType: "application/json",
-    //    async: false,
-    //    success: function (data) {
-    //        if (data == "True") {
-    //            llenarTabla(OP);//Llenar la tabla
-    //            $('#vacio').addClass('d-flex');
-    //            $('#vacio').removeClass('d-none');
-    //            tabla.closest('.productos').addClass('d-none');
-    //            tabla.closest('.productos').removeClass('d-flex');
-    //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
-    //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
-    //            tabla.find('tbody').html('');
-    //        } else if (data == "False") {
-    //            alert("No se ha podido generar la orden pedido");
-    //        }
-    //    },
-    //    error: function (ex) {
-    //        alert('Error al generar la orden de pedido');
-    //    }
-    //});
+    var Encabezado = new Object();
+    //Encabezado.NumeroPedido = data;
+    Encabezado.IdProveedor = ped.IdProveedor;
+    Encabezado.IdUsuario = ped.IdUsuario;
+    Encabezado.NombreProveedor = productos[0].NombreProveedor;
+    Encabezado.IsAnulado = 0;
+    Encabezado.IsEnviado = 0;
+    Encabezado.NumeroPedido = numeroPedido;
 
-    //Remover fila de la tabla y luego pintar la nueva
+    var Detalles = new Array();
 
-    var filas = $('#tablaOP').find('tbody').find('tr');
-    $.each(filas, function (i, val) {
-        if ($(val).find('th')[0].textContent === idOPModificar) {
-            $(val).closest('tr').remove();
+    $.each(productos, function (i, val) {
+        val.NumeroPedido = numeroPedido;
+        delete val.IdProveedor;
+        Detalles.push(val);
+    });
+
+    // Generamos objeto OPedidoDetalles
+    var OPedidoDetalles = new Object();
+    OPedidoDetalles.Encabezado = Encabezado;
+    OPedidoDetalles.Detalles = Detalles;
+
+    $.ajax({
+        type: 'POST',
+        url: '/OrdenPedido/UpdateOrdenPedido',
+        cache: false,
+        data: JSON.stringify(OPedidoDetalles),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data == "True") {
+                llenarTabla(OPedidoDetalles, total);//Llenar la tabla
+                $('#vacio').addClass('d-flex');
+                $('#vacio').removeClass('d-none');
+                tabla.closest('.productos').addClass('d-none');
+                tabla.closest('.productos').removeClass('d-flex');
+                tabla.closest('.productos').siblings('.productos').addClass('d-none');
+                tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
+                tabla.find('tbody').html('');
+                $('#proveedor').val('-1').trigger('change.select2');
+                $('#proveedor').attr('disabled', false);
+                setTimeout(function () {
+                    $('#proveedor').siblings('.error').addClass('d-none');
+                    $('#proveedor').removeClass('is-invalid');
+                }, 100);
+                alert("Se ha editado la orden de pedido correctamente");
+            } else {
+                alert("No se ha podido editar la orden pedido");
+            }
+        },
+        error: function (err) {
+            alert("Error al editar la orden pedido");
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 
-    llenarTabla(OP);//Llenar la tabla
-    $('#vacio').addClass('d-flex');
-    $('#vacio').removeClass('d-none');
-    tabla.closest('.productos').addClass('d-none');
-    tabla.closest('.productos').removeClass('d-flex');
-    tabla.closest('.productos').siblings('.productos').addClass('d-none');
-    tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
-    tabla.find('tbody').html('');
-    $('#editarOP').addClass('d-none');
-    $('#generarOP').removeClass('d-none');
 }
 
 //Edita orden de pedido
 function agregarOP(tabla, productos, total) {
-    debugger;
     var objProductos = JSON.stringify(productos);
     objProductos = objProductos.replace(/\s/g, "_");
 
@@ -260,8 +272,8 @@ function agregarOP(tabla, productos, total) {
         contentType: "application/json",
         async: false,
         success: function (data) {
-            if (data == "True") {
-                alert("Se ha agregado la orden de pedido correctamente");
+            if (data !== -1) {
+                OPedidoDetalles.Encabezado.NumeroPedido = data;
                 llenarTabla(OPedidoDetalles, total);//Llenar la tabla
                 $('#vacio').addClass('d-flex');
                 $('#vacio').removeClass('d-none');
@@ -272,29 +284,37 @@ function agregarOP(tabla, productos, total) {
                 tabla.find('tbody').html('');
                 $('#proveedor').val('-1').trigger('change.select2');
                 $('#proveedor').attr('disabled', false);
+                alert("Se ha agregado la orden de pedido correctamente");
             } else {
                 alert("No se ha podido generar la orden pedido");
             }
         },
         error: function (err) {
             alert("No se ha podido generar la orden pedido");
+        },
+        complete: function () {
+            refrescarFunction();
+            setTimeout(function () {
+                $('#proveedor').siblings('.error').addClass('d-none');
+                $('#proveedor').removeClass('is-invalid');
+            }, 100);
         }
     });
 }
 
 //Llena la tabla, pasandole un objeto con la orden de pedido
 function llenarTabla(OPedidoDetalles, total) {
-    var productos = { detalles: OPedidoDetalles.Detalles };
+    var productos = OPedidoDetalles.Detalles;
     var tabla = $('#tablaOP');
     var largoTabla = tabla.find('tbody tr').length + 1;
     var fila = '<tr data-enviada="0" data-id-proveedor="' + OPedidoDetalles.Encabezado.IdProveedor + '" data-productos=' + JSON.stringify(productos) + '>';//Genera fila
     fila += '<th scope="row">' + largoTabla + '</th>';
-    fila += '<td>' + OPedidoDetalles.Encabezado.NumeroPedido + '</td>';
+    fila += '<td class="numeroPedido">' + OPedidoDetalles.Encabezado.NumeroPedido + '</td>';
     fila += '<td>' + OPedidoDetalles.Encabezado.NombreProveedor + '</td>';
     fila += '<td>' + total["0"].textContent + '</td>';
-    fila += '<td><button class="btn btn-danger mr-2" onclick="eliminarOP(this)">Eliminar</button>';
-    fila += '<button class="btn btn-secondary mr-2" onclick="muestraOP(this)">Editar</button>';
-    fila += '<button class="btn btn-secondary" onclick="enviarOP(this)">Enviar</button>';
+    fila += '<td><button id="botonEliminarOrden" data-toggle="tooltip" data-placement="top" title="Eliminar orden." class="btn btn-danger mr-1" onclick="eliminarOP(this)"><i class="fas fa-trash-alt fa-w-14" aria-hidden="true" /></button>';
+    fila += '<button id="botonEnviarOrden" data-toggle="tooltip" data-placement="top" title="Enviar orden." class="btn btn-success mr-1" onclick="enviarOrden(@item.Encabezado.NumeroPedido)"><i class="fab fa-telegram-plane"></i></button>';
+    fila += '<button id="botonEditarOrden" data-toggle="tooltip" data-placement="top" title="Editar orden" class="btn btn-warning" onclick="muestraOP(this)" ><i class="fas fa-edit"></i></button>';
     fila += '</td></tr>';
     tabla.find('tbody').append(fila);//pinta fila
     mostrarTabla(tabla);
@@ -309,32 +329,28 @@ function eliminarOP(elem) {
         alert('No se puede eliminar, está enviada');
         return false;
     } else {
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/OrdenPedido/agregar',
-        //    cache: false,
-        //    data: JSON.stringify(OP),
-        //    contentType: "application/json",
-        //    async: false,
-        //    success: function (data) {
-        //        if (data == "True") {
-        //            llenarTabla(OP);//Llenar la tabla
-        //            $('#vacio').addClass('d-flex');
-        //            $('#vacio').removeClass('d-none');
-        //            tabla.closest('.productos').addClass('d-none');
-        //            tabla.closest('.productos').removeClass('d-flex');
-        //            tabla.closest('.productos').siblings('.productos').addClass('d-none');
-        //            tabla.closest('.productos').siblings('.productos').removeClass('d-flex');
-        //            tabla.find('tbody').html('');
-        //        } else if (data == "False") {
-        //            alert("No se ha podido generar la orden pedido");
-        //        }
-        //    },
-        //    error: function (ex) {
-        //        alert('Error al generar la orden de pedido');
-        //    }
-        //});
-
+        var data = {
+            numePedido: JSON.parse(fila[0].dataset.productos)[0].NumeroPedido
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/OrdenPedido/EliminaPedido',
+            cache: false,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                alert("Se ha eliminado correctamente la orden de pedido");
+                getOrdenes();
+            },
+            error: function (err) {
+                alert("Error al eliminar la orden de pedido");
+            },
+            complete: function () {
+                refrescarFunction();
+            }
+        });
+        
         return true;
     }
 }
@@ -357,12 +373,14 @@ function muestraOP(elem) {
         var fila = $(elem).closest('tr');
         var productosObjeto = JSON.parse(fila['0'].dataset.productos); //Objeto de productos guardado en la fila
         var IdProveedor = fila['0'].dataset.idProveedor;
+        var numeroPedido = fila.find('.numeroPedido').text();
         var promise = retornaProveedor(IdProveedor);
+        var precioTotal = 0;
         if (promise) {
             $.each(productosObjeto, function (i, prod) {//Recorrer el array con los produtos para pintarlos en la tabla
                 var nombreProveedor = promise.responseJSON.RazonSocial.replace(/_/g, " ");
                 var nombreProducto = prod.NombreProducto.replace(/_/g, " ");
-                var fila = '<tr class="border-bottom">'; //Crea fila
+                var fila = '<tr class="border-bottom" data-numero-pedido="' + numeroPedido + '">'; //Crea fila
                 fila += '<td class="p-2" data-id="' + promise.responseJSON.IdProveedor + '">' + nombreProveedor + '</td>';
                 fila += '<td class="p-2" data-id="' + prod.IdProducto + '">' + nombreProducto + '</td>';
                 fila += '<td>' + prod.CantidadProducto + '</td>';
@@ -371,6 +389,7 @@ function muestraOP(elem) {
                 fila += '</td></tr>';
                 //Pinta en tabla productos
                 productos.find('tbody').append(fila);
+                precioTotal = precioTotal + parseInt(prod.PrecioProducto);
             });
             //Mostrar la tabla
             $('#generarOP').addClass('d-none');
@@ -379,6 +398,11 @@ function muestraOP(elem) {
             fila.remove();
             mostrarTabla(tabla);
             mostrarTabla(productos, true);
+            $('#total').find('strong').text(precioTotal);
+
+            $('#proveedor').val(promise.responseJSON.IdProveedor).change();
+            fillSelectProductos(promise.responseJSON.IdProveedor);
+            $('#proveedor').attr('disabled', true);
         }
     }
 }
@@ -414,6 +438,9 @@ function fillSelectProveedor() {
         },
         error: function (ex) {
             console.log('no se han traído los proveedores');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 
@@ -441,9 +468,14 @@ function fillSelectProductos(idProveedor) {
             } else {
                 $('#productos').html(str).trigger('change');
             }
+            $('#productos').siblings('.error').addClass('d-none');
+            $('#productos').removeClass('is-invalid');
         },
         error: function (ex) {
             console.log('no se han traído los productos');
+        },
+        complete: function () {
+            refrescarFunction();
         }
     });
 
@@ -451,6 +483,8 @@ function fillSelectProductos(idProveedor) {
 
 function eliminarProducto(e, tabla) {
     $(e).closest('tr').remove();
+    var filas = tabla.find('tr');
+    sumarTotal();
     mostrarTabla(tabla, 'producto');//Muestra tabla si tiene filas
 }
 
@@ -475,15 +509,83 @@ function retornaProveedor(idProveedor) {
     return promise;
 }
 
+function enviarOrden(numePedido) {
+    var data = {
+        numePedido: numePedido
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/OrdenPedido/EnviarPedido',
+        cache: false,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            bloqueoBotones();
+            alert("Orden Enviada");
+        },
+        error: function (err) {
+            alert("No se ha podido enviar.");
+            getOrdenes();
+        },
+        complete: function () {
+            refrescarFunction();
+        }
+    });
+};
+
+function eliminarOrden(numePedido) {
+    
+};
+
+function getOrdenes() {
+    $.ajax({
+        type: 'GET',
+        url: '/OrdenPedido/GetOrdenes',
+        cache: false,
+        async: false,
+        success: function (data) {
+            $('#listadoOP').html(data);
+        },
+        error: function (err) {
+        },
+        complete: function () {
+            refrescarFunction();
+        }
+    });
+}
+
+function bloqueoBotones() {
+    $('#botonEliminarOrden').prop('disabled', true).prop('onclick', null);
+    $('#botonEliminarOrden').attr({
+        'data-toggle': "tooltip",
+        'data-placement': "top",
+        'title': "No se puede eliminar una orden enviada."
+    });
+
+    $('#botonEnviarOrden').prop('disabled', true).prop('onclick',null).attr({
+        'data-toggle': "tooltip",
+        'data-placement': "top",
+        'title': "No se puede eliminar una orden enviada."
+    });
+    $('#botonEditarOrden').prop('disabled', true).prop('onclick', null).attr({
+        'data-toggle': "tooltip",
+        'data-placement': "top",
+        'title': "No se puede eliminar una orden enviada."
+    });
+    refrescarFunction();
+}
 
 $(document).ready(function () {
+
+    getOrdenes();
     fillSelectProveedor();
+
     $('#proveedor').on('select2:select', function (e) {
         // Do something
         var idProveedor = e.target.value;
         fillSelectProductos(idProveedor);
     });
-
     $('#productos').on('change', function (e) {
         var precio = e.target.selectedOptions
         if (precio.length > 0) {
@@ -493,4 +595,6 @@ $(document).ready(function () {
             $('#precio').val(0);
         }
     });
+
+    refrescarFunction();
 });

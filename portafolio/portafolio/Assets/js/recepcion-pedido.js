@@ -57,7 +57,7 @@
             var boton = `<div class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
                 <button class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button></div >;`
 
-            $("#llenar").html(encabezado + detalle + boton);
+            $("#llenar").html(encabezado + detalle + boton).removeClass('d-none');
         },
         error: function (err) {
             alert("No se ha podido enviar.");

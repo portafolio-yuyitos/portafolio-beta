@@ -1,5 +1,6 @@
 
 function refrescarFunction() {
+    $('[data-toggle="tooltip"]').tooltip('hide');
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
@@ -349,7 +350,7 @@ function mostrarTabla(tabla, producto) {
 }
 
 function testLogin() {
-    if (!localStorage.getItem('login') && (window.location.pathname !== "/Login/"  window.location.pathname !== "/Login")) {
+    if (!localStorage.getItem('login') && (window.location.pathname !== "/Login/" && window.location.pathname !== "/Login")) {
         localStorage.setItem('contTest',1);
         var redirect = window.location.origin;
         $(location).attr('href', redirect);

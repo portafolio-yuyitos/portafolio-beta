@@ -705,8 +705,13 @@ namespace portafolio.Controllers
             }
         }
 
-        public bool AgregarOrdenPedido(OPedidoDetalles OPedidoDetalles)
+        public int AgregarOrdenPedido(OPedidoDetalles OPedidoDetalles)
         {
+            try
+            {
+
+
+
 
             var db = new YuyosEntities(); //Instancia DB
             ObjectParameter OutIdPedido = new ObjectParameter("OUT_ID_PEDIDO", -1);
@@ -732,7 +737,13 @@ namespace portafolio.Controllers
                     //,item.Estado
                     );
             }
-            return true;
+            return int.Parse(OutIdPedido.Value.ToString());
+            }
+            catch (Exception)
+            {
+                return -1;
+                throw;
+            }
         }
 
 
@@ -1031,6 +1042,38 @@ namespace portafolio.Controllers
             return PartialView("~/Views/OrdenPedido/_OrdenesPedido.cshtml", pedidos);
         }
 
+        [HttpPost]
+        public bool UpdateOrdenPedido(OPedidoDetalles OPedidoDetalles)
+        {
+            try
+            {
+                var db = new YuyosEntities(); //Instancia DB
+                foreach (var item in OPedidoDetalles.Detalles)//Se eliminarán todos los detalles primero
+                {
+                    db.SP_D_DETALLE_PEDIDO(item.NumeroPedido);
+                }
+
+                //Se agregan nuevos detalles
+                foreach (var item in OPedidoDetalles.Detalles)
+                {
+                    db.SP_I_DETALLE_PEDIDO(
+                        item.NumeroPedido,
+                        item.NumeroDetalle,
+                        item.CantidadProducto,
+                        item.PrecioProducto,
+                        item.IdProducto,
+                        item.IdProveedor,
+                        item.NombreProducto
+                        //,item.Estado
+                        );
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         //    NOE ESTÁ CREADO
         /*[HttpPost]

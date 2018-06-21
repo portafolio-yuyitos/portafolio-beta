@@ -81,6 +81,10 @@ main {
     }
 }
 
+button:disabled {
+    cursor: not-allowed;
+} 
+
 #select2-proveedor-container {
     display: block;
     width: 100%;
