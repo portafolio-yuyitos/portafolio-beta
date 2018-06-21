@@ -88,12 +88,4 @@
 </main>
 
 
-<script src="@Url.Content("~/assets/js/orden-pedido.js")"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        //getOrdenes();
-    });
-
-    
-
-</script>
+<script src="@Url.Content("~/assets/js/orden-pedido.js?v=" + File.GetLastWriteTime(HttpContext.Current.Request.PhysicalApplicationPath).ToString("yyyyMMddHHHmm") )"></script>

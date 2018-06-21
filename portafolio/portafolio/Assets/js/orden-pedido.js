@@ -574,6 +574,64 @@ function bloqueoBotones() {
     refrescarFunction();
 }
 
+function filtrar() {
+    if ($('#noData').length > 0) $('#noData').remove();
+    var filtroID = $('#filtroID').val();
+    var filtroEstado = $('#filtroEstado').val();
+    var tabla = $('#tablaOP');
+    var filas = tabla.find('tbody tr');
+    var contadorFilas = 0;
+    if (filtroID !== "0" && filtroID !== "") {//Si el filtro ID está con un id
+        $.each(filas, function (i, fila) {
+            var idNum = $(fila).find('.numeroPedido').text();
+            if (idNum == filtroID) {
+                $(fila).removeClass('d-none');
+                contadorFilas++;
+            } else {
+                $(fila).addClass('d-none');
+            }
+        });
+        if (filtroEstado !== "-11") {
+            contadorFilas = 0;
+            $.each(filas, function (i, fila) {
+                if (!$(fila).hasClass('d-none')) {
+                    var estado = fila.dataset.enviada;
+                    if (estado == filtroEstado) {
+                        $(fila).removeClass('d-none');
+                        contadorFilas++;
+                    } else {
+                        $(fila).addClass('d-none');
+                    }
+                }
+            });
+        }
+    } else {
+        if (filtroEstado === "-11") {
+            $.each(filas, function (i, fila) {
+                $(fila).removeClass('d-none');
+                contadorFilas++;
+            });
+        } else {
+            $.each(filas, function (i, fila) {
+                var estado = fila.dataset.enviada;
+                if (estado == filtroEstado) {
+                    $(fila).removeClass('d-none');
+                    contadorFilas++;
+                } else {
+                    $(fila).addClass('d-none');
+                }
+            });
+        }
+    }
+
+    if (contadorFilas === 0) {
+        tabla.find('thead').addClass('d-none');
+        tabla.parent().append('<p id="noData">No existen ordenes para mostrar</p>')
+    } else {
+        tabla.find('thead').removeClass('d-none');
+    }
+}
+
 $(document).ready(function () {
 
     getOrdenes();

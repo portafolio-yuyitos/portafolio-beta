@@ -1,7 +1,34 @@
 ﻿@model List<portafolio.Models.ViewModels.OPedidoDetalles>
+
     <div class="w-100 title-table">
-        <h5 class="c-orange mb-4">Listado de ordenes de pedido:</h5>
+        <h5 class="c-orange mb-2">Listado de ordenes de pedido:</h5>
     </div>
+    <div class="w-100 bg-dark-dark pt-3 row">
+        <h6 class="col-12">Filtros:</h6>
+        <div class="col-md-3 form-group">
+            <label class="w-100">
+                ID/Número de pedido:
+                <i class="fas fa-question-rounded" data-toggle="tooltip" data-placement="top" title="Para no usar este filtro, puedes dejarlo en valor 0" ></i>
+                <input id="filtroID" class="form-control" type="text" value="0">
+                <label class="error text-danger d-none"></label>
+            </label>
+        </div>
+        <div class="col-md-3 form-group">
+            <label class="w-100">
+                Estado:
+                <select class="form-control" id='filtroEstado' onchange="valSelect(this)">
+                    <option value="-11">Todas</option>
+                    <option value="0">No enviadas</option>
+                    <option value="1">Enviadas</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="col-md-6 justify-content-end d-flex align-items-center">
+            <button class="btn btn-secondary d-block" onclick="filtrar()">Filtrar</button>
+        </div>
+    </div>
+
     <table class="table table-dark table-hover col-md-12 border-top" id="tablaOP">
         <thead>
             <tr>
