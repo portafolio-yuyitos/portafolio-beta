@@ -9,23 +9,19 @@
             <label class="w-100">
                 ID/Número de pedido:
                 <i class="fas fa-question-rounded" data-toggle="tooltip" data-placement="top" title="Para no usar este filtro, puedes dejarlo en valor 0" ></i>
-                <input id="filtroID" class="form-control" type="text" value="0">
+                <input onfocusout="searchID()" onkeyup="filtrar()" id="filtroID" class="form-control" type="text" value="0">
                 <label class="error text-danger d-none"></label>
             </label>
         </div>
         <div class="col-md-3 form-group">
             <label class="w-100">
                 Estado:
-                <select class="form-control" id='filtroEstado' onchange="valSelect(this)">
+                <select class="form-control" id='filtroEstado' onchange="filtrar()">
                     <option value="-11">Todas</option>
                     <option value="0">No enviadas</option>
                     <option value="1">Enviadas</option>
                 </select>
             </label>
-        </div>
-
-        <div class="col-md-6 justify-content-end d-flex align-items-center">
-            <button class="btn btn-secondary d-block" onclick="filtrar()">Filtrar</button>
         </div>
     </div>
 

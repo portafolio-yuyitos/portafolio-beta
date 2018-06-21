@@ -38,7 +38,7 @@ function valCantidad(e, min, max) {
 
 //Valida todos los input antes de llenar la tabla
 function validarTodo() {
-    debugger;
+    
     var proveedor = $('#proveedor');
     var producto = $('#productos');
     var cantidad = document.getElementById('stock');
@@ -63,7 +63,7 @@ function validarTodo() {
 
 //Llena la tabla de productos con una fila nueva
 function llenarProductos(cantidad, proveedor, producto) {
-    debugger;
+    
     var nombreProveedor = $('#select2-proveedor-container').text();
     var nombreProducto = producto[0].selectedOptions[0].textContent;
     var precio = $('#precio')['0'].value * cantidad.value;
@@ -116,7 +116,7 @@ function sumarTotal() {
 
 //Genera la Orden de Pedido
 function generarOP(e) {
-    debugger;
+    
     var total = $('#total strong');//Total
     if (total.text() === "0") {//Si es 0
         toast('Debes agregar al menos un producto', "error");
@@ -154,7 +154,6 @@ function generarOP(e) {
             });
             productos.push(producto);
         });
-
         //Acá hay que llamar a un ajax
         if (e.id === "editarOP") {
             var numeroPedido = filas[0].dataset.numeroPedido;
@@ -222,6 +221,8 @@ function editarOP(tabla, productos, total, e, numeroPedido) {
                     $('#proveedor').removeClass('is-invalid');
                 }, 100);
                 filaEliminar.remove();
+                $('#editarOP').removeClass('d-none');
+                $('#generarOP').addClass('d-none');
                 toast("Se ha editado la orden de pedido correctamente","success");
             } else {
                 toast("No se ha podido editar la orden pedido",'error');
@@ -326,7 +327,7 @@ function llenarTabla(OPedidoDetalles, total) {
 
 //Eliminar orden de pedido si no ha sido enviada
 function eliminarOP(elem) {
-    debugger;
+    
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
@@ -361,7 +362,7 @@ function eliminarOP(elem) {
 
 //Muestra la Orden de Pedido, se le pasa elemento
 function muestraOP(elem) {
-    debugger;
+    
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
@@ -572,6 +573,11 @@ function bloqueoBotones() {
         'title': "No se puede eliminar una orden enviada."
     });
     refrescarFunction();
+}
+
+function searchID() {
+    var filtroID = $('#filtroID').val();
+    (filtroID === "" ? $('#filtroID').val(0) : filtroID = filtroID);
 }
 
 function filtrar() {

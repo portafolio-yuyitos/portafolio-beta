@@ -1,4 +1,6 @@
-﻿function buscarOrden(numePedido) {
+﻿var ordenCompra = null;
+
+function buscarOrden(numePedido) {
     var data = {
         numePedido: numePedido
     };
@@ -11,8 +13,9 @@
         async: false,
         success: function (data) {
             var proveedor = retornaProveedor(data.Encabezado.IdProveedor);
+            ordenCompra = data;
             var encabezado =
-                `<div id="titulo" class="col-12">
+                `<div id="titulo" class="col-12" >
                             <h2 class="text-center">Orden de Pedido</h2>
                             <h4 class="text-center">Almacen Yutitos</h4>
                             <h4 class="text-center" id="numeroPedido">N° ${data.Encabezado.NumeroPedido}</h4>
@@ -58,6 +61,9 @@
                 <button class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button></div >;`
 
             $("#llenar").html(encabezado + detalle + boton).removeClass('d-none');
+
+
+
         },
         error: function (err) {
             toast("No se ha podido enviar.", "error");
@@ -136,4 +142,7 @@ function aceptarOP(e) {
     //        toast("Error al aceptar los productos de la orden de pedido","error");
     //    }
     //});
+
+    //Hay que limpiar la variable global ordenCompra
+    //ordenCompra = null;
 }
