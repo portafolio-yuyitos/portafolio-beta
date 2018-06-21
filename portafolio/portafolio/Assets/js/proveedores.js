@@ -90,9 +90,9 @@ function agregarProveedor(proveedor) {
             if (data == "OK") {
                 llenarTabla(proveedor);
                 limpiarCampos();
-                alert('Se ha agregado el proveedor');
+                toast('Se ha agregado el proveedor', "success");
             } else if (data == "Ya existe el registro") {
-                alert("Ya existe el registro");
+                toast("Ya existe el registro", "error");
             } else if (data == "Registro eliminado") {
                 document.getElementById('myModal').dataset.rutProveedor = proveedor.rutProveedor;
                 document.getElementById('myModal').dataset.fono = proveedor.fono;
@@ -101,11 +101,11 @@ function agregarProveedor(proveedor) {
                 document.getElementById('myModal').dataset.razonSocial = proveedor.razonSocial;
                 $('#myModal').modal('show');
             } else {
-                alert("No se ha agregado el proveedor correctamente");
+                toast("No se ha agregado el proveedor correctamente", "error");
             }
         },
         error: function (ex) {
-            alert("Error al agregar el proveedor");
+            toast("Error al agregar el proveedor", "error");
         }
     });
 }
@@ -127,14 +127,14 @@ function eliminarProveedor(e, tabla) {
             if (data == "True") {
                 $(e).closest('tr').remove();
                 mostrarTabla(tabla);//Muestra tabla si tiene filas
-                alert("Se ha eliminado el proveedor correctamente");
+                toast("Se ha eliminado el proveedor correctamente", "success");
             } else if (data == "False") {
-                alert("No se ha eliminado el proveedor");
+                toast("No se ha eliminado el proveedor", "error");
             }
             refrescarFunction();
         },
         error: function (ex) {
-            alert("No se ha podido agregar el proveedor");
+            toast("No se ha podido agregar el proveedor", "error");
         }
     });
 }
@@ -162,13 +162,13 @@ function updateProveedor(proveedor, editores) {
                         $(editor).siblings('p').removeClass('d-none');
                     }
                 })
-                alert('Se ha editado correctamente el proveedor');
+                toast('Se ha editado correctamente el proveedor', "success");
             } else if (data == "False") {
-                alert("No se ha podido editar el proveedor");
+                toast("No se ha podido editar el proveedor", "error");
             }
         },
         error: function (ex) {
-            alert('Error al editar proveedor');
+            toast('Error al editar proveedor', "error");
         }
     });
 }
@@ -207,15 +207,15 @@ function activarProveedor() {
         success: function (data) {
             if (data == "True") {
                 llenarTabla(proveedor);
-                alert('Se ha editado correctamente');
+                toast('Se ha editado correctamente', "success");
                 $('#myModal').modal('hide');
                 limpiarCampos();
             } else if (data == "False") {
-                alert("No se ha podido editar");
+                toast("No se ha podido editar", "error");
             }
         },
         error: function (ex) {
-            alert('Error al editar proveedor');
+            toast('Error al editar proveedor', "error");
         },
         complete: function () {
             refrescarFunction();

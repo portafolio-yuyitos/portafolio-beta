@@ -1,3 +1,6 @@
+
+var filaEliminar = null;
+
 // Valida cantidad pasandole su minimo y su maximo
 function valCantidad(e, min, max) {
     let valor = e.value;
@@ -92,7 +95,7 @@ function agregarProducto() {
     var valido = validarTodo(); //Valida
 
     if (!valido) {
-        alert('Hay campos no válidos')
+        toast('Hay campos no válidos', "error")
         return false;
     } else {
         sumarTotal();//Suma el total de los productos
@@ -116,7 +119,7 @@ function generarOP(e) {
     debugger;
     var total = $('#total strong');//Total
     if (total.text() === "0") {//Si es 0
-        alert('Debes agregar al menos un producto');
+        toast('Debes agregar al menos un producto', "error");
         return false;
     } else {//Si es mas de cero
         var tabla = $('#productosContainer');
@@ -218,13 +221,14 @@ function editarOP(tabla, productos, total, e, numeroPedido) {
                     $('#proveedor').siblings('.error').addClass('d-none');
                     $('#proveedor').removeClass('is-invalid');
                 }, 100);
-                alert("Se ha editado la orden de pedido correctamente");
+                filaEliminar.remove();
+                toast("Se ha editado la orden de pedido correctamente","success");
             } else {
-                alert("No se ha podido editar la orden pedido");
+                toast("No se ha podido editar la orden pedido",'error');
             }
         },
         error: function (err) {
-            alert("Error al editar la orden pedido");
+            toast("Error al editar la orden pedido","error");
         },
         complete: function () {
             refrescarFunction();
@@ -284,13 +288,13 @@ function agregarOP(tabla, productos, total) {
                 tabla.find('tbody').html('');
                 $('#proveedor').val('-1').trigger('change.select2');
                 $('#proveedor').attr('disabled', false);
-                alert("Se ha agregado la orden de pedido correctamente");
+                toast('Se ha agregado la orden de pedido correctamente','success');
             } else {
-                alert("No se ha podido generar la orden pedido");
+                toast("No se ha podido generar la orden pedido","error");
             }
         },
         error: function (err) {
-            alert("No se ha podido generar la orden pedido");
+            toast("No se ha podido generar la orden pedido", "error");
         },
         complete: function () {
             refrescarFunction();
@@ -326,7 +330,7 @@ function eliminarOP(elem) {
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
-        alert('No se puede eliminar, está enviada');
+        toast('No se puede eliminar, está enviada');
         return false;
     } else {
         var data = {
@@ -340,11 +344,11 @@ function eliminarOP(elem) {
             contentType: "application/json",
             async: false,
             success: function (data) {
-                alert("Se ha eliminado correctamente la orden de pedido");
+                toast("Se ha eliminado correctamente la orden de pedido", "success");
                 getOrdenes();
             },
             error: function (err) {
-                alert("Error al eliminar la orden de pedido");
+                toast("Error al eliminar la orden de pedido", "error");
             },
             complete: function () {
                 refrescarFunction();
@@ -355,19 +359,16 @@ function eliminarOP(elem) {
     }
 }
 
-var idOPModificar = 0;
-
-function enviarOP() { }
-
 //Muestra la Orden de Pedido, se le pasa elemento
 function muestraOP(elem) {
+    debugger;
     var fila = $(elem).closest('tr');//Fila
     var enviada = fila['0'].dataset.enviada;//Data en la fila con valor de enviada
     if (enviada === "1") {//Si esta eviada === 1
-        alert('No se puede editar, está enviada');
+        toast('No se puede editar, está enviada', "error");
         return false;
     } else {
-        idOPModificar = $(elem).closest('tr').children().eq(1)[0].textContent;
+        filaEliminar = $(elem).closest('tr');
         var productos = $('#productosContainer');//body de tabla productos
         limpiarTablaProductos(productos);
         var fila = $(elem).closest('tr');
@@ -395,7 +396,7 @@ function muestraOP(elem) {
             $('#generarOP').addClass('d-none');
             $('#editarOP').removeClass('d-none');
             var tabla = fila.closest('table');
-            fila.remove();
+            //fila.remove();
             mostrarTabla(tabla);
             mostrarTabla(productos, true);
             $('#total').find('strong').text(precioTotal);
@@ -403,6 +404,7 @@ function muestraOP(elem) {
             $('#proveedor').val(promise.responseJSON.IdProveedor).change();
             fillSelectProductos(promise.responseJSON.IdProveedor);
             $('#proveedor').attr('disabled', true);
+            $('html, body').animate({ scrollTop: $('main').scrollTop() }, 'slow');
         }
     }
 }
@@ -522,20 +524,16 @@ function enviarOrden(numePedido) {
         async: false,
         success: function (data) {
             bloqueoBotones();
-            alert("Orden Enviada");
+            toast("Orden Enviada correctamente","success");
         },
         error: function (err) {
-            alert("No se ha podido enviar.");
+            toast("No se ha podido enviar.", "error");
             getOrdenes();
         },
         complete: function () {
             refrescarFunction();
         }
     });
-};
-
-function eliminarOrden(numePedido) {
-    
 };
 
 function getOrdenes() {

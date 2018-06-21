@@ -61,10 +61,10 @@ function agregarCliente(cliente,e) {
         success: function (data) {
             if (data == "OK") {
                 llenarTabla(cliente);
-                alert('Se ha agregado el cliente');
+                toast('Se ha agregado el cliente', "success");
                 limpiar();
             } else if (data == "Ya existe el registro") {
-                alert("Ya existe el registro");
+                toast("Ya existe el registro", "error");
             } else if (data == "Registro eliminado") {
                 document.getElementById('myModal').dataset.rut = cliente.rut;
                 document.getElementById('myModal').dataset.nombre = cliente.nombre;
@@ -72,7 +72,7 @@ function agregarCliente(cliente,e) {
             }
         },
         error: function (ex) {
-            alert('Error al agregar cliente');
+            toast('Error al agregar cliente', "error");
         },
         complete: function () {
             refrescarFunction();
@@ -97,13 +97,13 @@ function eliminarCliente(e, tabla) {
             if (data == "True") {
                 $(e).closest('tr').remove();
                 mostrarTabla(tabla);//Muestra tabla si tiene filas
-                alert('Se ha eliminado el cliente');
+                toast('Se ha eliminado el cliente', "success");
             } else if (data == "False") {
-                alert("No se ha podido eliminar el cliente");
+                toast("No se ha podido eliminar el cliente", "error");
             }
         },
         error: function (ex) {
-            alert('Error al eliminar cliente');
+            toast('Error al eliminar cliente', "error");
         },
         complete: function () {
             refrescarFunction();
@@ -134,13 +134,13 @@ function updateCliente(cliente, editores) {
                         $(editor).siblings('p').removeClass('d-none');
                     }
                 })
-                alert('Se ha editado correctamente');
+                toast('Se ha editado correctamente', "success");
             } else if (data == "False") {
-                alert("No se ha podido editar");
+                toast("No se ha podido editar", "error");
             }
         },
         error: function (ex) {
-            alert('Error al editar cliente');
+            toast('Error al editar cliente', "error");
         },
         complete: function () {
             refrescarFunction();
@@ -174,14 +174,14 @@ function autorizarFiado(e) {
         async: false,
         success: function (data) {
             if (data == "True") {
-                alert('Se ha modificado al cliente');
+                toast('Se ha modificado al cliente', "success");
             } else if (data == "False") {
                 e.checked = !e.checked;
-                alert("No se ha podido modificar al cliente");
+                toast("No se ha podido modificar al cliente", "error");
             }
         },
         error: function (ex) {
-            alert('Error al modificar al cliente');
+            toast('Error al modificar al cliente', "error");
         },
         complete: function () {
             refrescarFunction();
@@ -208,15 +208,15 @@ function activarCliente() {
         success: function (data) {
             if (data == "True") {
                 llenarTabla(cli);
-                alert('Se ha editado correctamente');
+                toast('Se ha editado correctamente', "success");
                 $('#myModal').modal('hide');
                 limpiar();
             } else if (data == "False") {
-                alert("No se ha podido editar");
+                toast("No se ha podido editar", "error");
             }
         },
         error: function (ex) {
-            alert('Error al editar cliente');
+            toast('Error al editar cliente', "error");
         },
         complete: function () {
             refrescarFunction();

@@ -127,12 +127,12 @@ function pagarBoleta(e) {
 
     //        }
     //        else {
-    //            alert('No se ha podido obtener fiados');
+    //            toast('No se ha podido obtener fiados');
     //        }
 
     //    },
     //    error: function (ex) {
-    //        alert('Error al eliminar cliente');
+    //        toast('Error al eliminar cliente');
     //    }
     //});
 }

@@ -268,3 +268,15 @@ input:checked + .slider:before {
 /*#listadoProductos .collapse p {
     margin-bottom: 0;
 }*/
+
+.toast {
+    position: fixed;
+    left: 0;
+    padding: 0.5rem 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.toast p {
+    margin-bottom: 0;
+}

@@ -374,6 +374,30 @@ function logout() {
     }
 }
 
+//Componente TOAST
+function toast(msg, tipo) {
+
+    tipo = tipo.toUpperCase();
+    var div = document.getElementsByClassName('toast')[0];
+
+    switch (tipo) {
+        case 'ERROR':
+            div.classList.add('bg-danger');
+            div.classList.add('text-light');
+        case 'SUCCESS':
+            div.classList.add('bg-success');
+            div.classList.add('text-light');
+        default:
+    }
+    $(div).css('top', '0px');
+    $(div).html('<p>' + msg + '</p>');
+    div.classList.remove('d-none');
+    setTimeout(function () {
+        debugger;
+        div.classList.add('d-none');
+    }, 4000);
+}
+
 //DOCUMENT READY
 $('document').ready(function () {
     //Mostrar o no las tablas si es que tienen filas

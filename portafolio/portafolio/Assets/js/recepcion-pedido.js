@@ -60,7 +60,7 @@
             $("#llenar").html(encabezado + detalle + boton).removeClass('d-none');
         },
         error: function (err) {
-            alert("No se ha podido enviar.");
+            toast("No se ha podido enviar.", "error");
         }
     });
 };
@@ -81,7 +81,7 @@ function retornaUsuario(idUsuario) {
             usuario = data;
         },
         error: function (err) {
-            alert("No se ha podido enviar.");
+            toast("No se ha podido enviar.", "error");
         }
     });
     return usuario;
@@ -103,7 +103,7 @@ function retornaProveedor(idProveedor) {
             proveedor = data;
         },
         error: function (err) {
-            alert("No se ha podido enviar.");
+            toast("No se ha podido enviar.", "error");
         }
     });
     return proveedor;
@@ -112,7 +112,7 @@ function retornaProveedor(idProveedor) {
 function aceptarOP(e) {
     debugger;
 
-    alert("Se han aceptado los productos de la orden de pedido");
+    toast("Se han aceptado los productos de la orden de pedido", "success");
 
     //var orden = {//Objeto de orden de pedido
     //    idOrden:0
@@ -127,13 +127,13 @@ function aceptarOP(e) {
     //    async: false,
     //    success: function (data) {
     //        if (data !== "-1") {
-    //            alert("Se han aceptado los productos de la orden de pedido");
+    //            toast("Se han aceptado los productos de la orden de pedido","success");
     //        } else {
-    //            alert("No se ha logrado aceptar los productos de la orden de pedido");
+    //            toast("No se ha logrado aceptar los productos de la orden de pedido","error");
     //        }
     //    },
     //    error: function (ex) {
-    //        alert("Error al aceptar los productos de la orden de pedido");
+    //        toast("Error al aceptar los productos de la orden de pedido","error");
     //    }
     //});
 }

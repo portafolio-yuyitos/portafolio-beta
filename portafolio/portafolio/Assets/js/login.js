@@ -23,11 +23,11 @@ function login() {
              var redirect = window.location.origin;
              $(location).attr('href', redirect);
          } else if (data == "False"){
-             alert("El usuario o contraseña son incorrectos");
+             toast("El usuario o contraseña son incorrectos", "error");
          }
      },
      error: function (ex) {
-       alert('Error al logear');
+         toast('Error al logear', "error");
         },
         complete: function () {
             spinner(false);
