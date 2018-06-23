@@ -27,7 +27,7 @@ function llenarTabla(cliente) {
     var fila = '<tr>';
     fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
     fila += '<td>';
-    fila += '<p>' + cliente.rut + '</p>';
+    fila += '<p><span>' + cliente.rut + '</span></p>';
     fila += '<input type="text" value="' + cliente.rut + '" class="rut form-control editar d-none" onkeyup="valTexto(this,10,20)">';
     fila += '<label class="error text-danger d-none "></label>';
     fila += '</td>';

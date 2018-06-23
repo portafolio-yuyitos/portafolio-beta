@@ -44,7 +44,7 @@ function llenarTabla(proveedor) {
   fila += '<tr>';
   fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
   fila += '<td>';
-  fila += '<p>' + proveedor.rutProveedor + '</p>';
+  fila += '<p><span>' + proveedor.rutProveedor + '</span></p>';
     fila += '<input type="text" value="' + proveedor.rutProveedor + '" class="rut form-control editar d-none" onkeyup="checkRut(this)">';
   fila += '<label class="error text-danger d-none "></label>';
   fila += '</td>';
