@@ -25,32 +25,32 @@
 
                 </thead>
                 <tbody>
+                    @*
+        @{
+            var maxCiclos = 0;
+            if (Model.Ultimas5Boletas != null)
+            {
+                foreach (var item in Model.Ultimas5Boletas)
+                {
+                    <tr>
+                        <td scope="col">@item.NumeroBoleta</td>
+                        <td scope="col">@item.FechaBoleta.ToShortDateString()</td>
+                        <td scope="col">@(item.TipoPago.Equals("1")?"Efectivo":"Tarjeta")</td>
+                        <td scope="col">@item.TotalBoleta </td>
+                    </tr>
 
-                    @{
-                        var maxCiclos = 0;
-                        if (Model.Ultimas5Boletas != null)
-                        {
-                            foreach (var item in Model.Ultimas5Boletas)
-                            {
-                                <tr>
-                                    <td scope="col">@item.NumeroBoleta</td>
-                                    <td scope="col">@item.FechaBoleta.ToShortDateString()</td>
-                                    <td scope="col">@(item.TipoPago.Equals("1")?"Efectivo":"Tarjeta")</td>
-                                    <td scope="col">@item.TotalBoleta </td>
-                                </tr>
+                    maxCiclos++;
+                    // Saca del ciclo cuando lleva las cinco boletas
+                    if (maxCiclos == 5) { break; }
 
-                                maxCiclos++;
-                                // Saca del ciclo cuando lleva las cinco boletas
-                                if (maxCiclos == 5) { break; }
+                }
 
-                            }
-
-                        }
-                        else
-                        {
-                            <tr> <td>Debes tener el procedimiento del package UltimasBoletas 30 Dias </td> </tr>
-                        }
-                    }
+            }
+            else
+            {
+                <tr> <td>Debes tener el procedimiento del package UltimasBoletas 30 Dias </td> </tr>
+            }
+        }*@
                 </tbody>
             </table>
 
@@ -69,34 +69,48 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @*
+        @{
+            maxCiclos = 0;
 
-                    @{
-                        maxCiclos = 0;
-                        if (Model.Ultimas5Boletas != null)
-                        {
-                            foreach (var item in Model.ProductosPocoStock)
-                            {
-                                <tr>
-                                    <td>@item.IdProducto</td>
-                                    <td>@item.Descripcion</td>
-                                    <td>@item.PrecioVenta</td>
-                                    <td>@item.Stock</td>
-                                    <td>@item.StockCritico</td>
-                                    <td>@item.PorcentajeStock</td>
-                                </tr>
+            if (Model.Ultimas5Boletas != null)
+            {
+                foreach (var item in Model.ProductosPocoStock)
+                {
+                    var color = "none";
+                    var fontcolor = "white";
 
-                                maxCiclos++;
-                                // Saca del ciclo cuando lleva las cinco boletas
-                                if (maxCiclos == 5) { break; }
-
-                            }
-
-                        }
-                        else
-                        {
-                            <tr> <td colspan="6">Debes tener el procedimiento del package PRODUCTOS_POCO_STOCK </td> </tr>
-                        }
+                    if (item.PorcentajeStock <= 15)
+                    {
+                        color = "red";
+                        fontcolor = "black";
                     }
+                    else if (item.PorcentajeStock <= 45)
+                    {
+                        fontcolor = "black";
+                        color = "gold";
+                    }
+                    <tr>
+                        <td>@item.IdProducto</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.PrecioVenta</td>
+                        <td>@item.Stock</td>
+                        <td>@item.StockCritico</td>
+                        <td style="background-color:@color ;color:@fontcolor">@item.PorcentajeStock%</td>
+                     </tr>
+
+                     maxCiclos++;
+                            // Saca del ciclo cuando lleva las cinco boletas
+                            if (maxCiclos == 5) { break; }
+
+                }
+
+            }
+            else
+            {
+                <tr> <td colspan="6">Debes tener el procedimiento del package PRODUCTOS_POCO_STOCK </td> </tr>
+            }
+        }*@
                 </tbody>
             </table>
         </div>

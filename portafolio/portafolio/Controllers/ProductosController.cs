@@ -54,7 +54,6 @@ namespace portafolio.Controllers
                             Descripcion = _rdrObj.GetString(_rdrObj.GetOrdinal("DESCRIPCION")),
                             PrecioVenta = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PRECIO_VENTA")),
                             UnidadMedida = _rdrObj.GetString(_rdrObj.GetOrdinal("UNIDAD_MEDIDA")),
-                            Stock = _rdrObj.GetInt32(_rdrObj.GetOrdinal("STOCK")),
                             FechaVentimiento = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_VENCIMIENTO")),
                             PrecioCompra = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PRECIO_COMPRA")),
                             StockCritico = _rdrObj.GetInt32(_rdrObj.GetOrdinal("STOCK_CRITICO")),
