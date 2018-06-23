@@ -512,7 +512,8 @@ function retornaProveedor(idProveedor) {
     return promise;
 }
 
-function enviarOrden(numePedido) {
+function enviarOrden(numePedido,e) {
+    debugger;
     var data = {
         numePedido: numePedido
     };
@@ -525,7 +526,8 @@ function enviarOrden(numePedido) {
         async: false,
         success: function (data) {
             bloqueoBotones();
-            toast("Orden Enviada correctamente","success");
+            $(e).closest('tr')[0].dataset.enviada = 1;
+            toast("Orden Enviada correctamente", "success");
         },
         error: function (err) {
             toast("No se ha podido enviar.", "error");

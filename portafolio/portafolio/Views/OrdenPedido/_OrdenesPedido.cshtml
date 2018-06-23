@@ -53,13 +53,13 @@
                         @if (item.Encabezado.IsEnviado == 0)
                     {
                         <button id="botonEliminarOrden" data-toggle="tooltip" data-placement="top" title="Eliminar orden." class="btn btn-danger" onclick="eliminarOP(this)"><i class="fa-trash-alt fas fa-w-14" aria-hidden="true"></i></button>
-                    <button id="botonEnviarOrden" data-toggle="tooltip" data-placement="top" title="Enviar orden." class="btn btn-success" onclick="enviarOrden(@item.Encabezado.NumeroPedido)"><i class="fab fa-telegram-plane"></i></button>
+                    <button id="botonEnviarOrden" data-toggle="tooltip" data-placement="top" title="Enviar orden." class="btn btn-success" onclick="enviarOrden(@item.Encabezado.NumeroPedido,this)"><i class="fab fa-telegram-plane"></i></button>
                     <button id="botonEditarOrden" data-toggle="tooltip" data-placement="top" title="Editar orden" class="btn btn-warning" onclick="muestraOP(this)" ><i class="fas fa-edit"></i></button>
                     }
                     else
                     {
                     <button id="botonEliminarOrden" data-toggle="tooltip" data-placement="top" title="No se puede eliminar una orden enviada." class="btn btn-danger" disabled onclick="eliminarOP(this)"><i class="fa-trash-alt fa-w-14 fas" aria-hidden="true"  data-icon="trash-alt"></i></button>
-                    <button id="botonEnviarOrden" data-toggle="tooltip" data-placement="top" title="La orden ya ha sido enviada." class="btn btn-success" disabled alt="La orden ya ha sido enviada." onclick="enviarOrden(@item.Encabezado.NumeroPedido)"><i class="fab fa-telegram-plane"></i></button>
+                    <button id="botonEnviarOrden" data-toggle="tooltip" data-placement="top" title="La orden ya ha sido enviada." class="btn btn-success" disabled alt="La orden ya ha sido enviada." onclick="enviarOrden(@item.Encabezado.NumeroPedido,this)"><i class="fab fa-telegram-plane"></i></button>
                     <button id="botonEditarOrden" data-toggle="tooltip" data-placement="top" title="No se puede eliminar una orden enviada." disabled onclick="muestraOP(this)" class="btn btn-warning"><i class="fas fa-edit"></i></button>
                     }
 

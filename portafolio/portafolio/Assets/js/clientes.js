@@ -27,7 +27,7 @@ function llenarTabla(cliente) {
     var fila = '<tr>';
     fila += '<th scope="row">' + (largoTabla + 1) + '</th>';
     fila += '<td>';
-    fila += '<p><span>' + cliente.rut + '</span></p>';
+    fila += '<p>' + cliente.rut + '</p>';
     fila += '<input type="text" value="' + cliente.rut + '" class="rut form-control editar d-none" onkeyup="valTexto(this,10,20)">';
     fila += '<label class="error text-danger d-none "></label>';
     fila += '</td>';
@@ -130,7 +130,7 @@ function updateCliente(cliente, editores) {
                     } else {
                         $(editor).addClass('d-none');
                         var texto = $(editor).val();
-                        $(editor).siblings('p').find('span').text(texto);
+                        $(editor).siblings('p').text(texto);
                         $(editor).siblings('p').removeClass('d-none');
                     }
                 })
