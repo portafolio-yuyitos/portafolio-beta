@@ -44,11 +44,11 @@ namespace portafolio
         public DbSet<USUARIO> USUARIO { get; set; }
         public DbSet<PEDIDO> PEDIDO { get; set; }
     
-        public virtual int SP_D_BOLETA(string nUMERO_BOLETA)
+        public virtual int SP_D_BOLETA(Nullable<decimal> nUMERO_BOLETA)
         {
-            var nUMERO_BOLETAParameter = nUMERO_BOLETA != null ?
+            var nUMERO_BOLETAParameter = nUMERO_BOLETA.HasValue ?
                 new ObjectParameter("NUMERO_BOLETA", nUMERO_BOLETA) :
-                new ObjectParameter("NUMERO_BOLETA", typeof(string));
+                new ObjectParameter("NUMERO_BOLETA", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
         }
@@ -190,7 +190,7 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_DETALLE_PEDIDO", nUME_PEDIDOParameter, nUME_DETA_PEDIDOParameter, cANTIDAD_PRODUCTOParameter, pRECIO_PRODUCTOParameter, iD_PRODUCTOParameter, iD_PROVEEDORParameter, nOMBRE_PRODUCTOParameter);
         }
     
-        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO, string nOMBRE_PROVEEDOR, ObjectParameter oUT_ID_PEDIDO, Nullable<decimal> eSTADO, Nullable<decimal> iSENVIADO, Nullable<decimal> iSANULADO)
+        public virtual int SP_I_PEDIDO(Nullable<decimal> iD_PROVEEDOR, Nullable<decimal> iD_USUARIO, string nOMBRE_PROVEEDOR, ObjectParameter oUT_ID_PEDIDO, Nullable<decimal> eSTADO, Nullable<decimal> iSENVIADO, Nullable<decimal> iSANULADA)
         {
             var iD_PROVEEDORParameter = iD_PROVEEDOR.HasValue ?
                 new ObjectParameter("ID_PROVEEDOR", iD_PROVEEDOR) :
@@ -212,11 +212,11 @@ namespace portafolio
                 new ObjectParameter("ISENVIADO", iSENVIADO) :
                 new ObjectParameter("ISENVIADO", typeof(decimal));
     
-            var iSANULADOParameter = iSANULADO.HasValue ?
-                new ObjectParameter("ISANULADO", iSANULADO) :
-                new ObjectParameter("ISANULADO", typeof(decimal));
+            var iSANULADAParameter = iSANULADA.HasValue ?
+                new ObjectParameter("ISANULADA", iSANULADA) :
+                new ObjectParameter("ISANULADA", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter, nOMBRE_PROVEEDORParameter, oUT_ID_PEDIDO, eSTADOParameter, iSENVIADOParameter, iSANULADOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_PEDIDO", iD_PROVEEDORParameter, iD_USUARIOParameter, nOMBRE_PROVEEDORParameter, oUT_ID_PEDIDO, eSTADOParameter, iSENVIADOParameter, iSANULADAParameter);
         }
     
         public virtual int SP_I_PROVEEDOR(string rUT_PROVEEDOR, string rAZON_SOCIAL, Nullable<decimal> fONO, string eMAIL, string gIRO, ObjectParameter v_SALIDA)
@@ -508,6 +508,28 @@ namespace portafolio
                 new ObjectParameter("NUME_PEDIDO", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ENVIA_PEDIDO", nUME_PEDIDOParameter);
+        }
+    
+        public virtual int SP_ACEPTA_ORDEN(Nullable<decimal> nUME_PED)
+        {
+            var nUME_PEDParameter = nUME_PED.HasValue ?
+                new ObjectParameter("NUME_PED", nUME_PED) :
+                new ObjectParameter("NUME_PED", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACEPTA_ORDEN", nUME_PEDParameter);
+        }
+    
+        public virtual int SP_ACEPTA_DETAPED(Nullable<decimal> v_CANTIDAD, Nullable<decimal> v_ID_PRODUCTO)
+        {
+            var v_CANTIDADParameter = v_CANTIDAD.HasValue ?
+                new ObjectParameter("V_CANTIDAD", v_CANTIDAD) :
+                new ObjectParameter("V_CANTIDAD", typeof(decimal));
+    
+            var v_ID_PRODUCTOParameter = v_ID_PRODUCTO.HasValue ?
+                new ObjectParameter("V_ID_PRODUCTO", v_ID_PRODUCTO) :
+                new ObjectParameter("V_ID_PRODUCTO", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACEPTA_DETAPED", v_CANTIDADParameter, v_ID_PRODUCTOParameter);
         }
     }
 }

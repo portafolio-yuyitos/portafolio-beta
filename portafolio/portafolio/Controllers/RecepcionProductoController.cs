@@ -21,10 +21,53 @@ namespace portafolio.Controllers
             return Redirect("~/Login/");
         }
 
-        
+
+        //################################
+        //   ANULA PEDIDO
+        //################################
+        public bool AnularPedido(OPedidoDetalles anulado)
+        {
+            try
+            {
+                var db = new YuyosEntities();
+
+                db.SP_ANULA_PEDIDO(anulado.Encabezado.NumeroPedido);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
 
-        
+        //################################
+        //   UPDATEAR DETALLE
+        //################################
+        public bool AceptarPedido(OPedidoDetalles aceptado)
+        {
+            try
+            {
+                var db = new YuyosEntities();
+
+                db.SP_ACEPTA_ORDEN(aceptado.Encabezado.NumeroPedido);
+
+                foreach (var item in aceptado.Detalles)
+                {
+                    db.SP_ACEPTA_DETAPED(item.CantidadProducto, item.IdProducto);
+                }
+
+                return true;
+            } catch (Exception e)
+            {
+                return false;
+            }
+            
+        }
+
+
+
 
 
         // ###################################
@@ -33,11 +76,23 @@ namespace portafolio.Controllers
         public JsonResult ObPedidoPorNPedido(int numePedido)
         {
             OPedidoDetalles lista = SelectPedido(numePedido);
-            return new JsonResult()
+
+            if (lista.Detalles==null || lista.Encabezado == null)
             {
-                Data = lista,
-                JsonRequestBehavior = JsonRequestBehavior.DenyGet
-            };
+                return new JsonResult()
+                {
+                    Data = "5",
+                    JsonRequestBehavior = JsonRequestBehavior.DenyGet
+                };
+            }else
+            {
+                return new JsonResult()
+                {
+                    Data = lista,
+                    JsonRequestBehavior = JsonRequestBehavior.DenyGet
+                };
+            }
+            
         }
 
         public OPedidoDetalles SelectPedido(int numePed)

@@ -12,8 +12,16 @@ function buscarOrden(numePedido) {
         contentType: "application/json",
         async: false,
         success: function (data) {
+            if (data == 5) {
+                toast("Orden de pedido no existe.", "error");
+            } else {
+
+            
+            console.log(data);
             var proveedor = retornaProveedor(data.Encabezado.IdProveedor);
+            sessionStorage.setItem('proveedor', JSON.stringify(proveedor));
             ordenCompra = data;
+            sessionStorage.setItem('orden', JSON.stringify(ordenCompra));
             var encabezado =
                 `<div id="titulo" class="col-12" >
                             <h2 class="text-center">Orden de Pedido</h2>
@@ -32,8 +40,9 @@ function buscarOrden(numePedido) {
                         </div>
                         <div class="col-4 bg-secondary text-light my-4 py-3 d-flex flex-column justify-content-center pr-3">
                             <p id="usuario">Responsable: ${retornaUsuario(data.Encabezado.IdUsuario)}</p>
-                            <p id="isEnviado">Estado de Envío: ${data.Encabezado.IsEnviado == 1 ? "No enviada" : "Enviada"}</p>
-                            <p id="isEnviado">Anulada: ${data.Encabezado.IsAnulada == 1 ? "Si" : "No"}</p>
+                            <p id="isEnviado">Estado de Envío: ${data.Encabezado.IsEnviado == 0 ? "No enviada" : "Enviada"}</p>
+                            <p id="isEnviado">Anulada: ${data.Encabezado.IsAnulado == 1 ? "Si" : "No"}</p>
+                            <p id="isEnviado">Aceptada: ${data.Encabezado.IsAnulado == 2 ? "Si" : "No"}</p>
                             <p id="isEnviado">Eliminada: ${data.Encabezado.Estado == 1 ? "Si" : "No"}</p>
                         </div>
                     `;
@@ -57,13 +66,28 @@ function buscarOrden(numePedido) {
             };
             detalle += `<div class="col-12 mt-4"><h3 class="text-right">TOTAL: ${total}</h3></div>`;
 
-            var boton = `<div class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
-                <button class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button></div >;`
+            var botonAnular = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
+                <button style="margin-right=10px" class="btn btn-primary d-block" onclick="anulaOP(this)">Anular Orden de pedido</button>&nbsp;`
+            var boton = `
+                <button  class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button></div >`
+            if (data.Encabezado.IsAnulado == 1) {
+                botonAnular = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
+                            <div class="alert alert-success">La orden ha sido anulada.</div></div>
+                      `;
+                boton = '';
+            }
 
-            $("#llenar").html(encabezado + detalle + boton).removeClass('d-none');
+            if (data.Encabezado.IsAnulado == 2) {
+                botonAnular = '';
+                boton = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
+                            <div class="alert alert-success">La orden ha sido aceptada.</div></div>
+                      `
+            }
+
+            $("#llenar").html(encabezado + detalle + botonAnular + boton).removeClass('d-none');
 
 
-
+            }
         },
         error: function (err) {
             toast("No se ha podido enviar.", "error");
@@ -118,31 +142,67 @@ function retornaProveedor(idProveedor) {
 function aceptarOP(e) {
     debugger;
 
+    $('#btnAceptarOP').html(`<div class="alert alert-success">La orden ya ha sido aceptada.</div>`);
+
     toast("Se han aceptado los productos de la orden de pedido", "success");
 
-    //var orden = {//Objeto de orden de pedido
-    //    idOrden:0
-    //};
+    var aceptado = {//Objeto de orden de pedido
+        orden: JSON.parse(sessionStorage.orden)
+    };
 
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/RecepcionProducto/aceptar',
-    //    cache: false,
-    //    data: JSON.stringify(orden),
-    //    contentType: "application/json",
-    //    async: false,
-    //    success: function (data) {
-    //        if (data !== "-1") {
-    //            toast("Se han aceptado los productos de la orden de pedido","success");
-    //        } else {
-    //            toast("No se ha logrado aceptar los productos de la orden de pedido","error");
-    //        }
-    //    },
-    //    error: function (ex) {
-    //        toast("Error al aceptar los productos de la orden de pedido","error");
-    //    }
-    //});
+    $.ajax({
+        type: 'POST',
+        url: '/RecepcionProducto/AceptarPedido',
+        cache: false,
+        data: JSON.stringify(aceptado.orden),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data !== "-1") {
+                toast("Se han aceptado los productos de la orden de pedido","success");
+            } else {
+                toast("No se ha logrado aceptar los productos de la orden de pedido","error");
+            }
+        },
+        error: function (ex) {
+            toast("Error al aceptar los productos de la orden de pedido","error");
+        }
+    });
 
-    //Hay que limpiar la variable global ordenCompra
-    //ordenCompra = null;
+    
+    ordenCompra = null;
+}
+
+function anulaOP(e) {
+    debugger;
+
+    $('#btnAceptarOP').display = 'none';
+
+    toast("Se han aceptado los productos de la orden de pedido", "success");
+
+    var anulado = {//Objeto de orden de pedido
+        orden: JSON.parse(sessionStorage.orden)
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/RecepcionProducto/AnularPedido',
+        cache: false,
+        data: JSON.stringify(anulado.orden),
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            if (data !== "-1") {
+                toast("Se ha rechazado la orden de pedido", "success");
+            } else {
+                toast("No se ha logrado aceptar los productos de la orden de pedido", "error");
+            }
+        },
+        error: function (ex) {
+            toast("Error al aceptar los productos de la orden de pedido", "error");
+        }
+    });
+
+
+    ordenCompra = null;
 }
