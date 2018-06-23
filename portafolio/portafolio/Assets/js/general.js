@@ -213,10 +213,13 @@ function eliminar(e, tipo) {
     switch (tipo) {
         case "clientes":
             eliminarCliente(e, tabla);
+            break;
         case "proveedor":
             eliminarProveedor(e, tabla);
+            break;
         case "productos":
             eliminarProducto(e, tabla);
+            break;
         default:
             return
     }
