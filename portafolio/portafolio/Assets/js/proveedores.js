@@ -158,7 +158,7 @@ function updateProveedor(proveedor, editores) {
                     } else {
                         $(editor).addClass('d-none');
                         var texto = $(editor).val();
-                        $(editor).siblings('p').text(texto);
+                        $(editor).siblings('p').find('span').text(texto);
                         $(editor).siblings('p').removeClass('d-none');
                     }
                 })
