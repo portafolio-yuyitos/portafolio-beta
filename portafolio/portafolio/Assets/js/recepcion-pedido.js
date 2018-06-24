@@ -206,3 +206,8 @@ function anulaOP(e) {
 
     ordenCompra = null;
 }
+
+$(document).ready(function () {
+    var chil = $('#llenar').children();
+    if (chil.length==0) $('#llenar').addClass('d-none');
+});

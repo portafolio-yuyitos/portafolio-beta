@@ -39,7 +39,7 @@
             @{ int contador = 1;}
             @foreach (var item in Model)
              {
-                if (item.Encabezado.Estado == 0)
+                if (item.Encabezado.Estado == 0 && item.Encabezado.IsAnulado==0)
                  {
                     <tr data-enviada="@item.Encabezado.IsEnviado" data-id-proveedor="@item.Encabezado.IdProveedor" data-productos='@Html.Raw(Json.Encode(item.Detalles))'>
                     @{

@@ -513,7 +513,6 @@ function retornaProveedor(idProveedor) {
 }
 
 function enviarOrden(numePedido,e) {
-    debugger;
     var data = {
         numePedido: numePedido
     };
@@ -525,7 +524,7 @@ function enviarOrden(numePedido,e) {
         contentType: "application/json",
         async: false,
         success: function (data) {
-            bloqueoBotones();
+            bloqueoBotones(e);
             $(e).closest('tr')[0].dataset.enviada = 1;
             toast("Orden Enviada correctamente", "success");
         },
@@ -556,20 +555,20 @@ function getOrdenes() {
     });
 }
 
-function bloqueoBotones() {
-    $('#botonEliminarOrden').prop('disabled', true).prop('onclick', null);
-    $('#botonEliminarOrden').attr({
+function bloqueoBotones(e) {
+    $(e).closest('tr').find('#botonEliminarOrden').prop('disabled', true).prop('onclick', null);
+    $(e).closest('tr').find('#botonEliminarOrden').attr({
         'data-toggle': "tooltip",
         'data-placement': "top",
         'title': "No se puede eliminar una orden enviada."
     });
 
-    $('#botonEnviarOrden').prop('disabled', true).prop('onclick',null).attr({
+    $(e).closest('tr').find('#botonEnviarOrden').prop('disabled', true).prop('onclick',null).attr({
         'data-toggle': "tooltip",
         'data-placement': "top",
         'title': "No se puede eliminar una orden enviada."
     });
-    $('#botonEditarOrden').prop('disabled', true).prop('onclick', null).attr({
+    $(e).closest('tr').find('#botonEditarOrden').prop('disabled', true).prop('onclick', null).attr({
         'data-toggle': "tooltip",
         'data-placement': "top",
         'title': "No se puede eliminar una orden enviada."
