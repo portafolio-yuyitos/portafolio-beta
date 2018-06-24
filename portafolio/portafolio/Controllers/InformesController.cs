@@ -21,6 +21,7 @@ namespace portafolio.Controllers
             {
                 Informes inf = new Informes
                 {
+                    InformeCliente = ClienteList(),
                     InformClientesGasto = ClientesGastoList(),
                     InformeClienteFiados = ClientesFiadosList(),
                     InformeProveedorProducto = ProveedorProductoList(),
@@ -36,14 +37,14 @@ namespace portafolio.Controllers
 
         
 
-        // ######################
-        //    INFORMES CLIENTE
-        // ######################
+        // ############################
+        //    INFORMES CLIENTE EXCEL
+        // ############################
         public void EClientes()
         {
             var grid = new GridView();
-            ClientesController cli = new ClientesController();
-            grid.DataSource = cli.ClientesList();
+            
+            grid.DataSource = ClienteList();
             grid.DataBind();
 
             Response.ClearContent();
@@ -57,6 +58,7 @@ namespace portafolio.Controllers
             Response.Write(sw.ToString());
             Response.End();
         }
+        
 
         public void EClientesGasto()
         {
@@ -132,6 +134,17 @@ namespace portafolio.Controllers
         }
 
 
+        // #########################
+        //    METODOS LLENAN EXCEL
+        // #########################
+        public List<Cliente> ClienteList()
+        {
+            ClientesController cli = new ClientesController();
+            List<Cliente> lista = new List<Cliente>();
+            lista = cli.ClientesList();
+
+            return lista;
+        }
         public List<ClientesGasto> ClientesGastoList()
         {
             List<ClientesGasto> lista = new List<ClientesGasto>();

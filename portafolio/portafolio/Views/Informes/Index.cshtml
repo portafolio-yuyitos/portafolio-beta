@@ -25,126 +25,203 @@
                     <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
                         <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
                             <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Informes Cliente
+                                Todos los Clientes
                             </a>
 
                         </h4>
+
+                        <a href="@Url.Action("EClientes","Informes")" class="btn btn-success">
+                            <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                        </a>
 
                     </div>
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body bg-dark-dark">
-                            <table class="table table-hover">
-                                <thead>
+                            <table class="table table-hover table-warning text-dark" id="tablaBoletas">
+                                <thead class="bg-warning text-dark">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Informe</th>
-                                        <th>Descripción</th>
-                                        <th>Acción</th>
-                                    </tr>
+                                        <th scope="col">ID Cli</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Rut</th>
 
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Autorizado</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
+                                    @{ var c = 0;}
+                                    @foreach (var item in Model.InformeCliente)
+                        {
+                            <tr>
+
+                                <td>
+                                    <p>@item.Id</p>
+                                </td>
+                                <td>
+                                    <p>@item.Nombre</p>
+                                </td>
+                                <td>
+                                    <p>@item.Rut</p>
+                                </td>
+                                <td>
+                                    <p>@item.Estado</p>
+                                </td>
+                                <td>
+                                    <p>@item.Autorizado_fiado</p>
+                                </td>
+                            </tr>
+                                    contador++;
+                                    c++;
+                                    if (c == 5)
+                                    {
+                                        break;
+                                    }
+                                }
+                                </tbody>
+                            </table>
+
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card bg-dark">
+
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
+                        <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
+                            <a data-toggle="collapse" data-target="#1b" aria-expanded="true" aria-controls="1b">
+                                Gasto Clientes
+                            </a>
+
+                        </h4>
+
+                        <a href="@Url.Action("EClientesGasto","Informes")" class="btn btn-success">
+                            <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                        </a>
+
+                    </div>
+
+                    <div id="1b" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body bg-dark-dark">
+                            <table class="table table-hover table-warning text-dark" id="tablaBoletas">
+                                <thead class="bg-warning text-dark">
                                     <tr>
-                                        <td>1</td>
-                                        <td>Clientes</td>
-                                        <td>Permite descargar todos los clientes que posee.</td>
-                                        <td>
-                                            <a href="@Url.Action("EClientes","Informes")" class="btn btn-warning">
-                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
-                                            </a>
-                                        </td>
+                                        <th scope="col">ID Cli</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Rut</th>
+
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Autorizado</th>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Clientes y Gasto </td>
-                                        <td>Un informe excel con el total de gastos realizado por cada cliente.</td>
-                                        <td>
-                                            <a href="@Url.Action("EClientesGasto","Informes")" class="btn btn-warning">
-                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Clientes y Fiado </td>
-                                        <td>Un archivo excel con cada fiado realizado, ordenado por cliente.</td>
-                                        <td>
-                                            <a href="@Url.Action("EClientesFiados","Informes")" class="btn btn-warning">
-                                                <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ c = 0;}
+                                    @foreach (var item in Model.InformClientesGasto)
+                        {
+                            <tr>
+
+                                <td>
+                                    <p>@item.Id</p>
+                                </td>
+                                <td>
+                                    <p>@item.Nombre</p>
+                                </td>
+                                <td>
+                                    <p>@item.Rut</p>
+                                </td>
+                                <td>
+                                    <p>@item.FechUltiCompra</p>
+                                </td>
+                                <td>
+                                    <p>@item.TotalCompras</p>
+                                </td>
+                            </tr>
+                contador++;
+                c++;
+                if (c == 5)
+                {
+                    break;
+                }
+            }
                                 </tbody>
                             </table>
 
 
-                            @*<table class="table table-hover table-warning text-dark"" id="tablaBoletas">
-                        <thead class="bg-warning text-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Rut</th>
-                                <th scope="col">Nombres</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>
-                                    <p>p</p>
-                                </td>
-                                <td>
-                                    <p>q</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>
-                                    <p>p</p>
-                                </td>
-                                <td>
-                                    <p>q</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>
-                                    <p>p</p>
-                                </td>
-                                <td>
-                                    <p>q</p>
-                                </td>
-                            </tr>
-                            @foreach (var item in Model)
-                                {
-                                <tr>
-                                    <th scope="row">@contador</th>
-                                    <td>
-                                        <p>@item.NumeroBoleta</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.Fiado</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.FechaBoleta</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.IdCliente</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.TotalBoleta</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.NumeroBoleta</p>
-                                    </td>
-                                </tr>
-                                    contador++;
-                                }
-                        </tbody>
-                    </table>*@
                         </div>
                     </div>
                 </div>
+
+                <div class="card bg-dark">
+
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
+                        <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
+                            <a data-toggle="collapse" data-target="#1c" aria-expanded="true" aria-controls="1c">
+                                Clientes y Fiados
+                            </a>
+
+                        </h4>
+
+                        <a href="@Url.Action("EClientesFiados","Informes")" class="btn btn-success">
+                            <i class="fas fa-download mr-2"></i><i class="fas fa-file-excel"></i>
+                        </a>
+
+                    </div>
+
+                    <div id="1c" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body bg-dark-dark">
+                            <table class="table table-hover table-warning text-dark" id="tablaBoletas">
+                                <thead class="bg-warning text-dark">
+                                    <tr>
+                                        <th scope="col">ID Cli</th>
+                                        <th scope="col">Rut</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Monto Solicitado</th>
+                                        <th scope="col">Estado Pago</th>
+                                        <th scope="col">Fecha Compra</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ c = 0;}
+                                    @foreach (var item in Model.InformeClienteFiados)
+                                    {
+                                    <tr>
+
+                                        <td>
+                                            <p>@item.Id</p>
+                                        </td>
+                                        <td>
+                                            <p>@item.Rut</p>
+                                        </td>
+                                        <td>
+                                            <p>@item.Nombre</p>
+                                        </td>
+                                        <td>
+                                            <p>@item.MontoSolicitado</p>
+                                        </td>
+                                        <td>
+                                            <p>@(int.Parse(item.EstadoPago) == 0 ? "Adeudado" : "Pagado")</p>
+                                        </td>
+                                        <td>
+                                            <p>@item.FechaCompra</p>
+                                        </td>
+                                    </tr>
+                contador++;
+                c++;
+                if (c == 5)
+                {
+                    break;
+                }
+            }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card bg-dark">
                     <div class="card-header d-flex justify-content-between align-items-center" id="1">
                         <h4 class="mb-0 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Desplegar/Esconder">
@@ -176,7 +253,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{ var c = 0;}
+                                    @{ c = 0;}
                                     @foreach (var item in Model.InformeProveedorProducto)
                         {
                             <tr>
@@ -244,32 +321,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @foreach (var item in Model.InformeBoletas30Dias)
-                            {
-                                    <tr>
-                                        
-                                        <td>
-                                            <p>@item.NumeroBoleta</p>
-                                        </td>
-                                        <td>
-                                            <p>@item.Fiado</p>
-                                        </td>
-                                        <td>
-                                            <p>@item.TipoPago</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.TotalBoleta</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.FechaBoleta</p>
-                                    </td>
-                                    <td>
-                                        <p>@item.IdCliente</p>
-                                    </td>
-                                    </tr>
-                                contador++;
-                            }
+                        {
+                            <tr>
+
+                                <td>
+                                    <p>@item.NumeroBoleta</p>
+                                </td>
+                                <td>
+                                    <p>@item.Fiado</p>
+                                </td>
+                                <td>
+                                    <p>@item.TipoPago</p>
+                                </td>
+                                <td>
+                                    <p>@item.TotalBoleta</p>
+                                </td>
+                                <td>
+                                    <p>@item.FechaBoleta</p>
+                                </td>
+                                <td>
+                                    <p>@item.IdCliente</p>
+                                </td>
+                            </tr>
+                contador++;
+            }
                                 </tbody>
                             </table>
                         </div>
@@ -302,9 +379,9 @@
                                 <tbody>
 
                                     @foreach (var item in Model.InformePeoresFiadores)
-                            {
+                        {
                             <tr>
-                                
+
                                 <td>
                                     <p>@item.IdCliente</p>
                                 </td>
@@ -321,8 +398,8 @@
                                     <p>@item.MontoAdeudado</p>
                                 </td>
                             </tr>
-                                contador++;
-                            }
+                contador++;
+            }
                                 </tbody>
                             </table>
                         </div>

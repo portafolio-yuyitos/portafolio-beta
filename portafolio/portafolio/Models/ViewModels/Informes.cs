@@ -7,6 +7,7 @@ namespace portafolio.Models.ViewModels
 {
     public class Informes
     {
+        public List<Cliente> InformeCliente { get; set; }
         public List<ClienteFiados_I> InformeClienteFiados { get; set; }
         public List<ClientesGasto> InformClientesGasto { get; set; }
         public List<ProveedorProducto_I> InformeProveedorProducto { get; set; }
