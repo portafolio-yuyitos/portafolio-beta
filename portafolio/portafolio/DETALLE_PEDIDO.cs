@@ -22,7 +22,7 @@ namespace portafolio
         public Nullable<decimal> ID_PROVEEDOR { get; set; }
         public string NOMBRE_PRODUCTO { get; set; }
     
-        public virtual PRODUCTO PRODUCTO { get; set; }
         public virtual PEDIDO PEDIDO { get; set; }
+        public virtual PRODUCTO PRODUCTO { get; set; }
     }
 }

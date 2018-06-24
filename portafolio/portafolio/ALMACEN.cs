@@ -12,21 +12,13 @@ namespace portafolio
     using System;
     using System.Collections.Generic;
     
-    public partial class CLIENTE
+    public partial class ALMACEN
     {
-        public CLIENTE()
-        {
-            this.FIADO = new HashSet<FIADO>();
-            this.BOLETA = new HashSet<BOLETA>();
-        }
+        public decimal ID_ALMACEN { get; set; }
+        public decimal STOCK { get; set; }
+        public string CODIGO_BARRA { get; set; }
+        public decimal ID_PRODUCTO { get; set; }
     
-        public decimal ID_CLIENTE { get; set; }
-        public string RUT_CLIENTE { get; set; }
-        public string NOMBRE { get; set; }
-        public short AUTORIZADO_FIADO { get; set; }
-        public Nullable<short> ESTADO { get; set; }
-    
-        public virtual ICollection<FIADO> FIADO { get; set; }
-        public virtual ICollection<BOLETA> BOLETA { get; set; }
+        public virtual PRODUCTO PRODUCTO { get; set; }
     }
 }

@@ -138,7 +138,7 @@ namespace portafolio.Controllers
 
             String _connstring = "DATA SOURCE=localhost:1521/xe;USER ID=YUYOS;Password=cipres;";
             try
-            {
+                {
                 OracleConnection _connObj = new OracleConnection(_connstring);
                 _connObj.Open();
                 OracleCommand _comObj = _connObj.CreateCommand();
@@ -163,7 +163,6 @@ namespace portafolio.Controllers
                             Nombre = _rdrObj.GetString(_rdrObj.GetOrdinal("NOMBRE")),
                             TotalCompras = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("TOTAL COMPRAS")),
                             FechUltiCompra = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA ULT. COMPRA")),
-                            CanBoletasAnuladas = _rdrObj.GetInt32(_rdrObj.GetOrdinal("BOLETAS ANULADAS"))
 
                         });
                     }
@@ -361,7 +360,7 @@ namespace portafolio.Controllers
                             TotalBoleta = _rdrObj.GetInt32(_rdrObj.GetOrdinal("TOTAL_BOLETA")),
                             FechaBoleta = _rdrObj.GetDateTime(_rdrObj.GetOrdinal("FECHA_BOLETA")),
                             IdCliente = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_CLIENTE")),
-                            IsAnulada = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ISANULADA"))
+                            
 
                         });
                     }
@@ -431,6 +430,7 @@ namespace portafolio.Controllers
                             IdProveedor = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_PROVEEDOR")),
                             IdTipoProducto = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_TIPO_PRODUCTO")),
                             IdTipoMoneda = _rdrObj.GetInt32(_rdrObj.GetOrdinal("ID_TIPO_MONEDA")),
+                            CodigoBarra = _rdrObj.GetString(_rdrObj.GetOrdinal("CODIGO_BARRA")),
                             PorcentajeStock = _rdrObj.GetInt32(_rdrObj.GetOrdinal("PORCENTAJE_STOCK"))
 
                         });

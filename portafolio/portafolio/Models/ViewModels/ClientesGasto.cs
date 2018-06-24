@@ -12,6 +12,6 @@ namespace portafolio.Models.ViewModels
         public string Nombre { get; set; }
         public int TotalCompras { get; set; }
         public DateTime FechUltiCompra { get; set; }
-        public int CanBoletasAnuladas { get; set; }
+        
     }
 }

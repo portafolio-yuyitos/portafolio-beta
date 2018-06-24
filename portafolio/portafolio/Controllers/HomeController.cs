@@ -15,10 +15,10 @@ namespace portafolio.Controllers
         {
             if (Session["usuario"] != null)
             {
-                //Bienvenida bienvenida = new Bienvenida();
-                //bienvenida.Ultimas5Boletas = Informe5Boletas();
-                //bienvenida.ProductosPocoStock = ic.ProductosPorStock(1);
-                return View(/*bienvenida*/);
+                Bienvenida bienvenida = new Bienvenida();
+                bienvenida.Ultimas5Boletas = Informe5Boletas();
+                bienvenida.ProductosPocoStock = ic.ProductosPorStock(1);
+                return View(bienvenida);
             }
             return Redirect("~/Login/");
         }

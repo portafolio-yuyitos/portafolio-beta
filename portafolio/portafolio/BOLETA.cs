@@ -26,7 +26,6 @@ namespace portafolio
         public decimal TOTAL_BOLETA { get; set; }
         public System.DateTime FECHA_BOLETA { get; set; }
         public decimal ID_CLIENTE { get; set; }
-        public Nullable<short> ISANULADA { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual ICollection<DETALLE_BOLETA> DETALLE_BOLETA { get; set; }

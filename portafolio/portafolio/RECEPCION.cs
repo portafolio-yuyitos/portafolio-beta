@@ -20,8 +20,8 @@ namespace portafolio
         public decimal ID_PRODUCTO { get; set; }
         public decimal ID_USUARIO { get; set; }
     
-        public virtual PRODUCTO PRODUCTO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
         public virtual USUARIO USUARIO { get; set; }
+        public virtual PRODUCTO PRODUCTO { get; set; }
     }
 }

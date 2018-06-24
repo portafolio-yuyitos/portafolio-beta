@@ -23,7 +23,7 @@ namespace portafolio
         public decimal ID_CLIENTE { get; set; }
         public decimal ID_BOLETA { get; set; }
     
-        public virtual BOLETA BOLETA { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
+        public virtual BOLETA BOLETA { get; set; }
     }
 }

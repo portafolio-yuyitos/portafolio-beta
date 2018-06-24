@@ -16,9 +16,9 @@ namespace portafolio
     {
         public PROVEEDOR()
         {
-            this.PRODUCTO = new HashSet<PRODUCTO>();
             this.RECEPCION = new HashSet<RECEPCION>();
             this.PEDIDO = new HashSet<PEDIDO>();
+            this.PRODUCTO = new HashSet<PRODUCTO>();
         }
     
         public decimal ID_PROVEEDOR { get; set; }
@@ -29,8 +29,8 @@ namespace portafolio
         public string GIRO { get; set; }
         public Nullable<short> ESTADO { get; set; }
     
-        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ICollection<RECEPCION> RECEPCION { get; set; }
         public virtual ICollection<PEDIDO> PEDIDO { get; set; }
+        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
     }
 }

@@ -28,14 +28,12 @@ namespace portafolio
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<BOLETA> BOLETA { get; set; }
         public DbSet<CLIENTE> CLIENTE { get; set; }
         public DbSet<DETALLE_BOLETA> DETALLE_BOLETA { get; set; }
         public DbSet<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
         public DbSet<EMPRESA> EMPRESA { get; set; }
         public DbSet<FIADO> FIADO { get; set; }
         public DbSet<FUNCIONALIDAD> FUNCIONALIDAD { get; set; }
-        public DbSet<PRODUCTO> PRODUCTO { get; set; }
         public DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public DbSet<RECEPCION> RECEPCION { get; set; }
         public DbSet<ROL> ROL { get; set; }
@@ -43,6 +41,9 @@ namespace portafolio
         public DbSet<TIPO_PRODUCTO> TIPO_PRODUCTO { get; set; }
         public DbSet<USUARIO> USUARIO { get; set; }
         public DbSet<PEDIDO> PEDIDO { get; set; }
+        public DbSet<ALMACEN> ALMACEN { get; set; }
+        public DbSet<BOLETA> BOLETA { get; set; }
+        public DbSet<PRODUCTO> PRODUCTO { get; set; }
     
         public virtual int SP_D_BOLETA(Nullable<decimal> nUMERO_BOLETA)
         {

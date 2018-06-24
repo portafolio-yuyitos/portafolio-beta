@@ -16,6 +16,7 @@ namespace portafolio
     {
         public PRODUCTO()
         {
+            this.ALMACEN = new HashSet<ALMACEN>();
             this.DETALLE_BOLETA = new HashSet<DETALLE_BOLETA>();
             this.DETALLE_PEDIDO = new HashSet<DETALLE_PEDIDO>();
             this.RECEPCION = new HashSet<RECEPCION>();
@@ -25,14 +26,14 @@ namespace portafolio
         public string DESCRIPCION { get; set; }
         public decimal PRECIO_VENTA { get; set; }
         public string UNIDAD_MEDIDA { get; set; }
-        public decimal STOCK { get; set; }
         public System.DateTime FECHA_VENCIMIENTO { get; set; }
         public decimal PRECIO_COMPRA { get; set; }
-        public decimal STOCK_CRITICO { get; set; }
         public decimal ID_PROVEEDOR { get; set; }
         public decimal ID_TIPO_PRODUCTO { get; set; }
         public decimal ID_TIPO_MONEDA { get; set; }
+        public Nullable<decimal> STOCK_CRITICO { get; set; }
     
+        public virtual ICollection<ALMACEN> ALMACEN { get; set; }
         public virtual ICollection<DETALLE_BOLETA> DETALLE_BOLETA { get; set; }
         public virtual ICollection<DETALLE_PEDIDO> DETALLE_PEDIDO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
