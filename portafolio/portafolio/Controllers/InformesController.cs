@@ -133,6 +133,24 @@ namespace portafolio.Controllers
             Response.End();
         }
 
+        public void EBoletas30Dias()
+        {
+            var grid = new GridView();
+            grid.DataSource = Boletas30DiasList();
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment; filename=EBoletas30Dias.xls");
+            Response.ContentType = "application/excel";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Write(sw.ToString());
+            Response.End();
+        }
+
 
         // #########################
         //    METODOS LLENAN EXCEL

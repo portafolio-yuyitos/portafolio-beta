@@ -66,7 +66,7 @@ function buscarOrden(numePedido) {
             };
             detalle += `<div class="col-12 mt-4"><h3 class="text-right">TOTAL: ${total}</h3></div>`;
 
-            var botonAnular = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
+                var botonAnular = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
                 <button style="margin-right=10px" class="btn btn-primary d-block" onclick="anulaOP(this)">Anular Orden de pedido</button>&nbsp;`
             var boton = `
                 <button  class="btn btn-primary d-block" onclick="aceptarOP(this)">Aceptar Orden de pedido</button></div >`
@@ -82,7 +82,14 @@ function buscarOrden(numePedido) {
                 boton = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
                             <div class="alert alert-success">La orden ha sido aceptada.</div></div>
                       `
-            }
+                }
+
+                if (data.Encabezado.IsAnulado == 1) {
+                    botonAnular = '';
+                    boton = `<div id="btnAceptarOP" class="col-md-12 justify-content-end d-flex align-items-center mt-4" >
+                            <div class="alert alert-success">La orden ha sido anulada.</div></div>
+                      `
+                }
 
             $("#llenar").html(encabezado + detalle + botonAnular + boton).removeClass('d-none');
 
@@ -176,7 +183,8 @@ function aceptarOP(e) {
 function anulaOP(e) {
     debugger;
 
-    $('#btnAceptarOP').display = 'none';
+    
+    
 
     toast("Se han aceptado los productos de la orden de pedido", "success");
 
@@ -193,6 +201,7 @@ function anulaOP(e) {
         async: false,
         success: function (data) {
             if (data !== "-1") {
+                $('#btnAceptarOP').html(`<div class="alert alert-success">La orden ha sido anulada.</div>`);
                 toast("Se ha rechazado la orden de pedido", "success");
             } else {
                 toast("No se ha logrado aceptar los productos de la orden de pedido", "error");

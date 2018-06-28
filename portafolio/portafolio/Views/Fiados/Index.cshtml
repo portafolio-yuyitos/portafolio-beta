@@ -36,7 +36,7 @@
                         <td>@item.Cliente.Id</td>
                         <td>@item.Cliente.Rut</td>
                         <td>@item.Cliente.Nombre</td>
-                        <td> @(item.Cliente.Autorizado_fiado == 0 ? "Si" : "No")</td>
+                        <td> @(item.Cliente.Autorizado_fiado == 1 ? "Si" : "No")</td>
                         <td><button class="btn btn-secondary" onclick="abrirBoletas(this)">Mostrar boletas<i class="ml-2 fas fa-chevron-circle-down"></i></button></td>
                     </tr>
                     <tr class="boletas d-none">

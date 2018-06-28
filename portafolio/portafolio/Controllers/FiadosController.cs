@@ -89,7 +89,11 @@ namespace portafolio.Controllers
                                 IdCliente = (int)_rdrObj.GetDecimal(_rdrObj.GetOrdinal("ID_CLIENTE"))
 
                             };
-                            clifi.ListaFiados.Add(f);
+                            if (!(f.EstadoPago.Equals("1")))
+                            {
+                                clifi.ListaFiados.Add(f);
+                            }
+                            
                         }
                     }
 

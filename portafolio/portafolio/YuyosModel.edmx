@@ -403,6 +403,9 @@
         <Function Name="SP_D_BOLETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="NUMERO_BOLETA" Type="number" Mode="In" />
         </Function>
+        <Function Name="SP_D_CLIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="RUT_CLIENTE_D" Type="varchar2" Mode="In" />
+        </Function>
         <Function Name="SP_D_DETALLE_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_NUMERO_PEDIDO" Type="number" Mode="In" />
         </Function>
@@ -483,6 +486,11 @@
         </Function>
         <Function Name="SP_U_FIADOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="RUT" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_U_PAGAR_FIADO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
+          <Parameter Name="V_ID_FIADO" Type="number" Mode="In" />
+          <Parameter Name="V_ESTADO" Type="varchar2" Mode="In" />
+          <Parameter Name="V_FECHA_PAGO" Type="date" Mode="In" />
         </Function>
         <Function Name="SP_U_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="YUYOS">
           <Parameter Name="V_RUT_PROVEEDOR" Type="varchar2" Mode="In" />
@@ -822,9 +830,6 @@
           <FunctionImport Name="SP_D_BOLETA">
           <Parameter Name="NUMERO_BOLETA" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="SP_D_CLIENTE">
-          <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="SP_D_DETALLE_BOLETA">
           <Parameter Name="ID_DETALLE" Mode="In" Type="String" />
           </FunctionImport>
@@ -919,11 +924,6 @@
           <FunctionImport Name="SP_AUTORIZAR_CLIENTE">
             <Parameter Name="V_RUT_CLIENTE" Mode="In" Type="String" />
             <Parameter Name="V_AUTORIZADO_FIADO" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="SP_U_PAGAR_FIADO">
-            <Parameter Name="V_ID_FIADO" Mode="In" Type="Decimal" />
-            <Parameter Name="V_ESTADO" Mode="In" Type="String" />
-            <Parameter Name="V_FECHA_PAGO" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="SP_I_PRODUCTO">
             <Parameter Name="V_DESCRIPCION" Mode="In" Type="String" />
@@ -1023,6 +1023,14 @@
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
             <End Role="RECEPCION" EntitySet="RECEPCION" />
           </AssociationSet>
+          <FunctionImport Name="SP_D_CLIENTE">
+          <Parameter Name="RUT_CLIENTE_D" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_U_PAGAR_FIADO">
+            <Parameter Name="V_ID_FIADO" Mode="In" Type="Decimal" />
+            <Parameter Name="V_ESTADO" Mode="In" Type="String" />
+            <Parameter Name="V_FECHA_PAGO" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="PEDIDO">
           <Key>
@@ -1448,6 +1456,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_D_CLIENTE" FunctionName="Model.Store.SP_D_CLIENTE" />
+          <FunctionImportMapping FunctionImportName="SP_U_PAGAR_FIADO" FunctionName="Model.Store.SP_U_PAGAR_FIADO" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -54,15 +54,6 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_BOLETA", nUMERO_BOLETAParameter);
         }
     
-        public virtual int SP_D_CLIENTE(string rUT_CLIENTE_D)
-        {
-            var rUT_CLIENTE_DParameter = rUT_CLIENTE_D != null ?
-                new ObjectParameter("RUT_CLIENTE_D", rUT_CLIENTE_D) :
-                new ObjectParameter("RUT_CLIENTE_D", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_CLIENTE", rUT_CLIENTE_DParameter);
-        }
-    
         public virtual int SP_D_DETALLE_BOLETA(string iD_DETALLE)
         {
             var iD_DETALLEParameter = iD_DETALLE != null ?
@@ -377,23 +368,6 @@ namespace portafolio
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AUTORIZAR_CLIENTE", v_RUT_CLIENTEParameter, v_AUTORIZADO_FIADOParameter);
         }
     
-        public virtual int SP_U_PAGAR_FIADO(Nullable<decimal> v_ID_FIADO, string v_ESTADO, Nullable<System.DateTime> v_FECHA_PAGO)
-        {
-            var v_ID_FIADOParameter = v_ID_FIADO.HasValue ?
-                new ObjectParameter("V_ID_FIADO", v_ID_FIADO) :
-                new ObjectParameter("V_ID_FIADO", typeof(decimal));
-    
-            var v_ESTADOParameter = v_ESTADO != null ?
-                new ObjectParameter("V_ESTADO", v_ESTADO) :
-                new ObjectParameter("V_ESTADO", typeof(string));
-    
-            var v_FECHA_PAGOParameter = v_FECHA_PAGO.HasValue ?
-                new ObjectParameter("V_FECHA_PAGO", v_FECHA_PAGO) :
-                new ObjectParameter("V_FECHA_PAGO", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter, v_FECHA_PAGOParameter);
-        }
-    
         public virtual int SP_I_PRODUCTO(string v_DESCRIPCION, Nullable<decimal> v_PRECIO_VENTA, string v_UNIDAD_MEDIDA, Nullable<decimal> v_STOCK, Nullable<System.DateTime> v_FECHA_VENCIMIETO, Nullable<decimal> v_PRECIO_COMPRA, Nullable<decimal> v_STOCK_CRITICO, Nullable<decimal> v_ID_PROVEEDOR, Nullable<decimal> v_ID_TIPO_PRODUCTO, Nullable<decimal> v_ID_TIPO_MONEDA, ObjectParameter iD_PRODUCTO)
         {
             var v_DESCRIPCIONParameter = v_DESCRIPCION != null ?
@@ -531,6 +505,32 @@ namespace portafolio
                 new ObjectParameter("V_ID_PRODUCTO", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ACEPTA_DETAPED", v_CANTIDADParameter, v_ID_PRODUCTOParameter);
+        }
+    
+        public virtual int SP_D_CLIENTE(string rUT_CLIENTE_D)
+        {
+            var rUT_CLIENTE_DParameter = rUT_CLIENTE_D != null ?
+                new ObjectParameter("RUT_CLIENTE_D", rUT_CLIENTE_D) :
+                new ObjectParameter("RUT_CLIENTE_D", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_D_CLIENTE", rUT_CLIENTE_DParameter);
+        }
+    
+        public virtual int SP_U_PAGAR_FIADO(Nullable<decimal> v_ID_FIADO, string v_ESTADO, Nullable<System.DateTime> v_FECHA_PAGO)
+        {
+            var v_ID_FIADOParameter = v_ID_FIADO.HasValue ?
+                new ObjectParameter("V_ID_FIADO", v_ID_FIADO) :
+                new ObjectParameter("V_ID_FIADO", typeof(decimal));
+    
+            var v_ESTADOParameter = v_ESTADO != null ?
+                new ObjectParameter("V_ESTADO", v_ESTADO) :
+                new ObjectParameter("V_ESTADO", typeof(string));
+    
+            var v_FECHA_PAGOParameter = v_FECHA_PAGO.HasValue ?
+                new ObjectParameter("V_FECHA_PAGO", v_FECHA_PAGO) :
+                new ObjectParameter("V_FECHA_PAGO", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_U_PAGAR_FIADO", v_ID_FIADOParameter, v_ESTADOParameter, v_FECHA_PAGOParameter);
         }
     }
 }
