@@ -17,21 +17,20 @@
         contentType: "application/json",
         async: false,
         success: function (data) {
-            debugger;
             if (data == "True") {
                 $(e).closest('tr').remove();
                 mostrarTabla(tabla);//Muestra tabla si tiene filas
                 if (tabla.hasClass('d-none')) {
                     tabla.parent().html('<h5 class="text-center pb-3">No exiten boletas para el cliente seleccionado</h5>');
                 }
-                alert('Se ha pagado la boleta');
+                toast('Se ha pagado la boleta');
                 refrescarFunction();
             } else if (data == "False") {
-                alert("No se ha podido pagar la boleta");
+                toast("No se ha podido pagar la boleta", "success");
             }
         },
         error: function (ex) {
-            alert('Error al pagar la boleta');
+            toast('Error al pagar la boleta', "error");
         }
     });
 }
@@ -80,12 +79,12 @@ function getFiados() {
 
             }
             else {
-                alert('No se ha podido obtener fiados');
+                toast('No se ha podido obtener fiados', "error");
             }
 
         },
         error: function (ex) {
-            alert('Error al eliminar cliente');
+            toast('Error al eliminar cliente', "error");
         }
     });
 }

@@ -61,6 +61,9 @@ main {
         animation: spin 4s linear infinite;
         font-size: 3rem;
     }
+.table td:last-child {
+    display: flex;
+}
 
 @-moz-keyframes spin {
     100% {

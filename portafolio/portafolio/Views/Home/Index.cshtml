@@ -11,9 +11,15 @@
 @*<h1 style="margin-top: 20px; margin-bottom: 30px;" class="text-center">Almacén Yuyitos</h1>*@
 
 <div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h3>Bienvenidos al sistema de gestión</h3>
+            <h4>Almacén Yuyitos</h4>
+        </div>
+    </div>
     <div class="row justify-content-center" style="color: white">
         <div class="col-9 text-center">
-            <h4 class="mb-5">@Session["usuario"] Estás son las últimas 5 boletas generadas:</h4> 
+            <h4 class="mb-5">@Session["usuario"], estas son las últimas 5 boletas generadas:</h4> 
             <table class="table table-dark table-hover border-top">
                 <thead>
                     <tr>
@@ -56,7 +62,7 @@
 
         </div>
         <div style="margin-top:30px" class="col-9 text-center">
-            <h4 class="mb-5">@Session["usuario"] estos son los productos que poseen menos porcentaje de stock actualmente:</h4>
+            <h4 class="mb-5">@Session["usuario"], estos son los productos que poseen menos porcentaje de stock actualmente:</h4>
             <table class="table table-dark table-hover border-top">
                 <thead>
                     <tr>
@@ -83,7 +89,7 @@
                     if (item.PorcentajeStock <= 15)
                     {
                         color = "red";
-                        fontcolor = "black";
+                        fontcolor = "white";
                     }
                     else if (item.PorcentajeStock <= 45)
                     {

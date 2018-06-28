@@ -277,6 +277,7 @@
       <DependentUpon>YuyosModel.edmx</DependentUpon>
       <LastGenOutput>YuyosModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Assets\diseno.pdf" />
     <None Include="Assets\js\data-data-table.json" />
     <Content Include="Assets\js\data-table-clientes.js" />
     <Content Include="Assets\js\fiados.js" />

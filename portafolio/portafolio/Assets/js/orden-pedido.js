@@ -224,6 +224,9 @@ function editarOP(tabla, productos, total, e, numeroPedido) {
                 $('#editarOP').removeClass('d-none');
                 $('#generarOP').addClass('d-none');
                 toast("Se ha editado la orden de pedido correctamente","success");
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
             } else {
                 toast("No se ha podido editar la orden pedido",'error');
             }
@@ -289,7 +292,10 @@ function agregarOP(tabla, productos, total) {
                 tabla.find('tbody').html('');
                 $('#proveedor').val('-1').trigger('change.select2');
                 $('#proveedor').attr('disabled', false);
-                toast('Se ha agregado la orden de pedido correctamente','success');
+                toast('Se ha agregado la orden de pedido correctamente', 'success');
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
             } else {
                 toast("No se ha podido generar la orden pedido","error");
             }
@@ -309,10 +315,12 @@ function agregarOP(tabla, productos, total) {
 
 //Llena la tabla, pasandole un objeto con la orden de pedido
 function llenarTabla(OPedidoDetalles, total) {
-    var productos = OPedidoDetalles.Detalles;
+    debugger;
+    var productos = JSON.stringify(OPedidoDetalles.Detalles);
+    //var productosRep = productos.replace(/"/g, "'");
     var tabla = $('#tablaOP');
     var largoTabla = tabla.find('tbody tr').length + 1;
-    var fila = '<tr data-enviada="0" data-id-proveedor="' + OPedidoDetalles.Encabezado.IdProveedor + '" data-productos=' + JSON.stringify(productos) + '>';//Genera fila
+    var fila = '<tr data-enviada="0" data-id-proveedor="' + OPedidoDetalles.Encabezado.IdProveedor + '" data-productos="' + productos + '">';//Genera fila
     fila += '<th scope="row">' + largoTabla + '</th>';
     fila += '<td class="numeroPedido">' + OPedidoDetalles.Encabezado.NumeroPedido + '</td>';
     fila += '<td>' + OPedidoDetalles.Encabezado.NombreProveedor + '</td>';

@@ -255,7 +255,7 @@ function guardar(e, tipo) {
             //Se saldra de inmediato, ya ha validado los demás al modificarlos
             if (!$(editor).siblings('.error').hasClass('d-none')) {
                 valido = false;
-                alert('Debe ingresar todos los campos válidos');
+                toast('Debe ingresar todos los campos válidos', "error");
                 return false;
             }
         }
@@ -299,7 +299,7 @@ function agregar(tipo,e) {
     var valido = validarTodo();
 
     if (!valido) {
-        alert('Hay campos no válidos')
+        toast('Hay campos no válidos', "error");
         return false;
     } else {
         switch (tipo) {
